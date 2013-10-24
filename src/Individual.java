@@ -1,24 +1,28 @@
+import java.util.List;
 
-public class Individual{
+public class Individual {
 	private double fitness;
 
-	private Gene[] genes;
+	private List<Gene> genes;
 
-	public void setFitness(double fitness){
-		// TODO add implementation
+	public Individual() {
+
 	}
 
-	public double getFitness(){
-		// TODO add implementation and return statement
+	public void setFitness(double fitness) {
+		this.fitness = fitness;
 	}
 
-	public void setGenes(Gene genes){
-		// TODO add implementation
+	public double getFitness() {
+		return fitness;
 	}
 
-	public Gene getGenes(){
-		// TODO add implementation and return statement
+	public void setGenes(List<Gene> genes) {
+		this.genes = genes;
+	}
+
+	public List<Gene> getGenes() {
+		return genes;
 	}
 
 }
-

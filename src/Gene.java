@@ -1,4 +1,3 @@
+public abstract class Gene {
 
-public abstract class Gene{
 }
-
