@@ -1,7 +1,10 @@
 
-public class CrossoverNPointOneChild extends Crossover{
-	public Population crossOver(Population population){
-		// TODO add implementation and return statement
+public class CrossoverNPointOneChild extends Crossover {
+	
+	public Population crossOver(Population population) {
+		Population newPopulation = population;
+		// TODO: crossover
+		return newPopulation;
 	}
 
 }

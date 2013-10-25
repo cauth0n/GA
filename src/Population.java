@@ -11,6 +11,10 @@ public class Population {
 		return population;
 	}
 	
+	public int size() {
+		return population.size();
+	}
+	
 	public double getFitness(){
 		double runningFitness = 0;
 		for (Individual i : population){

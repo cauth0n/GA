@@ -1,5 +1,6 @@
 
-public abstract class Crossover{
+public abstract class Crossover {
+	
 	protected abstract Population crossOver(Population population);
 
 }
