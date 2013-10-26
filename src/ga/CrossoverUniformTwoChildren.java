@@ -1,3 +1,4 @@
+package ga;
 
 public class CrossoverUniformTwoChildren extends Crossover {
 	
@@ -6,6 +7,7 @@ public class CrossoverUniformTwoChildren extends Crossover {
 		// TODO: crossover
 		return newPopulation;
 	}
+	
 
 }
 

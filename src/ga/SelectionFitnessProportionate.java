@@ -1,5 +1,6 @@
+package ga;
 
-public class SelectionRankBased extends Selection {
+public class SelectionFitnessProportionate extends Selection {
 	
 	public Population select(Population population) {
 		Population newPopulation = population;

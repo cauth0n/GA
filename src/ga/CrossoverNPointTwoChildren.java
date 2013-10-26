@@ -1,3 +1,4 @@
+package ga;
 
 public class CrossoverNPointTwoChildren extends Crossover {
 	

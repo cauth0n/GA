@@ -1,3 +1,4 @@
+package ga;
 
 public class SelectionGenerational extends Selection {
 	

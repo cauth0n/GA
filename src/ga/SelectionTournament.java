@@ -1,5 +1,6 @@
+package ga;
 
-public class SelectionFitnessProportionate extends Selection {
+public class SelectionTournament extends Selection {
 	
 	public Population select(Population population) {
 		Population newPopulation = population;

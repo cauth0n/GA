@@ -1,3 +1,4 @@
+package ga;
 
 public abstract class Crossover {
 	

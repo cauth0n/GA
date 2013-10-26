@@ -1,3 +1,4 @@
+package ga;
 import java.util.List;
 
 public class Individual {
