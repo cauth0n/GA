@@ -21,8 +21,8 @@ public class GA {
 		Initialize init = new InitializeDefault();
 		this.population = init.initializePopulation(populationSize);
 		this.probability = probability;
-		this.selection = new SelectionFitnessProportionate();
 		this.fitness = new FitnessDefault();
+		this.selection = new SelectionRankBased(this.population, this.fitness);
 		this.mutate = new MutateNormalDistribution();
 		this.crossover = new CrossoverNPointOneChild();
 		random = new Random(11235);
@@ -37,8 +37,9 @@ public class GA {
 			List<Individual> newPopulation = new ArrayList<Individual>();
 			while (newPopulation.size() < population.getSize()) {
 				// select parents from current population
-				Individual parent1 = selection.select(population);
-				Individual parent2 = selection.select(population);
+				List<Individual> parents = selection.select();
+				Individual parent1 = parents.get(0);
+				Individual parent2 = parents.get(1);
 				// reproduce a single offspring
 				Individual child = crossover.crossOver(parent1, parent2).get(0);
 				// with some small probability, mutate child

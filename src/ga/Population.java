@@ -1,4 +1,5 @@
 package ga;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -46,6 +47,17 @@ public class Population {
 	
 	public int getSize() {
 		return population.size();
+	}
+	
+	public Population copy() {
+		List<Individual> copyPopulation = new ArrayList<Individual>();
+		for (Individual individual : population)
+			copyPopulation.add(individual);
+		return new Population(copyPopulation);
+	}
+	
+	public void remove(Individual individual) {
+		population.remove(individual);
 	}
 
 }
