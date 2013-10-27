@@ -1,8 +1,11 @@
 package ga;
 import java.util.List;
+import java.util.Random;
 
 public class Population {
+	
 	private List<Individual> population;
+	private Random random = new Random(11235);
 
 	public Population(List<Individual> population) {
 		this.population = population;
@@ -10,6 +13,10 @@ public class Population {
 
 	public List<Individual> getPopulation() {
 		return population;
+	}
+	
+	public Individual getRandomIndividual() {
+		return population.get(random.nextInt(population.size()));
 	}
 	
 	public int size() {

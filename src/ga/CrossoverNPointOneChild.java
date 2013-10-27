@@ -1,11 +1,14 @@
 package ga;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CrossoverNPointOneChild extends Crossover {
 	
-	public Population crossOver(Population population) {
-		Population newPopulation = population;
+	public List<Individual> crossOver(Individual individual1, Individual individual2) {
+		List<Individual> children = new ArrayList<Individual>();
 		// TODO: crossover
-		return newPopulation;
+		return children;
 	}
 
 }

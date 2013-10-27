@@ -9,16 +9,5 @@ public class FitnessDefault extends Fitness {
 		return fitness;
 	}
 
-	/**
-	 * Returns average fitness for entire population.
-	 */
-	public double getPopulationFitness(Population population) {
-		double fitness = 0.0;
-		for (Individual individual : population.getPopulation())
-			fitness += individual.getFitness();
-		fitness /= population.size();
-		return fitness;
-	}
-
 }
 
