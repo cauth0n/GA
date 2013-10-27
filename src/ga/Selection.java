@@ -1,7 +1,8 @@
 package ga;
 
-public abstract class Selection{
-	protected abstract Population select(Population population);
+public abstract class Selection {
+	
+	protected abstract Individual select(Population population);
 
 }
 

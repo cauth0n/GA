@@ -23,12 +23,29 @@ public class Population {
 		return population.size();
 	}
 	
-	public double getFitness(){
+	public double getFitness() {
 		double runningFitness = 0;
 		for (Individual i : population){
 			runningFitness += i.getFitness();
 		}
 		return runningFitness;
+	}
+	
+	public void evaluateFitness(Fitness fitness) {
+		for (Individual individual : population)
+			individual.setFitness(fitness.getIndividualFitness(individual));
+	}
+	
+	public Individual getMostFit() {
+		Individual mostFit = population.get(0);
+		for (Individual individual : population)
+			if (individual.getFitness() > mostFit.getFitness())
+				mostFit = individual;
+		return mostFit;
+	}
+	
+	public int getSize() {
+		return population.size();
 	}
 
 }

@@ -2,10 +2,10 @@ package ga;
 
 public class SelectionRankBased extends Selection {
 	
-	public Population select(Population population) {
-		Population newPopulation = population;
+	public Individual select(Population population) {
+		Individual individual = population.getPopulation().get(0);
 		// TODO: selection algorithm
-		return newPopulation;
+		return individual;
 	}
 
 }
