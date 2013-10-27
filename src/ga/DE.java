@@ -25,7 +25,7 @@ public class DE {
 		this.probability = probability;
 		this.fitness = new FitnessDefault();
 		this.mutate = new MutateTrialVector();
-		this.crossover = new CrossoverNPointOneChild();
+		this.crossover = new CrossoverNPoint();
 	}
 	
 	/**
@@ -46,7 +46,7 @@ public class DE {
 			// create a trial vector
 			Individual trial = mutate.mutate(parent, population);
 			// perform crossover with parent and trial vector
-			Individual child = crossover.crossOver(parent, trial).get(0);
+			Individual child = crossover.crossOverOneChild(parent, trial);
 			// evaluate fitness of child
 			double childFitness = fitness.getIndividualFitness(child);
 			// have parent and child compete for space in new population

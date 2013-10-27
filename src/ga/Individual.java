@@ -9,6 +9,10 @@ public class Individual {
 	public Individual() {
 
 	}
+	
+	public Individual(List<Gene> genes) {
+		setGenes(genes);
+	}
 
 	public void setFitness(double fitness) {
 		this.fitness = fitness;
