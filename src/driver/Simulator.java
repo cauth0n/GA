@@ -27,9 +27,9 @@ public class Simulator {
 		
 		//primarily used in testing.
 		NetworkOperations networkOperations = new NetworkOperations(neuralNetwork);
-		int hiddenNeuron = networkOperations.feedForward(data.get(0));
+		int outputNeuron = networkOperations.feedForward(data.get(0));
 
-		System.out.println(hiddenNeuron);
+		System.out.println(outputNeuron);
 		
 		// DE de = new DE(10, 0.5, 0.2);
 		// de.run();
