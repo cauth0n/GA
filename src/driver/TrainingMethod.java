@@ -48,17 +48,17 @@ public abstract class TrainingMethod {
 
 	public abstract double test(List<DataPoint> testSet);
 
-	// TODO: I didn't see this, and I implemented my own. We'll just use one or another.
-	public void kFoldCrossValidation() {
-		formattedData = new HashMap<Integer, List<DataPoint>>();
-		Random rand = new Random();
-		for (DataPoint dataPoint : data) {
-			int fold = rand.nextInt(k);
-			if (formattedData.get(fold) == null) {
-				formattedData.put(fold, new ArrayList<DataPoint>());
-			}
-			List<DataPoint> currentDataPoints = formattedData.get(fold);
-			currentDataPoints.add(dataPoint);
-		}
+	public Double calculateError(List<Double> target, List<Double> actual) {
+		
+		if (target.size() != actual.size())
+			throw new IllegalArgumentException("Target and Expected output vectors must be the same length.");
+		Double error = 0.0;
+		
+		// get average of the squared error for each output
+		for (int output = 0; output < target.size(); output++)
+			error += Math.pow(target.get(output) - actual.get(output), 2);
+		error /= target.size();
+		
+		return error;
 	}
 }

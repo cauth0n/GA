@@ -8,6 +8,9 @@ import neural_net.Network;
  * @author cauthon
  */
 public class GD extends TrainingMethod {
+	
+	Double errorThreshold = 0.1;
+	int maxIterations = 1000;
 
 	public GD(Network neuralNetwork, List<DataPoint> data) {
 		super(neuralNetwork, data);
@@ -16,9 +19,18 @@ public class GD extends TrainingMethod {
 	@Override
 	public void train(List<DataPoint> trainSet) {
 		//TODO -- training
-		List<Double> outputs;
+		List<Double> output, target;
+		
 		for (int exampleIndex = 0; exampleIndex < trainSet.size(); exampleIndex++) {
-			outputs = networkOperations.feedForward(trainSet.get(exampleIndex));
+			DataPoint datapoint = trainSet.get(exampleIndex);
+			Double error = Double.MAX_VALUE;
+			int iteration = 0;
+			while (error > errorThreshold && iteration < maxIterations) {
+				output = networkOperations.feedForward(datapoint);
+				target = datapoint.getOutputs();
+				error = calculateError(target, output);
+				iteration++;
+			}
 		}
 	}
 
@@ -32,7 +44,7 @@ public class GD extends TrainingMethod {
 			DataPoint datapoint = testSet.get(exampleIndex);
 			outputs = networkOperations.feedForward(datapoint);
 			classFound = networkOperations.getMaxIndex(outputs);
-			classExpected = datapoint.getOutput();
+			classExpected = datapoint.getClassIndex();
 			if (classFound == classExpected)
 				correct++;
 		}

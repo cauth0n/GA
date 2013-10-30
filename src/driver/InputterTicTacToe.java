@@ -86,7 +86,7 @@ public class InputterTicTacToe extends Inputter {
 				// the last feature.
 				// It is used questionably here, but it will work --
 				// possibly consider something nicer
-				int output = getClassIndex(split[inputs]);
+				List<Double> output = getOutputVector(split[inputs]);
 				data.add(new DataPoint(featureList, output));
 			}
 

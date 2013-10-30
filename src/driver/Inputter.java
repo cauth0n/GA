@@ -1,5 +1,6 @@
 package driver;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,8 +42,16 @@ public abstract class Inputter {
 		return data;
 	}
 	
-	public int getClassIndex(String classname) {
-		return possibleClasses.indexOf(classname);
+	public List<Double> getOutputVector(String classname) {
+		int classIndex = possibleClasses.indexOf(classname);
+		List<Double> outputs = new ArrayList<>();
+		for (int output = 0; output < possibleClasses.size(); output++) {
+			if (output == classIndex)
+				outputs.add(1.0);
+			else
+				outputs.add(0.0);
+		}
+		return outputs;
 	}
 
 }

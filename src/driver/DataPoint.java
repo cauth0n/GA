@@ -8,11 +8,12 @@ import java.util.List;
 public class DataPoint {
 
 	private List<Double> features;
-	private int output;
+	private List<Double> outputs;
+	private int classIndex = -1;
 
-	public DataPoint(List<Double> features, int output) {
-		this.features = features;
-		this.output = output;
+	public DataPoint(List<Double> features, List<Double> outputs) {
+		setFeatures(features);
+		setOutputs(outputs);
 	}
 
 	public List<Double> getFeatures() {
@@ -22,13 +23,30 @@ public class DataPoint {
 	public void setFeatures(List<Double> features) {
 		this.features = features;
 	}
-
-	public int getOutput() {
-		return output;
+	
+	public void setOutputs(List<Double> outputs) {
+		this.outputs = outputs;
 	}
-
-	public void setOutput(int output) {
-		this.output = output;
+	
+	public List<Double> getOutputs() {
+		return outputs;
+	}
+	
+	public int getClassIndex() {
+		// find class index if necessary
+		if (classIndex < 0) {
+			boolean found = false;
+			for (int output = 0; output < outputs.size(); output++) {
+				if (outputs.get(output) > 0.0) {
+					if (found)
+						throw new IllegalArgumentException("Output vector must have only one nonzero value for classification.");
+					classIndex = output;
+					found = true;
+				}
+			}
+		}
+		// return the class index
+		return classIndex;
 	}
 
 }
