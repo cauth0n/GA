@@ -27,9 +27,10 @@ public class Simulator {
 		
 		//primarily used in testing.
 		NetworkOperations networkOperations = new NetworkOperations(neuralNetwork);
-		int outputNeuron = networkOperations.feedForward(data.get(0));
+		List<Double> outputs = networkOperations.feedForward(data.get(0));
+		int classValue = networkOperations.getMaxIndex(outputs);
 
-		System.out.println(outputNeuron);
+		System.out.println(classValue);
 		
 		// DE de = new DE(10, 0.5, 0.2);
 		// de.run();

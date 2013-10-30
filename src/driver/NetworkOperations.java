@@ -1,5 +1,6 @@
 package driver;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import neural_net.Connection;
@@ -22,17 +23,18 @@ public class NetworkOperations {
 	 * Feed forward method. First, we call the setInputs method to
 	 * build inputs. Then, starting with the input layer, we loop
 	 * through layers and feed the input values forward. The output is
-	 * calculated in the end, and the 'most probable' output neuron is
-	 * chosen. The index of the most probably neuron is returned.
+	 * calculated in the end, and the values of each output neuron
+	 * are returned.
 	 * 
 	 * @param dataPoint
 	 *            data point we want to feed through the network,
 	 *            getting output
 	 * 
-	 * @return index of highest scoring output neuron.
+	 * @return vector of each output neuron's result.
 	 */
-	public int feedForward(DataPoint dataPoint) {
-		int outputNeuronIndex = -1;
+	public List<Double> feedForward(DataPoint dataPoint) {
+		
+		List<Double> outputs = new ArrayList<>();
 
 		// set the inputs according to the feature values of the data
 		// point we are feeding forward.
@@ -63,23 +65,40 @@ public class NetworkOperations {
 
 		// output layer operations here
 		Layer outputLayer = neuralNetwork.getLayers().get(neuralNetwork.getLayers().size() - 1);
-		double maxOutput = Double.MIN_VALUE;
-
-		// loop through all neurons in the output layer, finding the
-		// maximum value. The maximum value of used as a measure of
-		// likelihood, meaning how likely the output neurons
-		// successfully classified the inputs correctly.
-		for (int neuronNum = 0; neuronNum < outputLayer.getNeurons().size(); neuronNum++) {
-			Neuron currentNeuron = outputLayer.getNeurons().get(neuronNum);
-
-			// max condition -- the index of the neuron with the max
-			// value is returned.
-			if (currentNeuron.getNeuronValue() > maxOutput) {
-				maxOutput = currentNeuron.getNeuronValue();
-				outputNeuronIndex = neuronNum;
+		
+		// Add each output neuron's value to the vector that will be returned
+		for (Neuron currentNeuron : outputLayer.getNeurons())
+			outputs.add(currentNeuron.getNeuronValue());
+		
+		return outputs;
+	}
+	
+	/**
+	 * Returns the index of the largest output value,
+	 * which equates to the class that should be chosen
+	 * in classification problems.
+	 * 
+	 * @param outputs	The list of outputs returned by the network
+	 * @return			The index of the largest output in the list
+	 */
+	public int getMaxIndex(List<Double> outputs) {
+		
+		int maxIndex = 0;
+		Double max = Double.MIN_VALUE;
+		
+		// loop through output values, finding the index of the largest value
+		for (int outputIndex = 0; outputIndex < outputs.size(); outputIndex++) {
+			Double currentValue = outputs.get(outputIndex).doubleValue();
+			// if current value is larger that previous max value, 
+			// overwrite max value and store index
+			if (currentValue > max) {
+				maxIndex = outputIndex;
+				max = currentValue;
 			}
 		}
-		return outputNeuronIndex;
+		
+		return maxIndex;
+		
 	}
 
 	/**
