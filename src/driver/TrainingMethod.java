@@ -14,7 +14,7 @@ import neural_net.Network;
 public abstract class TrainingMethod {
 	protected NetworkOperations networkOperations;
 	protected Network neuralNetwork;
-	protected List<DataPoint> data;
+	private List<DataPoint> data;
 	protected int k = 10;
 	protected Map<Integer, List<DataPoint>> formattedData;
 	protected KFolds kfolds;

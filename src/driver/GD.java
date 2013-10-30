@@ -16,14 +16,28 @@ public class GD extends TrainingMethod {
 	@Override
 	public void train(List<DataPoint> trainSet) {
 		//TODO -- training
-		
+		List<Double> outputs;
+		for (int exampleIndex = 0; exampleIndex < trainSet.size(); exampleIndex++) {
+			outputs = networkOperations.feedForward(trainSet.get(exampleIndex));
+		}
 	}
 
 	@Override
 	public double test(List<DataPoint> testSet) {
 		// TODO -- testing
-
-		return 0.0;
+		int classFound, classExpected;
+		int correct = 0;
+		List<Double> outputs;
+		for (int exampleIndex = 0; exampleIndex < testSet.size(); exampleIndex++) {
+			DataPoint datapoint = testSet.get(exampleIndex);
+			outputs = networkOperations.feedForward(datapoint);
+			classFound = networkOperations.getMaxIndex(outputs);
+			classExpected = datapoint.getOutput();
+			if (classFound == classExpected)
+				correct++;
+		}
+		double performance = correct/testSet.size();
+		return performance;
 	}
 
 }

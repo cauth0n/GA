@@ -40,5 +40,9 @@ public abstract class Inputter {
 	public List<DataPoint> getData() {
 		return data;
 	}
+	
+	public int getClassIndex(String classname) {
+		return possibleClasses.indexOf(classname);
+	}
 
 }

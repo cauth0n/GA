@@ -51,6 +51,9 @@ public class InputterTicTacToe extends Inputter {
 		data = new ArrayList<>();
 		try {
 			Scanner in = new Scanner(new File(filePath));
+			
+			// find possible classes for dataset
+			findClasses();
 
 			// loop through entire data file.
 			while (in.hasNext()) {
@@ -83,7 +86,7 @@ public class InputterTicTacToe extends Inputter {
 				// the last feature.
 				// It is used questionably here, but it will work --
 				// possibly consider something nicer
-				String output = split[inputs];
+				int output = getClassIndex(split[inputs]);
 				data.add(new DataPoint(featureList, output));
 			}
 

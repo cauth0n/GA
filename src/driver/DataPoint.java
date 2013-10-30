@@ -8,9 +8,9 @@ import java.util.List;
 public class DataPoint {
 
 	private List<Double> features;
-	private String output;
+	private int output;
 
-	public DataPoint(List<Double> features, String output) {
+	public DataPoint(List<Double> features, int output) {
 		this.features = features;
 		this.output = output;
 	}
@@ -23,11 +23,11 @@ public class DataPoint {
 		this.features = features;
 	}
 
-	public String getOutput() {
+	public int getOutput() {
 		return output;
 	}
 
-	public void setOutput(String output) {
+	public void setOutput(int output) {
 		this.output = output;
 	}
 
