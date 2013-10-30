@@ -15,8 +15,9 @@ public abstract class TrainingMethod {
 	protected NetworkOperations networkOperations;
 	protected Network neuralNetwork;
 	protected List<DataPoint> data;
-	protected final int k = 10;
+	protected int k = 10;
 	protected Map<Integer, List<DataPoint>> formattedData;
+	protected KFolds kfolds;
 
 	public TrainingMethod(Network neuralNetwork, List<DataPoint> data) {
 		this.neuralNetwork = neuralNetwork;
@@ -24,12 +25,30 @@ public abstract class TrainingMethod {
 		networkOperations = new NetworkOperations(neuralNetwork);
 	}
 
-	public abstract void mainLoop();
+	public void mainLoop(int folds) {
+		// create a KFold class with a specified number of folds
+		kfolds = new KFolds(data, folds);
+		
+		// used for timing the training algorithm
+		long startTime, elapsedTime;
+		
+		// loop through all folds, training and testing on each
+		while (kfolds.next()) {
+			
+			startTime = System.currentTimeMillis();
+			train(kfolds.getTrainSet());
+		    elapsedTime = System.currentTimeMillis() - startTime;
+		    
+			double performance = test(kfolds.getTestSet());
+			
+		}
+	}
 
-	public abstract void train();
+	public abstract void train(List<DataPoint> trainSet);
 
-	public abstract void test(List<DataPoint> testSet);
+	public abstract double test(List<DataPoint> testSet);
 
+	// TODO: I didn't see this, and I implemented my own. We'll just use one or another.
 	public void kFoldCrossValidation() {
 		formattedData = new HashMap<Integer, List<DataPoint>>();
 		Random rand = new Random();

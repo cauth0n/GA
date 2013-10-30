@@ -1,15 +1,17 @@
 package driver;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class KFolds {
 	
 	int foldIndex = 0;
 	int k;
 	List<DataPoint> data;
-	List<DataPoint> train;
-	List<DataPoint> test;
+	List<DataPoint> train = null;
+	List<DataPoint> test = null;
 	
 	/**
 	 * Constructs a KFold validation class that will
@@ -20,8 +22,24 @@ public class KFolds {
 	 * @param k		The number of folds that will be processed.
 	 */
 	KFolds(List<DataPoint> data, int k) {
-		this.data = data;
+		this.data = shuffle(data);
 		this.k = k;
+	}
+	
+	/**
+	 * Shuffles a copy of the data, leaving the original list untouched.
+	 * 
+	 * @param data	The list of data to be shuffled.
+	 * @return		The newly shuffled version of the data.
+	 */
+	private List<DataPoint> shuffle(List<DataPoint> data) {
+		// make copy of data
+		List<DataPoint> randomData = new ArrayList<>();
+		for (DataPoint datapoint : data)
+			randomData.add(datapoint);
+		// shuffle the copy and return
+		Collections.shuffle(randomData, new Random(11235));
+		return randomData;
 	}
 	
 	/**

@@ -14,31 +14,16 @@ public class GD extends TrainingMethod {
 	}
 
 	@Override
-	public void mainLoop() {
-		int testingPointer = 9;
-		for (int i = 0; i < k; i++) {
-			for (int j = 0; j < k; j++) {
-				//TODO -- fill out k fold cross validation here.
-				//
-				if (j == testingPointer) {
-					continue;
-				}
-			}
-			// test
-			testingPointer--;
-		}
-
-	}
-
-	@Override
-	public void train() {
+	public void train(List<DataPoint> trainSet) {
 		//TODO -- training
+		
 	}
 
 	@Override
-	public void test(List<DataPoint> testSet) {
+	public double test(List<DataPoint> testSet) {
 		// TODO -- testing
 
+		return 0.0;
 	}
 
 }
