@@ -16,21 +16,19 @@ public class Simulator {
 		List<DataPoint> data = inputter.getData();
 
 		
-		//bulid network from input data. 
+		// build network from input data. 
 		int[] hiddenLayer = new int[2];
 		hiddenLayer[0] = 100;
 		hiddenLayer[1] = 50;
 		StructuralInfo structuralInfo = new StructuralInfo(inputter.getInputs(), inputter.getOutputs(), hiddenLayer);
 		Network neuralNetwork = new Network(structuralInfo);
 		neuralNetwork.constructNetwork();
-
 		
-		//primarily used in testing.
-		NetworkOperations networkOperations = new NetworkOperations(neuralNetwork);
-		List<Double> outputs = networkOperations.feedForward(data.get(0));
-		int classValue = networkOperations.getMaxIndex(outputs);
+		// Test GD
+		TrainingMethod gd = new GD(neuralNetwork, data);
+		gd.mainLoop(10);
 
-		System.out.println(classValue);
+		//System.out.println(classValue);
 		
 		// DE de = new DE(10, 0.5, 0.2);
 		// de.run();
