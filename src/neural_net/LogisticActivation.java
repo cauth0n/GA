@@ -9,5 +9,10 @@ public class LogisticActivation extends ActivationFunction {
 		return (1.0 / (1 + Math.exp(-1 * input)));
 	}
 	
+	@Override
+	public double gradient(double input, double output) {
+		return output * (1 - output);
+	}
+	
 
 }

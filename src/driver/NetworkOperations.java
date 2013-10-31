@@ -58,7 +58,7 @@ public class NetworkOperations {
 				// next layer. They are then activated in the next
 				// layer loop.
 				for (Connection c : currentLayer.getOutGoingConnections().get(currentNeuron)) {
-					c.getToNeuron().appendNeuronValue(c.getFromNeuron().getNeuronValue() * c.getWeight());
+					c.getToNeuron().appendNeuronInput(c.getFromNeuron().getNeuronOutput() * c.getWeight());
 				}
 			}
 		}
@@ -68,7 +68,7 @@ public class NetworkOperations {
 		
 		// Add each output neuron's value to the vector that will be returned
 		for (Neuron currentNeuron : outputLayer.getNeurons())
-			outputs.add(currentNeuron.getNeuronValue());
+			outputs.add(currentNeuron.getNeuronOutput());
 		
 		return outputs;
 	}
@@ -118,7 +118,7 @@ public class NetworkOperations {
 		// loop through all input neurons, assigning the corresponding
 		// feature value to each neuron
 		for (int neuronNum = 0; neuronNum < inputLayer.getNeurons().size(); neuronNum++) {
-			inputLayer.getNeurons().get(neuronNum).setNeuronValue(features.get(neuronNum));
+			inputLayer.getNeurons().get(neuronNum).setNeuronInput(features.get(neuronNum));
 		}
 	}
 

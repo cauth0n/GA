@@ -6,21 +6,27 @@ package neural_net;
 public class Neuron {
 
 	private ActivationFunction neuronActivation;
-	private double neuronValue;
+	private double neuronInput;
+	private double neuronOutput;
 	private double neuronError;
 
 	public Neuron(ActivationFunction neuronActivation) {
 		this.neuronActivation = neuronActivation;
-		neuronValue = 0;
+		neuronInput = 0;
+		neuronOutput = 0;
 		neuronError = 0;
 	}
 
-	public double getNeuronValue() {
-		return neuronValue;
+	public double getNeuronInput() {
+		return neuronInput;
+	}
+	
+	public double getNeuronOutput() {
+		return neuronOutput;
 	}
 
-	public void setNeuronValue(double neuronValue) {
-		this.neuronValue = neuronValue;
+	public void setNeuronInput(double neuronInput) {
+		this.neuronInput = neuronInput;
 	}
 
 	public double getNeuronError() {
@@ -31,11 +37,20 @@ public class Neuron {
 		this.neuronError = neuronError;
 	}
 
-	public void appendNeuronValue(double value) {
-		this.neuronValue += value;
+	public void appendNeuronInput(double value) {
+		this.neuronInput += value;
 	}
 
-	public void fire() {
-		this.neuronValue = neuronActivation.fire(this.neuronValue);
+	public double fire() {
+		this.neuronOutput = neuronActivation.fire(this.neuronInput);
+		return this.neuronOutput;
+	}
+	
+	public double getOutput() {
+		return this.neuronOutput;
+	}
+	
+	public double gradient() {
+		return neuronActivation.gradient(this.neuronInput, this.neuronOutput);
 	}
 }

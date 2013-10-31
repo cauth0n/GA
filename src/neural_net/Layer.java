@@ -12,6 +12,7 @@ public abstract class Layer {
 	protected List<Neuron> neurons;
 	protected int size;
 	protected ActivationFunction layerActivation;
+	protected ActivationFunction layerActivationGradient;
 	protected Map<Neuron, List<Connection>> outGoingConnections;
 
 	public Layer(int size) {
