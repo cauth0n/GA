@@ -35,5 +35,11 @@ public class Simulator {
 
 		GD mlp = new GD(neuralNetwork, data);
 	}
+	
+	public static void printVector(List<Double> vector) {
+		for (Double value : vector)
+			System.out.print(value+" ");
+		System.out.println();
+	}
 
 }

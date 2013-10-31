@@ -40,6 +40,7 @@ public abstract class TrainingMethod {
 		    elapsedTime = System.currentTimeMillis() - startTime;
 		    
 			double performance = test(kfolds.getTestSet());
+			System.out.println(performance);
 			
 		}
 	}
@@ -52,13 +53,14 @@ public abstract class TrainingMethod {
 		
 		if (target.size() != actual.size())
 			throw new IllegalArgumentException("Target and Expected output vectors must be the same length.");
-		Double error = 0.0;
 		
 		// get average of the squared error for each output
+		Double error = 0.0;
 		for (int output = 0; output < target.size(); output++)
 			error += Math.pow(target.get(output) - actual.get(output), 2);
 		error /= target.size();
 		
 		return error;
 	}
+	
 }

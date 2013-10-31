@@ -50,7 +50,7 @@ public class NetworkOperations {
 			// fire the neuron, then we perform operations on
 			// downstream neurons.
 			for (Neuron currentNeuron : currentLayer.getNeurons()) {
-				currentNeuron.fire();
+				double value = currentNeuron.fire();
 
 				// Loop through every outgoing connection from the
 				// current neuron. Because of the map used to hold
@@ -68,7 +68,7 @@ public class NetworkOperations {
 		
 		// Add each output neuron's value to the vector that will be returned
 		for (Neuron currentNeuron : outputLayer.getNeurons())
-			outputs.add(currentNeuron.getNeuronOutput());
+			outputs.add(currentNeuron.fire());
 		
 		return outputs;
 	}

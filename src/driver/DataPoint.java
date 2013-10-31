@@ -15,6 +15,18 @@ public class DataPoint {
 		setFeatures(features);
 		setOutputs(outputs);
 	}
+	
+	public void printFeatures() {
+		for (Double value : features)
+			System.out.print(value+" ");
+		System.out.println();
+	}
+	
+	public void printOutputs() {
+		for (Double value : outputs)
+			System.out.print(value+" ");
+		System.out.println();
+	}
 
 	public List<Double> getFeatures() {
 		return features;

@@ -13,7 +13,7 @@ import neural_net.Neuron;
  */
 public class GD extends TrainingMethod {
 	
-	Double errorThreshold = 0.1;
+	Double errorThreshold = 0.0001;
 	int maxIterations = 1000;
 	Double learningRate = 0.9;
 	Double momentum = 0.0;
@@ -30,11 +30,17 @@ public class GD extends TrainingMethod {
 		for (int exampleIndex = 0; exampleIndex < trainSet.size(); exampleIndex++) {
 			DataPoint datapoint = trainSet.get(exampleIndex);
 			Double sumError = Double.MAX_VALUE;
+			target = datapoint.getOutputs();
+			
+			// backpropogate until error is small enough or too many iterations have passed
 			for (int iteration = 0; sumError > errorThreshold && iteration < maxIterations; iteration++) {
 				output = networkOperations.feedForward(datapoint);
-				target = datapoint.getOutputs();
 				backpropogate(target, output);
 				sumError = calculateError(target, output);
+//				System.out.println(iteration+":  "+sumError);
+//				Simulator.printVector(target);
+//				Simulator.printVector(output);
+//				System.out.println();
 			}
 		}
 	}
@@ -71,7 +77,7 @@ public class GD extends TrainingMethod {
 				}
 				
 				// multiply by gradient of neuron that is being updated
-				Double error = outputLayer.getNeurons().get(neuronIndex).gradient() * sumWeightedError;
+				Double error = currentLayer.getNeurons().get(neuronIndex).gradient() * sumWeightedError;
 				currentHiddenErrors.add(error);
 			}
 			
@@ -81,19 +87,22 @@ public class GD extends TrainingMethod {
 		}
 		
 		// update all weights using errors
-		for (int layer = 0; layer < layers.size(); layer++) {
+		for (int layer = 0; layer < layers.size() - 1; layer++) {
 			Layer currentLayer = layers.get(layer);
 			List<Double> currentErrors = errors.get(layer);
 			for (int neuronIndex = 0; neuronIndex < currentLayer.getNeurons().size(); neuronIndex++) {
 				Neuron currentNeuron = currentLayer.getNeurons().get(neuronIndex);
 				List<Connection> connections = currentLayer.getOutGoingConnections().get(currentNeuron);
-				Double currentError = currentErrors.get(neuronIndex);
-				// update rule (TODO: check that error is correct)
-				Double update = (learningRate * currentNeuron.getOutput() * currentError);
-				// update connection weight
-				Connection connection = connections.get(neuronIndex); // FIXME: this is way wrong. there's something bad about this whole function
-				connection.setWeight(update + (connection.getWeight() * momentum));
-				connection.setWeightChange(update);
+				for (int nextNeuron = 0; nextNeuron < connections.size(); nextNeuron++) {
+					Connection connection = connections.get(nextNeuron);
+					Double currentError = currentErrors.get(nextNeuron);
+					// update rule (TODO: check that error is correct)
+					Double update = (learningRate * currentNeuron.getOutput() * currentError);
+					// update connection weight
+					connection.setWeight(update + (connection.getWeight() * momentum));
+					connection.setWeightChange(update);
+				}
+				
 			}
 		}
 		
@@ -113,7 +122,8 @@ public class GD extends TrainingMethod {
 			if (classFound == classExpected)
 				correct++;
 		}
-		double performance = correct/testSet.size();
+		
+		double performance = (double)correct / testSet.size();
 		return performance;
 	}
 
