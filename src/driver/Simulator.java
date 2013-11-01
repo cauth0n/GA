@@ -11,7 +11,7 @@ public class Simulator {
 	public static void main(String[] args) {
 		
 		//get input data
-		Inputter inputter = new InputterTicTacToe();
+		Inputter inputter = new InputterCar();
 		inputter.parseFile();
 		List<DataPoint> data = inputter.getData();
 
