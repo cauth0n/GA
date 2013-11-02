@@ -17,6 +17,9 @@ public class GD extends TrainingMethod {
 	int maxIterations = 1000;
 	Double learningRate = 0.9;
 	Double momentum = 0.0;
+	
+	List<Layer> layers;
+	int outIndex;
 
 	public GD(Network neuralNetwork, List<DataPoint> data) {
 		super(neuralNetwork, data);
@@ -47,11 +50,31 @@ public class GD extends TrainingMethod {
 	
 	private void backpropogate(List<Double> target, List<Double> output) {
 		
-		List<Layer> layers = neuralNetwork.getLayers();
+		// set up some useful variables
+		this.layers = neuralNetwork.getLayers();
+		this.outIndex = layers.size() - 1;
+		
 		List<List<Double>> errors = new ArrayList<List<Double>>();
-		int outIndex = layers.size() - 1;
 		
 		// calculate output errors
+		calculateOutputErrors(errors, target, output);
+		
+		// update all hidden layers
+		for (int hiddenLayer = outIndex - 1; hiddenLayer > 0; hiddenLayer--) {
+			// error is received from downstream neurons
+			Layer currentLayer = layers.get(hiddenLayer);
+			Layer downstreamLayer = layers.get(hiddenLayer + 1);
+			// prepend the errors to beginning of list
+			calculateHiddenErrors(errors, currentLayer, downstreamLayer);
+		}
+		
+		// update all weights using errors
+		updateWeights(errors);
+		
+	}
+	
+	private void calculateOutputErrors(List<List<Double>> errors, List<Double> target, List<Double> output) {
+		
 		List<Double> outputErrors = new ArrayList<>();
 		Layer outputLayer = layers.get(outIndex);
 		for (int neuronIndex = 0; neuronIndex < outputLayer.getNeurons().size(); neuronIndex++) {
@@ -61,31 +84,27 @@ public class GD extends TrainingMethod {
 			Double error = outputLayer.getNeurons().get(neuronIndex).gradient() * diff;
 			outputErrors.add(error);
 		}
-		errors.add(outputErrors);
-		
-		// update all hidden layers
-		for (int hiddenLayer = outIndex - 1; hiddenLayer > 0; hiddenLayer--) {
-			Layer currentLayer = layers.get(hiddenLayer);
-			Layer nextLayer = layers.get(hiddenLayer + 1);
-			List<Double> currentHiddenErrors = new ArrayList<>();
-			for (int neuronIndex = 0; neuronIndex < currentLayer.getNeurons().size(); neuronIndex++) {
-				Neuron currentNeuron = currentLayer.getNeurons().get(neuronIndex);
-				List<Connection> connections = currentLayer.getOutGoingConnections().get(currentNeuron);
-				Double sumWeightedError = 0.0;
-				for (int nextNeuronIndex = 0; nextNeuronIndex < nextLayer.getNeurons().size(); nextNeuronIndex++) {
-					sumWeightedError += errors.get(0).get(nextNeuronIndex) * connections.get(nextNeuronIndex).getWeight();
-				}
-				
-				// multiply by gradient of neuron that is being updated
-				Double error = currentLayer.getNeurons().get(neuronIndex).gradient() * sumWeightedError;
-				currentHiddenErrors.add(error);
+		errors.add(0, outputErrors);
+	}
+
+	private void calculateHiddenErrors(List<List<Double>> errors, Layer currentLayer, Layer downstreamLayer) {
+		List<Double> hiddenErrors = new ArrayList<>();
+		for (int neuronIndex = 0; neuronIndex < currentLayer.getNeurons().size(); neuronIndex++) {
+			Neuron currentNeuron = currentLayer.getNeurons().get(neuronIndex);
+			List<Connection> connections = currentLayer.getOutGoingConnections().get(currentNeuron);
+			Double sumWeightedError = 0.0;
+			for (int nextNeuronIndex = 0; nextNeuronIndex < downstreamLayer.getNeurons().size(); nextNeuronIndex++) {
+				sumWeightedError += errors.get(0).get(nextNeuronIndex) * connections.get(nextNeuronIndex).getWeight();
 			}
 			
-			// prepend the errors to beginning of list
-			errors.add(0, currentHiddenErrors);
-			
+			// multiply by gradient of neuron that is being updated
+			Double error = currentLayer.getNeurons().get(neuronIndex).gradient() * sumWeightedError;
+			hiddenErrors.add(error);
 		}
-		
+		errors.add(0, hiddenErrors);
+	}
+	
+	private void updateWeights(List<List<Double>> errors) {
 		// update all weights using errors
 		for (int layer = 0; layer < layers.size() - 1; layer++) {
 			Layer currentLayer = layers.get(layer);
@@ -105,7 +124,6 @@ public class GD extends TrainingMethod {
 				
 			}
 		}
-		
 	}
 
 	@Override
