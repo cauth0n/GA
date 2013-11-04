@@ -17,9 +17,6 @@ public class SelectionRankBased extends Selection {
 	public List<Individual> select() {
 		List<Individual> parents = new ArrayList<Individual>();
 		
-		// evaluate fitness of every individual based on fitness function provided
-		population.evaluateFitness(fitness);
-		
 		// choose best ranking individual as parent 1
 		Individual parent1 = population.getMostFit();
 		parents.add(parent1);

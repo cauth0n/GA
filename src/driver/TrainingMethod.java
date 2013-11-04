@@ -1,10 +1,9 @@
 package driver;
 
-import java.util.HashMap;
+import ga.Fitness;
+
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Map;
-import java.util.Random;
 
 import neural_net.Layer;
 import neural_net.Network;
@@ -13,7 +12,9 @@ import neural_net.Network;
  * @author cauthon
  */
 public abstract class TrainingMethod {
-	protected NetworkOperations networkOperations;
+	
+	protected Fitness fitnessMethod;
+	public static NetworkOperations networkOperations;
 	protected Network neuralNetwork;
 	protected List<Layer> layers;
 	protected int outIndex;

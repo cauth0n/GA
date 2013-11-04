@@ -1,13 +1,22 @@
 package ga;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Individual {
 	
+	private double minValue = -0.3;
+	private double maxValue = 0.3;
 	private double fitness = -1.0;
 	private List<Gene> genes;
 
-	public Individual() {
-
+	public Individual(int chromosomeSize) {
+		genes = new ArrayList<>(chromosomeSize);
+		Random rand = new Random(11235);
+		for (int geneNum = 0; geneNum < chromosomeSize; geneNum++){
+			double initValue = minValue + (rand.nextDouble() * (maxValue - minValue));
+			genes.add(new GeneReal(initValue));
+		}
 	}
 	
 	public Individual(List<Gene> genes) {
@@ -20,7 +29,7 @@ public class Individual {
 
 	public double getFitness() {
 		if (fitness < 0.0)
-			throw new IllegalArgumentException("You must first evaluate fitness of the individual usinga fitness function.");
+			throw new IllegalArgumentException("You must first evaluate fitness of the individual using a fitness function.");
 		return fitness;
 	}
 

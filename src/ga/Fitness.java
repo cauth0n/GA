@@ -1,8 +1,13 @@
 package ga;
 
+import java.util.List;
+
+import neural_net.Network;
+import driver.DataPoint;
+
 public abstract class Fitness {
 	
-	protected abstract double getIndividualFitness(Individual individual);
+	public abstract void calculateFitness(Population popoulation, Network neuralNetwork, List<DataPoint> testSet);
 
 	/**
 	 * Returns the sum of every fitness for entire population.

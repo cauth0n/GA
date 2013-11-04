@@ -18,9 +18,9 @@ public class DE {
 	 * @param beta				The beta value for the algorithm (empirical studies suggest 0.5)
 	 * @param probability		The probability for the algorithm (higher values mean more diverse offspring)
 	 */
-	public DE(int populationSize, double beta, double probability) {
+	public DE(int populationSize, int chromosomeSize, double beta, double probability) {
 		Initialize init = new InitializeDefault();
-		this.population = init.initializePopulation(populationSize);
+		this.population = init.initializePopulation(populationSize, chromosomeSize);
 		this.beta = beta;
 		this.probability = probability;
 		this.fitness = new FitnessDefault();
@@ -42,18 +42,26 @@ public class DE {
 		// loop through entire current population as parents
 		for (Individual parent : population.getPopulation()) {
 			// evaluate fitness of parent
-			double parentFitness = fitness.getIndividualFitness(parent);
+			
+			//TODO
+			//double parentFitness = fitness.getIndividualFitness(parent);
+			
+			
 			// create a trial vector
 			Individual trial = mutate.mutate(parent, population);
 			// perform crossover with parent and trial vector
 			Individual child = crossover.crossOverOneChild(parent, trial);
 			// evaluate fitness of child
-			double childFitness = fitness.getIndividualFitness(child);
+			
+			//TODO
+			//double childFitness = fitness.getIndividualFitness(child);
+			
+			
 			// have parent and child compete for space in new population
-			if (childFitness > parentFitness)
-				newPopulation.add(child);
-			else
-				newPopulation.add(parent);
+//			if (childFitness > parentFitness)
+//				newPopulation.add(child);
+//			else
+//				newPopulation.add(parent);
 		}
 		population = new Population(newPopulation);
 	}

@@ -13,7 +13,6 @@ public class SelectionFitnessProportionate extends Selection {
 		List<Individual> parents = new ArrayList<Individual>();
 		
 		// evaluate fitness for every individual in population and find the sum
-		population.evaluateFitness(fitness);
 		double sum = fitness.getPopulationFitnessSum(population);
 		
 		// select the two parents weighted by fitness

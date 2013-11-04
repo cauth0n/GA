@@ -27,7 +27,6 @@ public class SelectionTournament extends Selection {
 		List<Individual> candidates = new ArrayList<Individual>();
 		
 		// evaluate fitness for every individual in population and find the sum
-		population.evaluateFitness(fitness);
 		double sum = fitness.getPopulationFitnessSum(population);
 		
 		// select the two parents weighted by fitness

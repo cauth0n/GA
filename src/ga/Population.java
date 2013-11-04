@@ -32,11 +32,6 @@ public class Population {
 		return runningFitness;
 	}
 	
-	public void evaluateFitness(Fitness fitness) {
-		for (Individual individual : population)
-			individual.setFitness(fitness.getIndividualFitness(individual));
-	}
-	
 	public Individual getMostFit() {
 		Individual mostFit = population.get(0);
 		for (Individual individual : population)

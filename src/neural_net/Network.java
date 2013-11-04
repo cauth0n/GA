@@ -1,5 +1,7 @@
 package neural_net;
 
+import ga.Gene;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,6 +74,38 @@ public class Network {
 				currentLayer.addKeyValuePair(neuron, outGoingConnections);
 			}
 		}
+	}
+
+	
+	public void setWeights(List<Gene> genes){
+		int count = 0;
+		try{
+			for (Layer layer : layers){
+				for (Neuron neuron : layer.getNeurons()){
+					for (Connection connection : layer.getOutGoingConnections().get(neuron)){
+						connection.setWeight(genes.get(count).getValue());
+						count++;
+					}
+				}
+			}
+		}catch(ArrayIndexOutOfBoundsException e){
+			e.printStackTrace();
+			System.out.println("Too few genes");
+		}finally{
+			if (count != genes.size()){
+				System.out.println("Too many genes");
+			}
+		}
+	}
+	
+	public int size(){
+		int size = 0;
+		for (Layer layer : layers){
+			for (Neuron neuron : layer.getNeurons()){
+				size += layer.getOutGoingConnections().get(neuron).size();
+			}
+		}
+		return size;
 	}
 
 	public List<Layer> getLayers() {

@@ -10,7 +10,9 @@ public class MutateTrialVector extends Mutate {
 	
 	public Individual mutate(Individual individual, Population population) {
 		
-		Individual newIndividual = new Individual();
+		
+		//TODO
+		Individual newIndividual = new Individual(individual.getGenes().size());
 		
 		// assign random individuals from the population to two individuals
 		Individual random1 = population.getRandomIndividual();
