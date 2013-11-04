@@ -45,6 +45,11 @@ public class NetworkOperations {
 		// output layer
 		for (int layerNum = 0; layerNum < neuralNetwork.getLayers().size() - 1; layerNum++) {
 			Layer currentLayer = neuralNetwork.getLayers().get(layerNum);
+			Layer nextLayer = neuralNetwork.getLayers().get(layerNum + 1);
+			
+			// reset the inputs for the next layer
+			for (Neuron neuron : nextLayer.getNeurons())
+				neuron.setNeuronInput(0.0);
 
 			// loop through all neurons in the current layer. We first
 			// fire the neuron, then we perform operations on
@@ -58,9 +63,10 @@ public class NetworkOperations {
 				// next layer. They are then activated in the next
 				// layer loop.
 				for (Connection c : currentLayer.getOutGoingConnections().get(currentNeuron)) {
-					c.getToNeuron().appendNeuronInput(c.getFromNeuron().getNeuronOutput() * c.getWeight());
+					c.getToNeuron().appendNeuronInput(value * c.getWeight());
 				}
 			}
+			
 		}
 
 		// output layer operations here

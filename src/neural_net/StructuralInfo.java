@@ -38,5 +38,17 @@ public class StructuralInfo {
 		this.hiddenLayerInformation = hiddenLayerInformation;
 	}
 	
+	public void describe() {
+		System.out.println(toString());
+	}
+	
+	public String toString() {
+		String description = "{";
+		description += getNumInputs() + ",";
+		for (int n : hiddenLayerInformation)
+			description += n + ",";
+		description += getNumOutputs() + "}";
+		return description;
+	}
 
 }

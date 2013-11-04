@@ -6,7 +6,7 @@ public class HiddenLayer extends Layer{
 
 	public HiddenLayer(int size) {
 		super(size);
-		layerActivation = new LogisticActivation();
+		layerActivation = new TanhActivation();
 		buildLayer();
 	}
 

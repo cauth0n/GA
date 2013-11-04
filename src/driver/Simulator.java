@@ -11,18 +11,18 @@ public class Simulator {
 	public static void main(String[] args) {
 		
 		//get input data
-		Inputter inputter = new InputterSeeds();
+		Inputter inputter = new InputterEEGEyeState();
 		inputter.parseFile();
 		List<DataPoint> data = inputter.getData();
 
 		
 		// build network from input data. 
-		int[] hiddenLayer = new int[2];
-		hiddenLayer[0] = 100;
-		hiddenLayer[1] = 50;
+		int[] hiddenLayer = new int[1];
+		hiddenLayer[0] = 10;
 		StructuralInfo structuralInfo = new StructuralInfo(inputter.getInputs(), inputter.getOutputs(), hiddenLayer);
 		Network neuralNetwork = new Network(structuralInfo);
 		neuralNetwork.constructNetwork();
+		structuralInfo.describe();
 		
 		// Test GD
 		TrainingMethod gd = new GD(neuralNetwork, data);

@@ -2,6 +2,7 @@ package driver;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
 
 import neural_net.Connection;
 import neural_net.Layer;
@@ -35,6 +36,13 @@ public class GD extends TrainingMethod {
 			Double sumError = Double.MAX_VALUE;
 			target = datapoint.getOutputs();
 			
+			// TESTING
+			Layer layer1 = neuralNetwork.getLayers().get(0);
+			Map<Neuron, List<Connection>> outgoing = layer1.getOutGoingConnections();
+			List<Connection> connections = outgoing.get(layer1.getNeurons().get(0));
+			Double weight = connections.get(0).getWeight();
+//			System.out.println("WEIGHT: "+weight);
+			
 			// backpropogate until error is small enough or too many iterations have passed
 			for (int iteration = 0; sumError > errorThreshold && iteration < maxIterations; iteration++) {
 				output = networkOperations.feedForward(datapoint);
@@ -45,6 +53,7 @@ public class GD extends TrainingMethod {
 //				Simulator.printVector(output);
 //				System.out.println();
 			}
+			
 		}
 	}
 	

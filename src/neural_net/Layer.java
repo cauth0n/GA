@@ -5,10 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author cauthon
- */
+
 public abstract class Layer {
+	
 	protected List<Neuron> neurons;
 	protected int size;
 	protected ActivationFunction layerActivation;
