@@ -18,9 +18,6 @@ public class GD extends TrainingMethod {
 	int maxIterations = 1000;
 	Double learningRate = 0.9;
 	Double momentum = 0.0;
-	
-	List<Layer> layers;
-	int outIndex;
 
 	public GD(Network neuralNetwork, List<DataPoint> data) {
 		super(neuralNetwork, data);
@@ -58,10 +55,6 @@ public class GD extends TrainingMethod {
 	}
 	
 	private void backpropogate(List<Double> target, List<Double> output) {
-		
-		// set up some useful variables
-		this.layers = neuralNetwork.getLayers();
-		this.outIndex = layers.size() - 1;
 		
 		List<List<Double>> errors = new ArrayList<List<Double>>();
 		
@@ -133,25 +126,6 @@ public class GD extends TrainingMethod {
 				
 			}
 		}
-	}
-
-	@Override
-	public double test(List<DataPoint> testSet) {
-		// TODO this might belong in the abstract class, since it shouldn't change between training methods
-		int classFound, classExpected;
-		int correct = 0;
-		List<Double> outputs;
-		for (int exampleIndex = 0; exampleIndex < testSet.size(); exampleIndex++) {
-			DataPoint datapoint = testSet.get(exampleIndex);
-			outputs = networkOperations.feedForward(datapoint);
-			classFound = networkOperations.getMaxIndex(outputs);
-			classExpected = datapoint.getClassIndex();
-			if (classFound == classExpected)
-				correct++;
-		}
-		
-		double performance = (double)correct / testSet.size();
-		return performance;
 	}
 
 }

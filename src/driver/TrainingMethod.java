@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Random;
 
+import neural_net.Layer;
 import neural_net.Network;
 
 /**
@@ -14,6 +15,8 @@ import neural_net.Network;
 public abstract class TrainingMethod {
 	protected NetworkOperations networkOperations;
 	protected Network neuralNetwork;
+	protected List<Layer> layers;
+	protected int outIndex;
 	private List<DataPoint> data;
 	protected int k = 10;
 	protected Map<Integer, List<DataPoint>> formattedData;
@@ -23,6 +26,8 @@ public abstract class TrainingMethod {
 		this.neuralNetwork = neuralNetwork;
 		this.data = data;
 		networkOperations = new NetworkOperations(neuralNetwork);
+		this.layers = neuralNetwork.getLayers();
+		this.outIndex = layers.size() - 1;
 	}
 
 	public void mainLoop(int folds) {
@@ -46,8 +51,24 @@ public abstract class TrainingMethod {
 	}
 
 	public abstract void train(List<DataPoint> trainSet);
-
-	public abstract double test(List<DataPoint> testSet);
+	
+	public double test(List<DataPoint> testSet) {
+		// TODO this might belong in the abstract class, since it shouldn't change between training methods
+		int classFound, classExpected;
+		int correct = 0;
+		List<Double> outputs;
+		for (int exampleIndex = 0; exampleIndex < testSet.size(); exampleIndex++) {
+			DataPoint datapoint = testSet.get(exampleIndex);
+			outputs = networkOperations.feedForward(datapoint);
+			classFound = networkOperations.getMaxIndex(outputs);
+			classExpected = datapoint.getClassIndex();
+			if (classFound == classExpected)
+				correct++;
+		}
+		
+		double performance = (double)correct / testSet.size();
+		return performance;
+	}
 
 	public Double calculateError(List<Double> target, List<Double> actual) {
 		
