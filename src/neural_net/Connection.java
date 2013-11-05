@@ -27,6 +27,10 @@ public class Connection {
 		}
 		return toRet;
 	}
+	
+	public void appendWeight(){
+		this.weight += weightChange;
+	}
 
 	public Neuron getFromNeuron() {
 		return fromNeuron;

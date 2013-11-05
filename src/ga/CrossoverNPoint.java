@@ -14,7 +14,7 @@ public class CrossoverNPoint extends Crossover {
 	}
 	
 	CrossoverNPoint(int crossovers) {
-		this.n = n;
+		this.n = crossovers;
 	}
 	
 	public Individual crossOverOneChild(Individual individual1, Individual individual2) {

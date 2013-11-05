@@ -3,10 +3,12 @@ package neural_net;
  *@author cauthon
  */
 public class LogisticActivation extends ActivationFunction {
+	
+	private double stretch = 0.5;
 
 	@Override
 	public double fire(double input) {
-		return (1.0 / (1 + Math.exp(-input)));
+		return (stretch / (stretch + Math.exp(-input)));
 	}
 	
 	@Override
