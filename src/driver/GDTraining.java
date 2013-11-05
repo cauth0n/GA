@@ -16,7 +16,7 @@ public class GDTraining extends TrainingMethod {
 	
 	Double errorThreshold = 0.0001;
 	int maxIterations = 1000;
-	Double learningRate = 0.9;
+	Double learningRate = 0.3;
 	Double momentum = 0.0;
 
 	public GDTraining(Network neuralNetwork, List<DataPoint> data) {
