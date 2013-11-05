@@ -24,17 +24,6 @@ public class Simulator {
 		structuralInfo.describe();
 
 		// Test GD
-<<<<<<< HEAD
-		TrainingMethod gd = new GDTraining(neuralNetwork, data);
-		gd.mainLoop(10);
-
-		// System.out.println(classValue);
-
-		// DE de = new DE(10, 0.5, 0.2);
-		// de.run();
-
-		GDTraining mlp = new GDTraining(neuralNetwork, data);
-=======
 //		TrainingMethod gd = new GDTraining(neuralNetwork, data);
 //		gd.mainLoop(10);
 		
@@ -42,7 +31,6 @@ public class Simulator {
 		TrainingMethod ga = new GATraining(neuralNetwork, data);
 		ga.mainLoop(10);
 		
->>>>>>> e1e02fe180c8dfe71449ebde21bcf8260226a457
 	}
 
 	public static void printVector(List<Double> vector) {
