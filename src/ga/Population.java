@@ -33,10 +33,14 @@ public class Population {
 	}
 	
 	public Individual getMostFit() {
-		Individual mostFit = population.get(0);
-		for (Individual individual : population)
-			if (individual.getFitness() > mostFit.getFitness())
+		Individual mostFit = null;
+		double mostFitValue = Double.MIN_VALUE;
+		for (Individual individual : population) {
+			if (individual.getFitness() > mostFitValue) {
 				mostFit = individual;
+				mostFitValue = individual.getFitness();
+			}
+		}
 		return mostFit;
 	}
 	
@@ -53,6 +57,23 @@ public class Population {
 	
 	public void remove(Individual individual) {
 		population.remove(individual);
+	}
+	
+	public double[] getDiversity() {
+		double minVal = Double.MAX_VALUE;
+		double maxVal = Double.MIN_VALUE;
+		for (Individual individual : population) {
+			if (individual.getFitness() > maxVal)
+				maxVal = individual.getFitness();
+			if (individual.getFitness() < minVal)
+				minVal = individual.getFitness();
+		}
+		return new double[]{minVal, maxVal, maxVal - minVal};
+	}
+	
+	public void printDiversity() {
+		double[] diversity = getDiversity();
+		System.out.println("("+diversity[0]+","+diversity[1]+")  => "+diversity[2]);
 	}
 
 }

@@ -1,6 +1,16 @@
 package ga;
 
+import ga.crossover.Crossover;
+import ga.crossover.CrossoverNPoint;
+import ga.fitness.Fitness;
+import ga.fitness.FitnessDefault;
+import ga.initialize.Initialize;
+import ga.initialize.InitializeDefault;
+import ga.mutation.Mutate;
+import ga.mutation.MutateTrialVector;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class DE {
 	
@@ -50,7 +60,7 @@ public class DE {
 			// create a trial vector
 			Individual trial = mutate.mutate(parent, population);
 			// perform crossover with parent and trial vector
-			Individual child = crossover.crossOverOneChild(parent, trial);
+			List<Individual> child = crossover.crossOverOneChild(parent, trial);
 			// evaluate fitness of child
 			
 			//TODO

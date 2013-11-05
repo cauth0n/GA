@@ -1,6 +1,6 @@
 package driver;
 
-import ga.Fitness;
+import ga.fitness.Fitness;
 
 import java.util.List;
 import java.util.Map;
@@ -47,6 +47,9 @@ public abstract class TrainingMethod {
 		    
 			double performance = test(kfolds.getTestSet());
 			System.out.println(performance);
+			
+			// TODO: remove this break
+			break;
 			
 		}
 	}

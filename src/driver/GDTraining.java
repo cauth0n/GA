@@ -1,9 +1,6 @@
 package driver;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
 
 import neural_net.Connection;
 import neural_net.Layer;

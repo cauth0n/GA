@@ -1,5 +1,17 @@
 package ga;
 
+import ga.crossover.Crossover;
+import ga.crossover.CrossoverNPoint;
+import ga.fitness.Fitness;
+import ga.fitness.FitnessDefault;
+import ga.initialize.Initialize;
+import ga.initialize.InitializeDefault;
+import ga.mutation.Mutate;
+import ga.mutation.MutateUniformDistribution;
+import ga.selection.Selection;
+import ga.selection.SelectionFitnessProportionate;
+import ga.selection.SelectionTournament;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -19,8 +31,9 @@ public class GA {
 		this.population = init.initializePopulation(populationSize, chromosomeSize);
 		this.mutationProbability = mutationProbability;
 		this.fitness = new FitnessDefault();
-		this.selection = new SelectionFitnessProportionate(this.population, this.fitness);
-		this.mutate = new MutateNormalDistribution();
+		this.selection = new SelectionTournament(this.population, this.fitness, 45);
+		//this.selection = new SelectionRankBased(this.population, this.fitness);
+		this.mutate = new MutateUniformDistribution();
 		this.crossover = new CrossoverNPoint();
 		random = new Random(11235);
 	}
@@ -35,12 +48,16 @@ public class GA {
 			Individual parent1 = parents.get(0);
 			Individual parent2 = parents.get(1);
 			// reproduce a single offspring
-			Individual child = crossover.crossOverOneChild(parent1, parent2);
+			List<Individual> children = crossover.crossOverTwoChildren(parent1, parent2);
 			// with some small probability, mutate child
-			if (random.nextDouble() < mutationProbability)
-				child = mutate.mutate(child, population);
-			// add child to individual list for the new population
-			newPopulation.add(child);
+			for (Individual child : children) {
+				if (random.nextDouble() < mutationProbability) {
+					child = mutate.mutate(child, population);
+				}
+				// add child to individual list for the new population
+				newPopulation.add(child);
+			}
+			
 		}
 
 		

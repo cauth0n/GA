@@ -1,8 +1,8 @@
 package driver;
 
-import ga.FitnessDefault;
 import ga.GA;
 import ga.Individual;
+import ga.fitness.FitnessDefault;
 
 import java.util.List;
 
@@ -14,15 +14,10 @@ import neural_net.Network;
 public class GATraining extends TrainingMethod {
 	
 	private GA ga;
-	private int populationSize = 10;
-	private double mutationProbability = 0.05;
-	
-	private double fitnessThreshold = 0.8;
-	
-	Double errorThreshold = 0.0001;
+	private int populationSize = 50;
+	private double mutationProbability = 0.3;
+	private double fitnessThreshold = 1.1;
 	int maxIterations = 1000;
-	Double learningRate = 0.9;
-	Double momentum = 0.0;
 
 	public GATraining(Network neuralNetwork, List<DataPoint> data) {
 		super(neuralNetwork, data);
@@ -34,19 +29,17 @@ public class GATraining extends TrainingMethod {
 
 	@Override
 	public void train(List<DataPoint> trainSet) {
-		//TODO -- training
-		List<Double> output, target;
 		
 		fitnessMethod.calculateFitness(ga.getPopulation(), neuralNetwork, trainSet);
-		
-		System.out.println(ga.getPopulation().getPopulation().get(0).getFitness());
 		
 		Individual mostFit = null;
 		double mostFitValue = 0;
 		
 		//fitness < minFitness
+		int count = 0;
 		while(maxIterations > 0 && mostFitValue < fitnessThreshold){
 			
+			maxIterations--;
 
 			ga.runGeneration();
 			
@@ -55,7 +48,10 @@ public class GATraining extends TrainingMethod {
 			mostFit = ga.getPopulation().getMostFit();
 			mostFitValue = mostFit.getFitness();
 			
-			maxIterations--;
+			//ga.getPopulation().printDiversity();
+			System.out.println(mostFitValue);
+			count++;
+			
 		}
 		
 		neuralNetwork.setWeights(mostFit.getGenes());

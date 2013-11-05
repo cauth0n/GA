@@ -10,9 +10,9 @@ public class Individual {
 	private double fitness = -1.0;
 	private List<Gene> genes;
 
-	public Individual(int chromosomeSize) {
+	public Individual(int chromosomeSize, int seed) {
 		genes = new ArrayList<>(chromosomeSize);
-		Random rand = new Random(11235);
+		Random rand = new Random(11235 * seed);
 		for (int geneNum = 0; geneNum < chromosomeSize; geneNum++){
 			double initValue = minValue + (rand.nextDouble() * (maxValue - minValue));
 			genes.add(new GeneReal(initValue));
@@ -39,6 +39,19 @@ public class Individual {
 
 	public List<Gene> getGenes() {
 		return genes;
+	}
+	
+	public String toString() {
+		String value = "[";
+		for (Gene gene : genes) {
+			value += gene.getValue()+ ",";
+		}
+		value += "]\n";
+		return value;
+	}
+	
+	public void describe() {
+		System.out.println(this);
 	}
 
 }
