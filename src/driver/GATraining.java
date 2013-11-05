@@ -39,6 +39,8 @@ public class GATraining extends TrainingMethod {
 		
 		fitnessMethod.calculateFitness(ga.getPopulation(), neuralNetwork, trainSet);
 		
+		System.out.println(ga.getPopulation().getPopulation().get(0).getFitness());
+		
 		Individual mostFit = null;
 		double mostFitValue = 0;
 		
@@ -52,9 +54,7 @@ public class GATraining extends TrainingMethod {
 			
 			mostFit = ga.getPopulation().getMostFit();
 			mostFitValue = mostFit.getFitness();
-			//get fitness
 			
-			double prevFitness = 
 			maxIterations--;
 		}
 		

@@ -80,9 +80,10 @@ public class Network {
 	public void setWeights(List<Gene> genes){
 		int count = 0;
 		try{
-			for (Layer layer : layers){
-				for (Neuron neuron : layer.getNeurons()){
-					for (Connection connection : layer.getOutGoingConnections().get(neuron)){
+			for (int layerIndex = 0; layerIndex < layers.size() - 1; layerIndex++) {
+				Layer layer = layers.get(layerIndex);
+				for (Neuron neuron : layer.getNeurons()) {
+					for (Connection connection : layer.getOutGoingConnections().get(neuron)) {
 						connection.setWeight(genes.get(count).getValue());
 						count++;
 					}
@@ -98,11 +99,13 @@ public class Network {
 		}
 	}
 	
-	public int size(){
+	public int size() {
 		int size = 0;
-		for (Layer layer : layers){
-			for (Neuron neuron : layer.getNeurons()){
-				size += layer.getOutGoingConnections().get(neuron).size();
+		for (int layerIndex = 0; layerIndex < layers.size() - 1; layerIndex++) {
+			Layer layer = layers.get(layerIndex);
+			for (Neuron neuron : layer.getNeurons()) {
+				if (layer.getOutGoingConnections() != null)
+					size += layer.getOutGoingConnections().get(neuron).size();
 			}
 		}
 		return size;

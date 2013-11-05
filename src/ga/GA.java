@@ -19,7 +19,7 @@ public class GA {
 		this.population = init.initializePopulation(populationSize, chromosomeSize);
 		this.mutationProbability = mutationProbability;
 		this.fitness = new FitnessDefault();
-		this.selection = new SelectionRankBased(this.population, this.fitness);
+		this.selection = new SelectionFitnessProportionate(this.population, this.fitness);
 		this.mutate = new MutateNormalDistribution();
 		this.crossover = new CrossoverNPoint();
 		random = new Random(11235);

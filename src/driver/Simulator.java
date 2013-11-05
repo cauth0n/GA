@@ -2,6 +2,7 @@ package driver;
 
 import java.util.List;
 
+import neural_net.Layer;
 import neural_net.Network;
 import neural_net.StructuralInfo;
 
@@ -25,15 +26,13 @@ public class Simulator {
 		structuralInfo.describe();
 		
 		// Test GD
-		TrainingMethod gd = new GDTraining(neuralNetwork, data);
-		gd.mainLoop(10);
-
-		//System.out.println(classValue);
+//		TrainingMethod gd = new GDTraining(neuralNetwork, data);
+//		gd.mainLoop(10);
 		
-		// DE de = new DE(10, 0.5, 0.2);
-		// de.run();
-
-		GDTraining mlp = new GDTraining(neuralNetwork, data);
+		// Test GA
+		TrainingMethod ga = new GATraining(neuralNetwork, data);
+		ga.mainLoop(10);
+		
 	}
 	
 	public static void printVector(List<Double> vector) {
