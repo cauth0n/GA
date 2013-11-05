@@ -35,7 +35,7 @@ public abstract class Selection {
 		double runningFitnessTotal = 0.0;
 		for (Individual individual : population.getPopulation()) {
 			// this is the chosen random individual, break from loop
-			if (runningFitnessTotal > select && select < runningFitnessTotal + individual.getFitness()) {
+			if (select > runningFitnessTotal && select < runningFitnessTotal + individual.getFitness()) {
 				parent = individual;
 				break;
 			}

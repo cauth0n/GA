@@ -17,6 +17,8 @@ public class SelectionRankBased extends Selection {
 	public List<Individual> select() {
 		List<Individual> parents = new ArrayList<Individual>();
 		
+		// TODO: this makes no sense, removing like this runs out of parents before we have enough children
+		
 		// choose best ranking individual as parent 1
 		Individual parent1 = population.getMostFit();
 		parents.add(parent1);
