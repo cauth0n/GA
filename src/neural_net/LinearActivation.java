@@ -11,7 +11,7 @@ public class LinearActivation extends ActivationFunction {
 	
 	@Override
 	public double gradient(double input, double output) {
-		System.out.println("Should not be here");
+		//System.out.println("Should not be here");
 		return 1;
 	}
 

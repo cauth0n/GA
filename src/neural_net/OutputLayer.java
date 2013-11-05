@@ -7,7 +7,7 @@ public class OutputLayer extends Layer {
 
 	public OutputLayer(int size) {
 		super(size);
-		layerActivation = new LogisticActivation();
+		layerActivation = new LinearActivation();
 		buildLayer();
 	}
 

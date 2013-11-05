@@ -67,6 +67,8 @@ public class NetworkOperations {
 				}
 			}
 			
+			//currentLayer.printOutputs();
+			
 		}
 
 		// output layer operations here

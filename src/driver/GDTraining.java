@@ -1,5 +1,6 @@
 package driver;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
@@ -15,7 +16,7 @@ import neural_net.Neuron;
 public class GDTraining extends TrainingMethod {
 	
 	Double errorThreshold = 0.0001;
-	int maxIterations = 1000;
+	int maxIterations = 10;
 	Double learningRate = 0.3;
 	Double momentum = 0.0;
 
@@ -51,17 +52,19 @@ public class GDTraining extends TrainingMethod {
 //				System.out.println();
 			}
 			
+			//break;
+			
 		}
 	}
 	
 	private void backpropogate(List<Double> target, List<Double> output) {
 		
-		List<List<Double>> errors = new ArrayList<List<Double>>();
+		Map<Neuron, Double> errors = new HashMap<Neuron, Double>();
 		
 		// calculate output errors
 		calculateOutputErrors(errors, target, output);
 		
-		// update all hidden layers
+		// calculate all hidden layers errors
 		for (int hiddenLayer = outIndex - 1; hiddenLayer > 0; hiddenLayer--) {
 			// error is received from downstream neurons
 			Layer currentLayer = layers.get(hiddenLayer);
@@ -75,7 +78,7 @@ public class GDTraining extends TrainingMethod {
 		
 	}
 	
-	private void calculateOutputErrors(List<List<Double>> errors, List<Double> target, List<Double> output) {
+	private void calculateOutputErrors(Map<Neuron, Double> errors, List<Double> target, List<Double> output) {
 		
 		List<Double> outputErrors = new ArrayList<>();
 		Layer outputLayer = layers.get(outIndex);
@@ -85,42 +88,46 @@ public class GDTraining extends TrainingMethod {
 			// multiply by gradient of neuron that is being updated
 			Double error = outputLayer.getNeurons().get(neuronIndex).gradient() * diff;
 			outputErrors.add(error);
+			errors.put(outputLayer.getNeurons().get(neuronIndex), error);
 		}
-		errors.add(0, outputErrors);
+		
 	}
 
-	private void calculateHiddenErrors(List<List<Double>> errors, Layer currentLayer, Layer downstreamLayer) {
+	private void calculateHiddenErrors(Map<Neuron, Double> errors, Layer currentLayer, Layer downstreamLayer) {
+		
 		List<Double> hiddenErrors = new ArrayList<>();
 		for (int neuronIndex = 0; neuronIndex < currentLayer.getNeurons().size(); neuronIndex++) {
 			Neuron currentNeuron = currentLayer.getNeurons().get(neuronIndex);
 			List<Connection> connections = currentLayer.getOutGoingConnections().get(currentNeuron);
 			Double sumWeightedError = 0.0;
 			for (int nextNeuronIndex = 0; nextNeuronIndex < downstreamLayer.getNeurons().size(); nextNeuronIndex++) {
-				sumWeightedError += errors.get(0).get(nextNeuronIndex) * connections.get(nextNeuronIndex).getWeight();
+				Connection connection = connections.get(nextNeuronIndex);
+				sumWeightedError += errors.get(connection.getToNeuron()) * connection.getWeight();
+				//sumWeightedError += errors.get(0).get(nextNeuronIndex) * connections.get(nextNeuronIndex).getWeight();
 			}
 			
 			// multiply by gradient of neuron that is being updated
 			Double error = currentLayer.getNeurons().get(neuronIndex).gradient() * sumWeightedError;
-			hiddenErrors.add(error);
+			errors.put(currentNeuron, error);
 		}
-		errors.add(0, hiddenErrors);
+		
 	}
 	
-	private void updateWeights(List<List<Double>> errors) {
+	private void updateWeights(Map<Neuron, Double> errors) {
 		// update all weights using errors
 		for (int layer = 0; layer < layers.size() - 1; layer++) {
 			Layer currentLayer = layers.get(layer);
-			List<Double> currentErrors = errors.get(layer);
 			for (int neuronIndex = 0; neuronIndex < currentLayer.getNeurons().size(); neuronIndex++) {
 				Neuron currentNeuron = currentLayer.getNeurons().get(neuronIndex);
 				List<Connection> connections = currentLayer.getOutGoingConnections().get(currentNeuron);
 				for (int nextNeuron = 0; nextNeuron < connections.size(); nextNeuron++) {
 					Connection connection = connections.get(nextNeuron);
-					Double currentError = currentErrors.get(nextNeuron);
-					// update rule (TODO: check that error is correct)
+					Double currentError = errors.get(connection.getToNeuron());
+					
 					Double update = (learningRate * currentNeuron.getOutput() * currentError);
 					// update connection weight
-					connection.setWeight(update + (connection.getWeight() * momentum));
+					connection.setWeight(connection.getWeight() + update);
+					//connection.setWeight(update + (connection.getWeight() * momentum));
 					connection.setWeightChange(update);
 				}
 				

@@ -11,7 +11,7 @@ public class Simulator {
 	public static void main(String[] args) {
 
 		// get input data
-		Inputter inputter = new InputterCar();
+		Inputter inputter = new InputterTicTacToe();
 		inputter.parseFile();
 		List<DataPoint> data = inputter.getData();
 
@@ -24,12 +24,12 @@ public class Simulator {
 		structuralInfo.describe();
 
 		// Test GD
-//		TrainingMethod gd = new GDTraining(neuralNetwork, data);
-//		gd.mainLoop(10);
+		TrainingMethod gd = new GDTraining(neuralNetwork, data);
+		gd.mainLoop(10);
 		
 		// Test GA
-		TrainingMethod ga = new GATraining(neuralNetwork, data);
-		ga.mainLoop(10);
+//		TrainingMethod ga = new GATraining(neuralNetwork, data);
+//		ga.mainLoop(10);
 		
 	}
 

@@ -45,5 +45,13 @@ public abstract class Layer {
 	public void addKeyValuePair(Neuron key, List<Connection> value) {
 		outGoingConnections.put(key, value);
 	}
+	
+	// TODO: used for debugging, remove later
+	public void printOutputs() {
+		System.out.print("<");
+		for (Neuron neuron : neurons)
+			System.out.print(neuron.getOutput()+" ");
+		System.out.println(">");
+	}
 
 }
