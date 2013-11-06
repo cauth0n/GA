@@ -16,7 +16,7 @@ public abstract class Selection {
 	public abstract List<Individual> select();
 	
 	public Selection(Population population, Fitness fitness) {
-		this.population = population.copy();
+		setPopulation(population);
 		this.fitness = fitness;
 	}
 	
@@ -49,6 +49,10 @@ public abstract class Selection {
 		
 		return parent;
 		
+	}
+	
+	public void setPopulation(Population population) {
+		this.population = population.copy();
 	}
 
 }

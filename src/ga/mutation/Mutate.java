@@ -8,7 +8,7 @@ import java.util.List;
 
 public abstract class Mutate {
 
-	protected double spread = 0.3;
+	protected double spread = 0.05;
 	
 	protected Population mutate(Population population) {
 		List<Individual> newPopulation = new ArrayList<Individual>();

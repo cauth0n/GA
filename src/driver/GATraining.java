@@ -14,8 +14,8 @@ import neural_net.Network;
 public class GATraining extends TrainingMethod {
 	
 	private GA ga;
-	private int populationSize = 50;
-	private double mutationProbability = 0.3;
+	private int populationSize = 30;
+	private double mutationProbability = 0.1;
 	private double fitnessThreshold = 1.1;
 	int maxIterations = 1000;
 
@@ -56,10 +56,6 @@ public class GATraining extends TrainingMethod {
 		
 		neuralNetwork.setWeights(mostFit.getGenes());
 		
-	}
-	
-	private void geneticAlgorithm(List<Double> target, List<Double> output) {
-		// TODO: GA
 	}
 
 }

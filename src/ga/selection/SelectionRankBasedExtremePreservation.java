@@ -4,20 +4,73 @@ import ga.Individual;
 import ga.Population;
 import ga.fitness.Fitness;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SelectionRankBasedExtremePreservation extends Selection {
+	
+	int holdoutBest = 3;
+	int holdoutWorst = 2;
+	int returnedBest = 0;
+	int returnedWorst = 0;
+	Selection selection;
 
-	public SelectionRankBasedExtremePreservation(Population population,
-			Fitness fitness) {
+	public SelectionRankBasedExtremePreservation(Population population, Fitness fitness) {
 		super(population, fitness);
-		// TODO Auto-generated constructor stub
+		selection = new SelectionTournament(population, fitness, 5);
+		selection.setPopulation(population);
 	}
 
-	@Override
 	public List<Individual> select() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<Individual> parents = new ArrayList<Individual>(2);
+		
+		// ensure that the best and worst remain intact
+		if (returnedBest < holdoutBest) {
+			returnedBest++;
+			parents = getBest();
+			if (parents.size() < 2)
+				parents.add(population.getRandomIndividual());
+			return parents;
+		} else if (returnedWorst < holdoutWorst) {
+			returnedWorst++;
+			parents = getWorst();
+			if (parents.size() < 2)
+				parents.add(population.getRandomIndividual());
+			return parents;
+		}
+		
+		return selection.select();
+	}
+	
+	private List<Individual> getWorst() {
+		List<Individual> parents = new ArrayList<Individual>(2);
+		
+		// choose best ranking individual
+		Individual parent = population.getLeastFit();
+		parents.add(parent);
+		parents.add(parent);
+				
+		return parents;
+	}
+	
+	private List<Individual> getBest() {
+		List<Individual> parents = new ArrayList<Individual>(2);
+		
+		// choose worst ranking individual
+		Individual parent = population.getMostFit();
+		parents.add(parent);
+		parents.add(parent);
+		
+		return parents;
+	}
+	
+	public void setPopulation(Population population) {
+		super.setPopulation(population);
+		if (selection != null)
+			selection.setPopulation(population);
+		returnedBest = 0;
+		returnedWorst = 0;
 	}
 
 }

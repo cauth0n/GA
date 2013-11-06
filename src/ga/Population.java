@@ -44,6 +44,18 @@ public class Population {
 		return mostFit;
 	}
 	
+	public Individual getLeastFit() {
+		Individual leastFit = null;
+		double leastFitValue = Double.MAX_VALUE;
+		for (Individual individual : population) {
+			if (individual.getFitness() < leastFitValue) {
+				leastFit = individual;
+				leastFitValue = individual.getFitness();
+			}
+		}
+		return leastFit;
+	}
+	
 	public int getSize() {
 		return population.size();
 	}
@@ -75,5 +87,7 @@ public class Population {
 		double[] diversity = getDiversity();
 		System.out.println("("+diversity[0]+","+diversity[1]+")  => "+diversity[2]);
 	}
+	
+	// TODO: add a sort method to order by fitness. This is used too frequently by different selection methods
 
 }

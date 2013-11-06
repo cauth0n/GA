@@ -37,17 +37,8 @@ public class DE {
 		this.mutate = new MutateTrialVector();
 		this.crossover = new CrossoverNPoint();
 	}
-	
-	/**
-	 * Runs the differential evolution algorithm over all time steps.
-	 */
-	public void run() {
-		while (true) {
-			processGeneration();
-		}
-	}
 
-	private void processGeneration() {
+	public void runGeneration() {
 		ArrayList<Individual> newPopulation = new ArrayList<Individual>();
 		// loop through entire current population as parents
 		for (Individual parent : population.getPopulation()) {
@@ -74,6 +65,10 @@ public class DE {
 //				newPopulation.add(parent);
 		}
 		population = new Population(newPopulation);
+	}
+	
+	public Population getPopulation() {
+		return population;
 	}
 
 }

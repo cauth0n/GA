@@ -53,5 +53,12 @@ public class Individual {
 	public void describe() {
 		System.out.println(this);
 	}
+	
+	public boolean geneticallyEquals(Individual individual) {
+		for (int gene = 0; gene < genes.size(); gene++)
+			if (this.genes.get(gene).getValue() != individual.genes.get(gene).getValue())
+				return false;
+		return true;
+	}
 
 }

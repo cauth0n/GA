@@ -1,5 +1,8 @@
 package driver;
 
+import ga.DE;
+import ga.Individual;
+
 import java.util.List;
 import java.util.Map;
 
@@ -13,49 +16,44 @@ import neural_net.Neuron;
  */
 public class DETraining extends TrainingMethod {
 	
-	Double errorThreshold = 0.0001;
+	private DE de;
+	private int populationSize = 50;
+	private double mutationProbability = 0.05;
+	private double fitnessThreshold = 1.1;
 	int maxIterations = 1000;
-	Double learningRate = 0.9;
-	Double momentum = 0.0;
 
 	public DETraining(Network neuralNetwork, List<DataPoint> data) {
 		super(neuralNetwork, data);
 	}
 
-	@Override
 	public void train(List<DataPoint> trainSet) {
-		//TODO -- training
-		List<Double> output, target;
 		
-		for (int exampleIndex = 0; exampleIndex < trainSet.size(); exampleIndex++) {
-			DataPoint datapoint = trainSet.get(exampleIndex);
-			Double sumError = Double.MAX_VALUE;
-			target = datapoint.getOutputs();
+		fitnessMethod.calculateFitness(de.getPopulation(), neuralNetwork, trainSet);
+		
+		Individual mostFit = null;
+		double mostFitValue = 0;
+		
+		//fitness < minFitness
+		int count = 0;
+		while(maxIterations > 0 && mostFitValue < fitnessThreshold){
 			
-			// TESTING
-			Layer layer1 = neuralNetwork.getLayers().get(0);
-			Map<Neuron, List<Connection>> outgoing = layer1.getOutGoingConnections();
-			List<Connection> connections = outgoing.get(layer1.getNeurons().get(0));
-			Double weight = connections.get(0).getWeight();
-//			System.out.println("WEIGHT: "+weight);
+			maxIterations--;
+
+			de.runGeneration();
 			
-			// backpropogate until error is small enough or too many iterations have passed
-			for (int iteration = 0; sumError > errorThreshold && iteration < maxIterations; iteration++) {
-				output = networkOperations.feedForward(datapoint);
-				differentialEvolution(target, output);
-				sumError = calculateError(target, output);
-//				System.out.println(iteration+":  "+sumError);
-//				Simulator.printVector(target);
-//				Simulator.printVector(output);
-//				System.out.println();
-			}
+			fitnessMethod.calculateFitness(de.getPopulation(), neuralNetwork, trainSet);
+			
+			mostFit = de.getPopulation().getMostFit();
+			mostFitValue = mostFit.getFitness();
+			
+			//ga.getPopulation().printDiversity();
+			System.out.println(mostFitValue);
+			count++;
 			
 		}
 		
-	}
-	
-	private void differentialEvolution(List<Double> target, List<Double> output) {
-		// TODO: DE
+		neuralNetwork.setWeights(mostFit.getGenes());
+		
 	}
 
 }

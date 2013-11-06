@@ -11,7 +11,7 @@ import java.util.TreeSet;
 
 public class CrossoverNPoint extends Crossover {
 	
-	private int n = 5;
+	private int n = 2;
 	
 	public CrossoverNPoint() {
 		
@@ -58,9 +58,12 @@ public class CrossoverNPoint extends Crossover {
 			}
 		}
 		
+		Individual child1 = new Individual(chromosome1);
+		Individual child2 = new Individual(chromosome2);
+		
 		// create two children with newly formed chromosomes
-		children.add(new Individual(chromosome1));
-		children.add(new Individual(chromosome2));
+		children.add(child1);
+		children.add(child2);
 		
 		return children;
 	}
