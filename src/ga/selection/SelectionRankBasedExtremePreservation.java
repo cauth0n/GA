@@ -13,15 +13,12 @@ public class SelectionRankBasedExtremePreservation extends Selection {
 	private int holdoutWorst = 2;
 	private int returnedBest = 0;
 	private int returnedWorst = 0;
-	private Selection selection;
 
 	public SelectionRankBasedExtremePreservation(Population population, Fitness fitness) {
 		super(population, fitness);
-		selection = new SelectionTournament(population, fitness, 5);
-		selection.setPopulation(population);
 	}
 
-	public List<Individual> select() {
+	public void select() {
 		
 		List<Individual> parents = new ArrayList<Individual>(2);
 		
@@ -31,16 +28,15 @@ public class SelectionRankBasedExtremePreservation extends Selection {
 			parents = getBest();
 			if (parents.size() < 2)
 				parents.add(population.getRandomIndividual());
-			return parents;
 		} else if (returnedWorst < holdoutWorst) {
 			returnedWorst++;
 			parents = getWorst();
 			if (parents.size() < 2)
 				parents.add(population.getRandomIndividual());
-			return parents;
 		}
 		
-		return selection.select();
+		plan.add(parents.get(0), parents.get(0));
+		
 	}
 	
 	private List<Individual> getWorst() {
@@ -67,8 +63,6 @@ public class SelectionRankBasedExtremePreservation extends Selection {
 	
 	public void setPopulation(Population population) {
 		super.setPopulation(population);
-		if (selection != null)
-			selection.setPopulation(population);
 		returnedBest = 0;
 		returnedWorst = 0;
 	}

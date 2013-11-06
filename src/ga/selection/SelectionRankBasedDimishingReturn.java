@@ -15,9 +15,8 @@ public class SelectionRankBasedDimishingReturn extends Selection {
 	}
 
 	@Override
-	public List<Individual> select() {
-		// TODO Auto-generated method stub
-		return null;
+	public void select() {
+		// TODO selection method
 	}
 
 }

@@ -16,7 +16,7 @@ public class SelectionRankBasedElitist extends Selection {
 	}
 
 	@Override
-	public List<Individual> select() {
+	public void select() {
 		//TODO -- fix. This basically returns the best individual multiple times. Need to only return that individual once.
 		//Consider building a set of pairs of selections... 
 		List<Individual> parents = new ArrayList<>(numElitist);
@@ -35,7 +35,9 @@ public class SelectionRankBasedElitist extends Selection {
 		if (parents.size() < 2){
 			parents.add(population.getRandomIndividual());
 		}
-		return parents;
+		
+		plan.add(parents.get(0), parents.get(1));
+		
 	}
 
 }

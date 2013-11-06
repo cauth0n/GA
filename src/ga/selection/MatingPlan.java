@@ -13,7 +13,7 @@ public class MatingPlan {
 		
 	}
 	
-	public void addPair(Individual parent1, Individual parent2) {
+	public void add(Individual parent1, Individual parent2) {
 		List<Individual> pair = new ArrayList<Individual>(2);
 		pair.add(parent1);
 		pair.add(parent2);
@@ -29,6 +29,10 @@ public class MatingPlan {
 	
 	public List<Individual> getNext() {
 		return pairs.get(index++);
+	}
+	
+	public int size() {
+		return pairs.size();
 	}
 
 }

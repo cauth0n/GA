@@ -13,10 +13,8 @@ public class SelectionGenerational extends Selection {
 		super(population, fitness);
 	}
 	
-	public List<Individual> select() {
-		List<Individual> parents = new ArrayList<Individual>();
+	public void select() {
 		// TODO: selection algorithm
-		return parents;
 	}
 
 }

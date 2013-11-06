@@ -12,8 +12,9 @@ public abstract class Selection {
 	protected Population population;
 	protected Fitness fitness;
 	private Random random = new Random(11235);
+	protected MatingPlan plan = new MatingPlan();
 	
-	public abstract List<Individual> select();
+	public abstract void select();
 	
 	public Selection(Population population, Fitness fitness) {
 		setPopulation(population);
@@ -53,6 +54,11 @@ public abstract class Selection {
 	
 	public void setPopulation(Population population) {
 		this.population = population.copy();
+		plan = new MatingPlan();
+	}
+	
+	public MatingPlan getMatingPlan() {
+		return plan;
 	}
 
 }

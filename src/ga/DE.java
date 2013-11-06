@@ -51,7 +51,7 @@ public class DE {
 			// create a trial vector
 			Individual trial = mutate.mutate(parent, population);
 			// perform crossover with parent and trial vector
-			List<Individual> child = crossover.crossOverOneChild(parent, trial);
+			//List<Individual> child = crossover.crossOver(population, trial);
 			// evaluate fitness of child
 			
 			//TODO

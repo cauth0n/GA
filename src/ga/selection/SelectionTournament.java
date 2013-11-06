@@ -25,33 +25,32 @@ public class SelectionTournament extends Selection {
 	 * 
 	 * Consecutive calls may return same parents.
 	 */
-	public List<Individual> select() {
+	public void select() {
 		
-		List<Individual> parents = new ArrayList<Individual>();
+		// TODO: fix to not remove elements, just used sorted population list
+		
 		List<Individual> candidates = new ArrayList<Individual>();
+		population.sortPopulationByFitness();
 		
 		// evaluate fitness for every individual in population and find the sum
 		double sum = fitness.getPopulationFitnessSum(population);
 		
-		// select the two parents weighted by fitness
-		for (int candidate = 0; candidate < tournamentSize; candidate++)
-			candidates.add(selectParentProportionate(sum));
+		// create a mating pair for every element in the population (will use single child crossover)
+		while (plan.size() < population.size()) {
+			// select the two parents weighted by fitness
+			for (int candidate = 0; candidate < tournamentSize; candidate++)
+				candidates.add(selectParentProportionate(sum));
+			
+			// create tournament population from tournaments
+			Population tournament = new Population(candidates);
+			
+			// choose top ranking individuals
+			Individual parent1 = tournament.getIndividuals().get(0);
+			Individual parent2 = tournament.getIndividuals().get(1);
+			
+			plan.add(parent1, parent2);
+		}
 		
-		// create tournament population from tournaments
-		Population tournament = new Population(candidates);
-		
-		// choose best ranking individual as parent 1
-		Individual parent1 = tournament.getMostFit();
-		parents.add(parent1);
-		
-		// remove parent 1 from population so it is not chosen every time
-		tournament.remove(parent1);
-		
-		// choose next best individual for parent 2
-		Individual parent2 = tournament.getMostFit();
-		parents.add(parent2);
-		
-		return parents;
 	}
 
 }

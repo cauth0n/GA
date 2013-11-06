@@ -13,17 +13,14 @@ public class SelectionFitnessProportionate extends Selection {
 		super(population, fitness);
 	}
 	
-	public List<Individual> select() {
-		List<Individual> parents = new ArrayList<Individual>();
+	public void select() {
 		
 		// evaluate fitness for every individual in population and find the sum
 		double sum = fitness.getPopulationFitnessSum(population);
 		
 		// select the two parents weighted by fitness
-		parents.add(selectParentProportionate(sum));
-		parents.add(selectParentProportionate(sum));
+		plan.add(selectParentProportionate(sum), selectParentProportionate(sum));
 		
-		return parents;
 	}
 
 }

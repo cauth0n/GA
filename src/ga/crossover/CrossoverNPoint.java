@@ -2,6 +2,7 @@ package ga.crossover;
 
 import ga.Gene;
 import ga.Individual;
+import ga.selection.MatingPlan;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ public class CrossoverNPoint extends Crossover {
 		this.n = crossovers;
 	}
 
-	public List<Individual> crossOverTwoChildren(Individual individual1, Individual individual2) {
+	protected List<Individual> crossOverParents(Individual individual1, Individual individual2) {
 		
 		// create list of children
 		List<Individual> children = new ArrayList<Individual>(2);

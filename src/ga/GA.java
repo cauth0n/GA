@@ -10,6 +10,7 @@ import ga.mutation.Mutate;
 import ga.mutation.MutateUniformDistribution;
 import ga.selection.Selection;
 import ga.selection.SelectionRankBasedElitist;
+import ga.selection.SelectionTournament;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,14 +32,14 @@ public class GA {
 				chromosomeSize);
 		this.mutationProbability = mutationProbability;
 		this.fitness = new FitnessDefault();
-		// this.selection = new SelectionTournament(this.population,
-		// this.fitness, 5);
+		this.selection = new SelectionTournament(this.population,
+										this.fitness, 5);
 		// this.selection = new SelectionRankBased(this.population,
 		// this.fitness);
 		// this.selection = new
 		// SelectionRankBasedExtremePreservation(this.population, this.fitness);
-		this.selection = new SelectionRankBasedElitist(this.population,
-				this.fitness);
+//		this.selection = new SelectionRankBasedElitist(this.population,
+//				this.fitness);
 		this.mutate = new MutateUniformDistribution();
 		this.crossover = new CrossoverNPoint();
 		random = new Random(11235);
@@ -54,13 +55,10 @@ public class GA {
 		while (newPopulation.size() < population.getSize()) {
 
 			// select parents from current population
-			List<Individual> parents = selection.select();
+			selection.select();
 
-			Individual parent1 = parents.get(0);
-			Individual parent2 = parents.get(1);
 			// reproduce a single offspring
-			List<Individual> children = crossover.crossOverTwoChildren(parent1,
-					parent2);
+			List<Individual> children = crossover.crossOver(population, selection.getMatingPlan());
 			// with some small probability, mutate child
 			for (Individual child : children) {
 				if (child.canMutate()) {
