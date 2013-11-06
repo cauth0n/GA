@@ -9,11 +9,11 @@ import java.util.List;
 
 public class SelectionRankBasedExtremePreservation extends Selection {
 	
-	int holdoutBest = 3;
-	int holdoutWorst = 2;
-	int returnedBest = 0;
-	int returnedWorst = 0;
-	Selection selection;
+	private int holdoutBest = 3;
+	private int holdoutWorst = 2;
+	private int returnedBest = 0;
+	private int returnedWorst = 0;
+	private Selection selection;
 
 	public SelectionRankBasedExtremePreservation(Population population, Fitness fitness) {
 		super(population, fitness);

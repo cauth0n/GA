@@ -14,7 +14,7 @@ public class FitnessDefault extends Fitness {
 	public void calculateFitness(Population population, Network neuralNetwork, List<DataPoint> testSet) {
 		double fitness = 0.0;
 		
-		for (Individual individual : population.getPopulation()){
+		for (Individual individual : population.getIndividuals()){
 		
 			//individual genes to network weights
 			neuralNetwork.setWeights(individual.getGenes());

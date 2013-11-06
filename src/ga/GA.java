@@ -9,16 +9,14 @@ import ga.initialize.InitializeDefault;
 import ga.mutation.Mutate;
 import ga.mutation.MutateUniformDistribution;
 import ga.selection.Selection;
-import ga.selection.SelectionFitnessProportionate;
-import ga.selection.SelectionRankBasedExtremePreservation;
-import ga.selection.SelectionTournament;
+import ga.selection.SelectionRankBasedElitist;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class GA {
-	
+
 	private Random random;
 	private Population population;
 	private double mutationProbability;
@@ -26,22 +24,28 @@ public class GA {
 	private Fitness fitness;
 	private Mutate mutate;
 	private Crossover crossover;
-	
+
 	public GA(int populationSize, int chromosomeSize, double mutationProbability) {
 		Initialize init = new InitializeDefault();
-		this.population = init.initializePopulation(populationSize, chromosomeSize);
+		this.population = init.initializePopulation(populationSize,
+				chromosomeSize);
 		this.mutationProbability = mutationProbability;
 		this.fitness = new FitnessDefault();
-		//this.selection = new SelectionTournament(this.population, this.fitness, 5);
-		//this.selection = new SelectionRankBased(this.population, this.fitness);
-		this.selection = new SelectionRankBasedExtremePreservation(this.population, this.fitness);
+		// this.selection = new SelectionTournament(this.population,
+		// this.fitness, 5);
+		// this.selection = new SelectionRankBased(this.population,
+		// this.fitness);
+		// this.selection = new
+		// SelectionRankBasedExtremePreservation(this.population, this.fitness);
+		this.selection = new SelectionRankBasedElitist(this.population,
+				this.fitness);
 		this.mutate = new MutateUniformDistribution();
 		this.crossover = new CrossoverNPoint();
 		random = new Random(11235);
 	}
 
 	public void runGeneration() {
-		
+
 		// ensure the selection is pointing at the correct population
 		selection.setPopulation(population);
 
@@ -53,19 +57,21 @@ public class GA {
 			Individual parent1 = parents.get(0);
 			Individual parent2 = parents.get(1);
 			// reproduce a single offspring
-			List<Individual> children = crossover.crossOverTwoChildren(parent1, parent2);
+			List<Individual> children = crossover.crossOverTwoChildren(parent1,
+					parent2);
 			// with some small probability, mutate child
 			for (Individual child : children) {
-				if (random.nextDouble() < mutationProbability) {
-					child = mutate.mutate(child, population);
+				if (child.canMutate()) {
+					if (random.nextDouble() < mutationProbability) {
+						child = mutate.mutate(child, population);
+					}
 				}
 				// add child to individual list for the new population
 				newPopulation.add(child);
 			}
-			
+
 		}
 
-		
 		// create new population from list of child individuals
 		population = new Population(newPopulation);
 
@@ -74,7 +80,5 @@ public class GA {
 	public Population getPopulation() {
 		return population;
 	}
-	
-	
 
 }

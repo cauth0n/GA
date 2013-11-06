@@ -1,26 +1,34 @@
 package ga;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class Individual {
-	
+
 	private double minValue = -0.3;
 	private double maxValue = 0.3;
 	private double fitness = -1.0;
 	private List<Gene> genes;
+	private boolean canMutate;
+	private boolean canCrossover;
 
 	public Individual(int chromosomeSize, int seed) {
 		genes = new ArrayList<>(chromosomeSize);
 		Random rand = new Random(11235 * seed);
-		for (int geneNum = 0; geneNum < chromosomeSize; geneNum++){
-			double initValue = minValue + (rand.nextDouble() * (maxValue - minValue));
+		for (int geneNum = 0; geneNum < chromosomeSize; geneNum++) {
+			double initValue = minValue
+					+ (rand.nextDouble() * (maxValue - minValue));
 			genes.add(new GeneReal(initValue));
 		}
+		this.canMutate = true;
+		this.canCrossover = true;
 	}
-	
+
 	public Individual(List<Gene> genes) {
 		setGenes(genes);
+		this.canMutate = true;
+		this.canCrossover = true;
 	}
 
 	public void setFitness(double fitness) {
@@ -29,7 +37,8 @@ public class Individual {
 
 	public double getFitness() {
 		if (fitness < 0.0)
-			throw new IllegalArgumentException("You must first evaluate fitness of the individual using a fitness function.");
+			throw new IllegalArgumentException(
+					"You must first evaluate fitness of the individual using a fitness function.");
 		return fitness;
 	}
 
@@ -40,25 +49,44 @@ public class Individual {
 	public List<Gene> getGenes() {
 		return genes;
 	}
-	
+
 	public String toString() {
 		String value = "[";
 		for (Gene gene : genes) {
-			value += gene.getValue()+ ",";
+			value += gene.getValue() + ",";
 		}
 		value += "]\n";
 		return value;
 	}
-	
+
 	public void describe() {
 		System.out.println(this);
 	}
-	
+
 	public boolean geneticallyEquals(Individual individual) {
 		for (int gene = 0; gene < genes.size(); gene++)
-			if (this.genes.get(gene).getValue() != individual.genes.get(gene).getValue())
+			if (this.genes.get(gene).getValue() != individual.genes.get(gene)
+					.getValue())
 				return false;
 		return true;
 	}
+
+	public boolean canMutate() {
+		return canMutate;
+	}
+
+	public void setMutate(boolean canMutate) {
+		this.canMutate = canMutate;
+	}
+
+	public boolean canCrossover() {
+		return canCrossover;
+	}
+
+	public void setCrossover(boolean canCrossover) {
+		this.canCrossover = canCrossover;
+	}
+	
+	
 
 }

@@ -12,50 +12,50 @@ import neural_net.Network;
  * @author cauthon
  */
 public class GATraining extends TrainingMethod {
-	
+
 	private GA ga;
 	private int populationSize = 30;
-	private double mutationProbability = 0.1;
-	private double fitnessThreshold = 1.1;
+	private double mutationProbability = 0.05;
+	private double fitnessThreshold = 0.9;
 	int maxIterations = 1000;
 
 	public GATraining(Network neuralNetwork, List<DataPoint> data) {
 		super(neuralNetwork, data);
 		fitnessMethod = new FitnessDefault();
 		ga = new GA(populationSize, neuralNetwork.size(), mutationProbability);
-		
+
 	}
-	
 
 	@Override
 	public void train(List<DataPoint> trainSet) {
-		
-		fitnessMethod.calculateFitness(ga.getPopulation(), neuralNetwork, trainSet);
-		
+
+		fitnessMethod.calculateFitness(ga.getPopulation(), neuralNetwork,
+				trainSet);
+
 		Individual mostFit = null;
 		double mostFitValue = 0;
-		
-		//fitness < minFitness
+
+		// fitness < minFitness
 		int count = 0;
-		while(maxIterations > 0 && mostFitValue < fitnessThreshold){
-			
+		while (maxIterations > 0 && mostFitValue < fitnessThreshold) {
+
 			maxIterations--;
 
 			ga.runGeneration();
-			
-			fitnessMethod.calculateFitness(ga.getPopulation(), neuralNetwork, trainSet);
-			
+
+			fitnessMethod.calculateFitness(ga.getPopulation(), neuralNetwork,
+					trainSet);
+
 			mostFit = ga.getPopulation().getMostFit();
 			mostFitValue = mostFit.getFitness();
-			
-			//ga.getPopulation().printDiversity();
+
+			// ga.getPopulation().printDiversity();
 			System.out.println(mostFitValue);
 			count++;
-			
 		}
-		
+
 		neuralNetwork.setWeights(mostFit.getGenes());
-		
+
 	}
 
 }

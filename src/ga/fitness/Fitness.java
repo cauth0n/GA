@@ -17,7 +17,7 @@ public abstract class Fitness {
 	 */
 	public double getPopulationFitnessSum(Population population) {
 		double fitness = 0.0;
-		for (Individual individual : population.getPopulation())
+		for (Individual individual : population.getIndividuals())
 			fitness += individual.getFitness();
 		return fitness;
 	}

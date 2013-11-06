@@ -12,7 +12,7 @@ public abstract class Mutate {
 	
 	protected Population mutate(Population population) {
 		List<Individual> newPopulation = new ArrayList<Individual>();
-		for (Individual individual : population.getPopulation())
+		for (Individual individual : population.getIndividuals())
 			newPopulation.add(mutate(individual, population));
 		return new Population(newPopulation);
 	}

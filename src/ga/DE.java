@@ -41,7 +41,7 @@ public class DE {
 	public void runGeneration() {
 		ArrayList<Individual> newPopulation = new ArrayList<Individual>();
 		// loop through entire current population as parents
-		for (Individual parent : population.getPopulation()) {
+		for (Individual parent : population.getIndividuals()) {
 			// evaluate fitness of parent
 			
 			//TODO

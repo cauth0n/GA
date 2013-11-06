@@ -37,7 +37,7 @@ public abstract class Selection {
 		
 		// based on selection, choose individual that has been chosen, giving a proportional probability based on fitness
 		double runningFitnessTotal = 0.0;
-		for (Individual individual : population.getPopulation()) {
+		for (Individual individual : population.getIndividuals()) {
 			// this is the chosen random individual, break from loop
 			if (select > runningFitnessTotal && select < runningFitnessTotal + individual.getFitness()) {
 				parent = individual;

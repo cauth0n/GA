@@ -5,22 +5,21 @@ import ga.Individual;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
 
 public class CrossoverNPoint extends Crossover {
-	
+
 	private int n = 2;
-	
+
 	public CrossoverNPoint() {
-		
+
 	}
-	
+
 	CrossoverNPoint(int crossovers) {
 		this.n = crossovers;
 	}
-	
+
 	public List<Individual> crossOverTwoChildren(Individual individual1, Individual individual2) {
 		
 		// create list of children
@@ -58,8 +57,19 @@ public class CrossoverNPoint extends Crossover {
 			}
 		}
 		
-		Individual child1 = new Individual(chromosome1);
-		Individual child2 = new Individual(chromosome2);
+		Individual child1 = null; 
+		Individual child2 = null;
+		
+		if (individual1.canCrossover()){
+			child1 = new Individual(chromosome1);
+		}else{
+			child1 = individual1; 
+		}
+		if (individual2.canCrossover()){
+			child2 = new Individual(chromosome2);
+		}else{
+			child2 = individual2;
+		}
 		
 		// create two children with newly formed chromosomes
 		children.add(child1);
@@ -67,6 +77,4 @@ public class CrossoverNPoint extends Crossover {
 		
 		return children;
 	}
-
 }
-
