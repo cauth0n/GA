@@ -49,7 +49,7 @@ public class GATraining extends TrainingMethod {
 			mostFit = ga.getPopulation().getMostFit();
 			mostFitValue = mostFit.getFitness();
 
-			// ga.getPopulation().printDiversity();
+			 //ga.getPopulation().printDiversity();
 			System.out.println(mostFitValue);
 			count++;
 		}

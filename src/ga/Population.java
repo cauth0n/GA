@@ -95,12 +95,12 @@ public class Population {
 	 */
 	public void sortPopulationByFitness() {
 		for (int i = 0; i < population.size(); i++) {
-			for (int j = 1; j < population.size() - 1 - i; j++) {
+			for (int j = 0; j < population.size() - 1 - i; j++) {
 				if (population.get(j).getFitness() < population.get(j + 1)
 						.getFitness()) {
 					Individual temp = population.get(j);
-					population.set(j, population.get(j + 1));
-					population.set(j + 1, temp);
+					this.population.set(j, population.get(j + 1));
+					this.population.set(j + 1, temp);
 				}
 			}
 		}

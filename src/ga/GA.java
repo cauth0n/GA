@@ -52,8 +52,10 @@ public class GA {
 		// create a new population of the same size as the current population
 		List<Individual> newPopulation = new ArrayList<Individual>();
 		while (newPopulation.size() < population.getSize()) {
+
 			// select parents from current population
 			List<Individual> parents = selection.select();
+
 			Individual parent1 = parents.get(0);
 			Individual parent2 = parents.get(1);
 			// reproduce a single offspring
