@@ -12,12 +12,14 @@ public abstract class Selection {
 	protected Population population;
 	protected Fitness fitness;
 	private Random random = new Random(11235);
-	protected MatingPlan plan = new MatingPlan();
+	protected MatingPlan plan;
 	
-	public abstract void select();
+	public void select(Population population) {
+		this.population = population;
+		plan = new MatingPlan();
+	}
 	
-	public Selection(Population population, Fitness fitness) {
-		setPopulation(population);
+	public Selection(Fitness fitness) {
 		this.fitness = fitness;
 	}
 	
@@ -50,11 +52,6 @@ public abstract class Selection {
 		
 		return parent;
 		
-	}
-	
-	public void setPopulation(Population population) {
-		this.population = population.copy();
-		plan = new MatingPlan();
 	}
 	
 	public MatingPlan getMatingPlan() {

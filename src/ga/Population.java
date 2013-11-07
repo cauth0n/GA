@@ -32,29 +32,34 @@ public class Population {
 		}
 		return runningFitness;
 	}
-
+	
 	public Individual getMostFit() {
-		Individual mostFit = null;
-		double mostFitValue = Double.MIN_VALUE;
-		for (Individual individual : population) {
-			if (individual.getFitness() > mostFitValue) {
-				mostFit = individual;
-				mostFitValue = individual.getFitness();
-			}
-		}
-		return mostFit;
+		return getMostFit(1);
 	}
 
-	public Individual getLeastFit() {
-		Individual leastFit = null;
-		double leastFitValue = Double.MAX_VALUE;
-		for (Individual individual : population) {
-			if (individual.getFitness() < leastFitValue) {
-				leastFit = individual;
-				leastFitValue = individual.getFitness();
-			}
-		}
-		return leastFit;
+	/**
+	 * Retrieves the ith most fit individual from the population.
+	 * Assumes population is sorted.
+	 * 
+	 * @param position
+	 * @return
+	 */
+	public Individual getMostFit(int position) {
+		if (position < 1 || position > population.size())
+			throw new IllegalArgumentException("Invalid position.");
+		return population.get(position - 1);
+	}
+
+	/**
+	 * Retrieves the ith least fit individual from the population.
+	 * Assumes population is sorted.
+	 * 
+	 * @return
+	 */
+	public Individual getLeastFit(int position) {
+		if (position < 1 || position > population.size())
+			throw new IllegalArgumentException("Invalid position.");
+		return population.get(population.size() - position);
 	}
 
 	public int getSize() {
@@ -96,8 +101,7 @@ public class Population {
 	public void sortPopulationByFitness() {
 		for (int i = 0; i < population.size(); i++) {
 			for (int j = 0; j < population.size() - 1 - i; j++) {
-				if (population.get(j).getFitness() < population.get(j + 1)
-						.getFitness()) {
+				if (population.get(j).getFitness() < population.get(j + 1).getFitness()) {
 					Individual temp = population.get(j);
 					this.population.set(j, population.get(j + 1));
 					this.population.set(j + 1, temp);

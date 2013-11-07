@@ -9,12 +9,12 @@ import java.util.List;
 
 public class SelectionGenerational extends Selection {
 	
-	public SelectionGenerational(Population population, Fitness fitness) {
-		super(population, fitness);
+	public SelectionGenerational(Fitness fitness) {
+		super(fitness);
 	}
 	
-	public void select() {
-		// TODO: selection algorithm
+	public void select(Population population) {
+		super.select(population);
 	}
 
 }

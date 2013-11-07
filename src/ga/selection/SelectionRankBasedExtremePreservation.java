@@ -14,57 +14,38 @@ public class SelectionRankBasedExtremePreservation extends Selection {
 	private int returnedBest = 0;
 	private int returnedWorst = 0;
 
-	public SelectionRankBasedExtremePreservation(Population population, Fitness fitness) {
-		super(population, fitness);
+	public SelectionRankBasedExtremePreservation(Fitness fitness) {
+		super(fitness);
 	}
 
-	public void select() {
+	public void select(Population population) {
+		super.select(population);
 		
-		List<Individual> parents = new ArrayList<Individual>(2);
+		// best of population
+		Individual best1 = population.getMostFit(1);
+		Individual best2 = population.getMostFit(2);
+		Individual best3 = population.getMostFit(3);
+		// worst of population
+		Individual worst1 = population.getLeastFit(1);
+		Individual worst2 = population.getLeastFit(2);
+		Individual worst3 = population.getLeastFit(3);
 		
-		// ensure that the best and worst remain intact
-		if (returnedBest < holdoutBest) {
-			returnedBest++;
-			parents = getBest();
-			if (parents.size() < 2)
-				parents.add(population.getRandomIndividual());
-		} else if (returnedWorst < holdoutWorst) {
-			returnedWorst++;
-			parents = getWorst();
-			if (parents.size() < 2)
-				parents.add(population.getRandomIndividual());
+		// add custom pairs, holding out extremes
+		best1.setMutate(false);
+		plan.add(best1, best1);
+		plan.add(best2, best2);
+		plan.add(best3, best3);
+		plan.add(worst1, worst1);
+		//plan.add(worst2, worst2);
+		//plan.add(worst3, worst3);
+		
+		// create a mating pair for every element in the population (will use single child crossover)
+		while (plan.size() < population.size()) {
+			Individual random1 = population.getRandomIndividual();
+			Individual random2 = population.getRandomIndividual();
+			plan.add(random1, random2);
 		}
 		
-		plan.add(parents.get(0), parents.get(0));
-		
-	}
-	
-	private List<Individual> getWorst() {
-		List<Individual> parents = new ArrayList<Individual>(2);
-		
-		// choose best ranking individual
-		Individual parent = population.getLeastFit();
-		parents.add(parent);
-		parents.add(parent);
-				
-		return parents;
-	}
-	
-	private List<Individual> getBest() {
-		List<Individual> parents = new ArrayList<Individual>(2);
-		
-		// choose worst ranking individual
-		Individual parent = population.getMostFit();
-		parents.add(parent);
-		parents.add(parent);
-		
-		return parents;
-	}
-	
-	public void setPopulation(Population population) {
-		super.setPopulation(population);
-		returnedBest = 0;
-		returnedWorst = 0;
 	}
 
 }

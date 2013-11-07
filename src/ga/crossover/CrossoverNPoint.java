@@ -11,7 +11,7 @@ import java.util.TreeSet;
 
 public class CrossoverNPoint extends Crossover {
 
-	private int n = 2;
+	private int n = 1;
 
 	public CrossoverNPoint() {
 
@@ -38,17 +38,19 @@ public class CrossoverNPoint extends Crossover {
 		Set<Integer> crossovers = new TreeSet<Integer>();
 		
 		// pick 'n' random crossover points in chromosome
-		while (crossovers.size() < n)
-			crossovers.add(random.nextInt(chromosome1.size()));
+		while (crossovers.size() < n) {
+			int split = random.nextInt(chromosome1.size());
+			crossovers.add(split);
+		}
 		
 		// for each gene, choose from each parent based on which crossover we are on
-		boolean useChomosome1 = true;
+		boolean useChromosome1 = true;
 		for (int gene = 0; gene < chromosome1.size(); gene++) {
 			// if this is a crossover location, toggle boolean
 			if (crossovers.contains(gene))
-				useChomosome1 = !useChomosome1;
+				useChromosome1 = !useChromosome1;
 			// use chromosome one for primary child
-			if (useChomosome1) {
+			if (useChromosome1) {
 				newChromosome1.add(chromosome1.get(gene));
 				newChromosome2.add(chromosome2.get(gene));
 			// use chromosome two for primary child
@@ -62,12 +64,12 @@ public class CrossoverNPoint extends Crossover {
 		Individual child2 = null;
 		
 		if (individual1.canCrossover()){
-			child1 = new Individual(chromosome1);
+			child1 = new Individual(newChromosome1);
 		}else{
 			child1 = individual1; 
 		}
 		if (individual2.canCrossover()){
-			child2 = new Individual(chromosome2);
+			child2 = new Individual(newChromosome2);
 		}else{
 			child2 = individual2;
 		}

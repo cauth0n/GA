@@ -12,11 +12,11 @@ public abstract class Crossover {
 	
 	Random random = new Random(11235);
 	
-	public List<Individual> crossOver(Population population, MatingPlan plan) {
+	public Population crossOver(Population population, MatingPlan plan) {
 		if (plan.size() == population.size()) {
-			return crossOverOneChild(plan);
+			return new Population(crossOverOneChild(plan));
 		} else if (plan.size() == (population.size() / 2)) {
-			return crossOverTwoChildren(plan);
+			return new Population(crossOverTwoChildren(plan));
 		} else {
 			throw new IllegalArgumentException("Invalid MatingPlan size. Population size = "+population.size()+", MatingPlan size = "+plan.size());
 		}
@@ -33,6 +33,7 @@ public abstract class Crossover {
 			List<Individual> parents = plan.getNext();
 			List<Individual> results = crossOverParents(parents.get(0), parents.get(1));
 			children.add(results.get(child));
+			//System.out.println(parents.get(0).geneticallyEquals(results.get(child)));
 		}
 		return children;
 	}

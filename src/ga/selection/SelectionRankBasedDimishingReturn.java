@@ -8,15 +8,14 @@ import java.util.List;
 
 public class SelectionRankBasedDimishingReturn extends Selection {
 
-	public SelectionRankBasedDimishingReturn(Population population,
-			Fitness fitness) {
-		super(population, fitness);
+	public SelectionRankBasedDimishingReturn(Fitness fitness) {
+		super(fitness);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public void select() {
-		// TODO selection method
+	public void select(Population population) {
+		super.select(population);
 	}
 
 }

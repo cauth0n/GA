@@ -9,11 +9,12 @@ import java.util.List;
 
 public class SelectionFitnessProportionate extends Selection {
 	
-	public SelectionFitnessProportionate(Population population, Fitness fitness) {
-		super(population, fitness);
+	public SelectionFitnessProportionate(Fitness fitness) {
+		super(fitness);
 	}
 	
-	public void select() {
+	public void select(Population population) {
+		super.select(population);
 		
 		// evaluate fitness for every individual in population and find the sum
 		double sum = fitness.getPopulationFitnessSum(population);

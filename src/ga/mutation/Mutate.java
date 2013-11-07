@@ -10,10 +10,14 @@ public abstract class Mutate {
 
 	protected double spread = 0.05;
 	
-	protected Population mutate(Population population) {
+	public Population mutate(Population population) {
 		List<Individual> newPopulation = new ArrayList<Individual>();
-		for (Individual individual : population.getIndividuals())
-			newPopulation.add(mutate(individual, population));
+		for (Individual individual : population.getIndividuals()) {
+			if (individual.canMutate())
+				newPopulation.add(mutate(individual, population));
+			else
+				newPopulation.add(individual);
+		}
 		return new Population(newPopulation);
 	}
 	

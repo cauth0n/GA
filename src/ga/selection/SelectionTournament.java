@@ -11,10 +11,8 @@ public class SelectionTournament extends Selection {
 	
 	private int tournamentSize;
 	
-	public SelectionTournament(Population population, Fitness fitness, int tournamentSize) {
-		super(population, fitness);
-		if (tournamentSize > population.size())
-			throw new IllegalArgumentException("Tournament size must be smaller than entire population.");
+	public SelectionTournament(Fitness fitness, int tournamentSize) {
+		super(fitness);
 		this.tournamentSize = tournamentSize;
 	}
 	
@@ -25,12 +23,14 @@ public class SelectionTournament extends Selection {
 	 * 
 	 * Consecutive calls may return same parents.
 	 */
-	public void select() {
+	public void select(Population population) {
+		super.select(population);
+		if (tournamentSize > population.size())
+			throw new IllegalArgumentException("Tournament size must be smaller than entire population.");
 		
 		// TODO: fix to not remove elements, just used sorted population list
 		
 		List<Individual> candidates = new ArrayList<Individual>();
-		population.sortPopulationByFitness();
 		
 		// evaluate fitness for every individual in population and find the sum
 		double sum = fitness.getPopulationFitnessSum(population);

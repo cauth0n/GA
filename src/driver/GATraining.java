@@ -16,7 +16,7 @@ public class GATraining extends TrainingMethod {
 	private GA ga;
 	private int populationSize = 30;
 	private double mutationProbability = 0.05;
-	private double fitnessThreshold = 0.9;
+	private double fitnessThreshold = 0.95;
 	int maxIterations = 1000;
 
 	public GATraining(Network neuralNetwork, List<DataPoint> data) {
@@ -43,8 +43,8 @@ public class GATraining extends TrainingMethod {
 
 			ga.runGeneration();
 
-			fitnessMethod.calculateFitness(ga.getPopulation(), neuralNetwork,
-					trainSet);
+			fitnessMethod.calculateFitness(ga.getPopulation(), neuralNetwork, trainSet);
+			ga.getPopulation().sortPopulationByFitness();
 
 			mostFit = ga.getPopulation().getMostFit();
 			mostFitValue = mostFit.getFitness();

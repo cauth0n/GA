@@ -9,12 +9,8 @@ import java.util.List;
 
 public class SelectionRankBased extends Selection {
 	
-	public SelectionRankBased(Population population, Fitness fitness) {
-		super(population, fitness);
-	}
-	
-	public void setPopulation(Population population) {
-		this.population = population;
+	public SelectionRankBased(Fitness fitness) {
+		super(fitness);
 	}
 	
 	/**
@@ -22,7 +18,8 @@ public class SelectionRankBased extends Selection {
 	 * Individuals are removed as chosen, so consecutive calls
 	 * return different parents until another constructor is called.
 	 */
-	public void select() {
+	public void select(Population population) {
+		super.select(population);
 		
 		// TODO: change this to use the sorted population, don't remove individuals
 		

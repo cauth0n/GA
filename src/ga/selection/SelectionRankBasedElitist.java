@@ -11,12 +11,14 @@ public class SelectionRankBasedElitist extends Selection {
 
 	private int numElitist = 1;// keeps n best individuals
 
-	public SelectionRankBasedElitist(Population population, Fitness fitness) {
-		super(population, fitness);
+	public SelectionRankBasedElitist(Fitness fitness) {
+		super(fitness);
 	}
 
 	@Override
-	public void select() {
+	public void select(Population population) {
+		super.select(population);
+		
 		//TODO -- fix. This basically returns the best individual multiple times. Need to only return that individual once.
 		//Consider building a set of pairs of selections... 
 		List<Individual> parents = new ArrayList<>(numElitist);
