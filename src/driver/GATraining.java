@@ -14,8 +14,8 @@ import neural_net.Network;
 public class GATraining extends TrainingMethod {
 
 	private GA ga;
-	private int populationSize = 30;
-	private double mutationProbability = 0.05;
+	private int populationSize = 40;
+	private double mutationProbability = 0.03;
 	private double fitnessThreshold = 0.95;
 	int maxIterations = 1000;
 

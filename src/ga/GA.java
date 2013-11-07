@@ -11,8 +11,6 @@ import ga.mutation.MutateUniformDistribution;
 import ga.selection.Selection;
 import ga.selection.SelectionRankBasedExtremePreservation;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class GA {
@@ -42,13 +40,14 @@ public class GA {
 	}
 
 	public void runGeneration() {
-
-		// ensure the selection is pointing at the correct population
+		
 		selection.select(population);
 		
 		Population children = crossover.crossOver(population, selection.getMatingPlan());
 		
-		population = mutate.mutate(children);
+		children = mutate.mutate(children, mutationProbability);
+		
+		population = children;
 
 	}
 

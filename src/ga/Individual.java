@@ -10,8 +10,8 @@ public class Individual {
 	private double maxValue = 0.3;
 	private double fitness = -1.0;
 	private List<Gene> genes;
-	private boolean canMutate;
-	private boolean canCrossover;
+	private boolean canMutate = true;
+	private boolean canCrossover = true;
 
 	public Individual(int chromosomeSize, int seed) {
 		genes = new ArrayList<>(chromosomeSize);
@@ -21,14 +21,10 @@ public class Individual {
 					+ (rand.nextDouble() * (maxValue - minValue));
 			genes.add(new GeneReal(initValue));
 		}
-		this.canMutate = true;
-		this.canCrossover = true;
 	}
 
 	public Individual(List<Gene> genes) {
 		setGenes(genes);
-		this.canMutate = true;
-		this.canCrossover = true;
 	}
 
 	public void setFitness(double fitness) {

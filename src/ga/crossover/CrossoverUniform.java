@@ -44,8 +44,8 @@ public class CrossoverUniform extends Crossover {
 		}
 		
 		// create two children with newly formed chromosomes
-		children.add(new Individual(chromosome1));
-		children.add(new Individual(chromosome2));
+		children.add(new Individual(newChromosome1));
+		children.add(new Individual(newChromosome2));
 		
 		return children;
 	}

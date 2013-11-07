@@ -32,22 +32,33 @@ public abstract class Crossover {
 				child = 1;
 			List<Individual> parents = plan.getNext();
 			List<Individual> results = crossOverParents(parents.get(0), parents.get(1));
-			children.add(results.get(child));
-			//System.out.println(parents.get(0).geneticallyEquals(results.get(child)));
+			Individual result1 = results.get(child);
+			// if parent is mating with itself, do not allow mutation
+			if (parents.get(0).equals(parents.get(1))) {
+				result1.setMutate(false);
+			}
+			children.add(result1);
 		}
 		return children;
 	}
 	
 	protected List<Individual> crossOverTwoChildren(MatingPlan plan) {
-		List<Individual> children = new ArrayList<>(1);
+		List<Individual> children = new ArrayList<>(2);
 		while (plan.hasNext()) {
 			int child = 0;
 			if (random.nextBoolean())
 				child = 1;
 			List<Individual> parents = plan.getNext();
 			List<Individual> results = crossOverParents(parents.get(0), parents.get(1));
-			children.add(results.get(0));
-			children.add(results.get(1));
+			Individual result1 = results.get(0);
+			Individual result2 = results.get(1);
+			children.add(result1);
+			children.add(result2);
+			// if parent is mating with itself, do not allow mutation
+			if (parents.get(0).equals(parents.get(1))) {
+				result1.setMutate(false);
+				result2.setMutate(false);
+			}
 		}
 		return children;
 	}
