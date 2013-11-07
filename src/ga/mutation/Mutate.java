@@ -9,18 +9,27 @@ import java.util.Random;
 
 public abstract class Mutate {
 
-	protected double spread = 0.02;
+	protected double spread = 0.3;
 	protected Random random = new Random(11235);
 	
 	public Population mutate(Population population, Double probability) {
 		List<Individual> newPopulation = new ArrayList<Individual>();
+		
+
+		
 		for (Individual individual : population.getIndividuals()) {
+			
 			if (individual.canMutate() && random.nextDouble() < probability) {
-				newPopulation.add(mutate(individual, population));
+				Individual mutated = mutate(individual, population);
+				//newPopulation.add(mutated);
+				//System.out.println("---");
+				newPopulation.add(individual);
 			} else {
 				newPopulation.add(individual);
 			}
+			
 		}
+		
 		return new Population(newPopulation);
 	}
 	

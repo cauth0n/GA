@@ -1,61 +1,60 @@
 package driver;
 
-import java.util.List;
-import java.util.Map;
+import ga.ES;
+import ga.fitness.FitnessDefault;
 
-import neural_net.Connection;
-import neural_net.Layer;
+import java.util.List;
+
 import neural_net.Network;
-import neural_net.Neuron;
 
 /**
  * @author cauthon
  */
 public class ESTraining extends TrainingMethod {
 	
-	Double errorThreshold = 0.0001;
+	private ES es;
+	private int populationSize = 40;
+	private double mutationProbability = 0.5;
 	int maxIterations = 1000;
-	Double learningRate = 0.9;
-	Double momentum = 0.0;
+	
+	private String type = "+";
+	private double mu;
+	private double lambda;
 
 	public ESTraining(Network neuralNetwork, List<DataPoint> data) {
 		super(neuralNetwork, data);
+		fitnessMethod = new FitnessDefault();
+		es = new ES(populationSize, neuralNetwork.size(), mutationProbability);
+		checkParams();
 	}
 
-	@Override
+	
 	public void train(List<DataPoint> trainSet) {
-		//TODO -- training
-		List<Double> output, target;
 		
-		for (int exampleIndex = 0; exampleIndex < trainSet.size(); exampleIndex++) {
-			DataPoint datapoint = trainSet.get(exampleIndex);
-			Double sumError = Double.MAX_VALUE;
-			target = datapoint.getOutputs();
-			
-			// TESTING
-			Layer layer1 = neuralNetwork.getLayers().get(0);
-			Map<Neuron, List<Connection>> outgoing = layer1.getOutGoingConnections();
-			List<Connection> connections = outgoing.get(layer1.getNeurons().get(0));
-			Double weight = connections.get(0).getWeight();
-//			System.out.println("WEIGHT: "+weight);
-			
-			// backpropogate until error is small enough or too many iterations have passed
-			for (int iteration = 0; sumError > errorThreshold && iteration < maxIterations; iteration++) {
-				output = networkOperations.feedForward(datapoint);
-				evolutionStrategy(target, output);
-				sumError = calculateError(target, output);
-//				System.out.println(iteration+":  "+sumError);
-//				Simulator.printVector(target);
-//				Simulator.printVector(output);
-//				System.out.println();
-			}
-			
-		}
+		
 		
 	}
 	
-	private void evolutionStrategy(List<Double> target, List<Double> output) {
-		// TODO: ES
+	public String toString() {
+		return "("+mu+" "+type+" "+lambda+") - ES";
+	}
+	
+	public void describe() {
+		System.out.println(toString());
+	}
+	
+	private void checkParams() {
+		if (type.equals("+")) {
+			if (mu < 1 || mu > lambda) {
+				throw new IllegalArgumentException("Invalid parameter mu. Must be of the form: 1 <= mu <= lambda.");
+			}
+		} else if (type.equals(",")) {
+			if (mu < 1 || mu >= lambda) {
+				throw new IllegalArgumentException("Invalid parameter mu. Must be of the form: 1 <= mu < lambda.");
+			}
+		} else {
+			throw new IllegalArgumentException("Invalid type.");
+		}
 	}
 
 }

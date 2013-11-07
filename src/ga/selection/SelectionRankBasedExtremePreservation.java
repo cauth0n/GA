@@ -16,6 +16,7 @@ public class SelectionRankBasedExtremePreservation extends Selection {
 	public void select(Population population) {
 		super.select(population);
 		
+		
 		// best of population
 		Individual best1 = population.getMostFit(1);
 		Individual best2 = population.getMostFit(2);
@@ -27,10 +28,10 @@ public class SelectionRankBasedExtremePreservation extends Selection {
 		
 		// add custom pairs, holding out extremes
 		//best1.setMutate(false);
-		plan.add(best1, best1);
-		plan.add(best2, best2);
-		plan.add(best3, best3);
-		plan.add(worst1, worst1);
+		plan.reserve(best1);
+		plan.reserve(best2);
+		plan.reserve(best3);
+		plan.reserve(worst1);
 		//plan.add(worst2, worst2);
 		//plan.add(worst3, worst3);
 		

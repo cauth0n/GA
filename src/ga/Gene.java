@@ -8,6 +8,10 @@ public abstract class Gene {
 		
 	}
 	
+	public Gene(double value) {
+		setValue(value);
+	}
+	
 	public abstract Gene add(Gene gene2);
 	
 	public abstract Gene subtract(Gene gene2);
@@ -22,6 +26,7 @@ public abstract class Gene {
 		this.value = value;
 	}
 	
+	public abstract Gene copy();
 	
 
 }

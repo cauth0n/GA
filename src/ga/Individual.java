@@ -24,7 +24,10 @@ public class Individual {
 	}
 
 	public Individual(List<Gene> genes) {
-		setGenes(genes);
+		List<Gene> newGenes = new ArrayList<Gene>(genes.size());
+		for (Gene g : genes)
+			newGenes.add(g.copy());
+		setGenes(newGenes);
 	}
 
 	public void setFitness(double fitness) {
@@ -46,17 +49,13 @@ public class Individual {
 		return genes;
 	}
 
-	public String toString() {
+	public void describe() {
 		String value = "[";
 		for (Gene gene : genes) {
 			value += gene.getValue() + ",";
 		}
 		value += "]\n";
-		return value;
-	}
-
-	public void describe() {
-		System.out.println(this);
+		System.out.println(value);
 	}
 
 	public boolean geneticallyEquals(Individual individual) {
@@ -83,6 +82,18 @@ public class Individual {
 		this.canCrossover = canCrossover;
 	}
 	
+	public void setImmutable(boolean immutable) {
+		this.canMutate = immutable;
+		this.canCrossover = immutable;
+	}
+	
+	public Individual copy() {
+		Individual toReturn = new Individual(this.genes);
+		toReturn.setFitness(this.fitness);
+		toReturn.setCrossover(canCrossover);
+		toReturn.setMutate(canMutate);
+		return toReturn;
+	}
 	
 
 }

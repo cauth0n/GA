@@ -11,9 +11,10 @@ public class MutateUniformDistribution extends Mutate {
 	private static int count = 1;
 	
 	public Individual mutate(Individual individual, Population population) {
-		Individual newIndividual = individual;
 		
-		for (Gene gene : individual.getGenes()){
+		Individual newIndividual = individual.copy();
+		
+		for (Gene gene : newIndividual.getGenes()){
 			double mutationValue = getMutationValue();
 			gene.setValue(gene.getValue() + mutationValue);
 		}

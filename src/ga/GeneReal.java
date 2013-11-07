@@ -18,5 +18,9 @@ public class GeneReal extends Gene {
 		return new GeneReal(this.value * scalar);
 	}
 	
+	public Gene copy() {
+		return new GeneReal(this.value);
+	}
+	
 }
 

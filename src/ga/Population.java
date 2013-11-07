@@ -91,7 +91,7 @@ public class Population {
 
 	public void printDiversity() {
 		double[] diversity = getDiversity();
-		System.out.println("(" + diversity[0] + "," + diversity[1] + ")  => "
+		System.out.println("(" + diversity[0] + "," + diversity[1] + ") ( "+getAverageFitness()+" ) => "
 				+ diversity[2]);
 	}
 
@@ -109,4 +109,13 @@ public class Population {
 			}
 		}
 	}
+	
+	public double getAverageFitness() {
+		double avg = 0.0;
+		for (Individual i : population)
+			avg += i.getFitness();
+		avg /= population.size();
+		return avg;
+	}
+	
 }

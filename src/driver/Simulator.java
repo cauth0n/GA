@@ -10,7 +10,7 @@ public class Simulator {
 	public static void main(String[] args) {
 
 		// get input data
-		Inputter inputter = new InputterBanknote();
+		Inputter inputter = new InputterSeeds();
 		inputter.parseFile();
 		List<DataPoint> data = inputter.getData();
 
