@@ -30,5 +30,9 @@ public class StrategyParameters {
 			newParams.add(new Double(param));
 		return new StrategyParameters(newParams);
 	}
+	
+	public List<Double> getParameters() {
+		return params;
+	}
 
 }

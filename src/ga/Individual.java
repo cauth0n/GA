@@ -104,5 +104,8 @@ public class Individual {
 		return toReturn;
 	}
 	
+	public boolean hasStrategyParameters() {
+		return (params != null);
+	}
 
 }
