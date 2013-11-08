@@ -32,9 +32,25 @@ public class Population {
 		}
 		return runningFitness;
 	}
-	
+
+	/**
+	 * Changing sh
+	 * 
+	 * @return
+	 */
 	public Individual getMostFit() {
-		return getMostFit(1);
+
+		// changing this around. It implies we need to sort the
+		// population to get the best individual. This is not
+		// necessarily true.
+		Individual best = population.get(0);
+		for (Individual i : population) {
+			if (i.getFitness() > best.getFitness()) {
+				best = i;
+			}
+		}
+
+		return best;
 	}
 
 	/**
@@ -91,8 +107,7 @@ public class Population {
 
 	public void printDiversity() {
 		double[] diversity = getDiversity();
-		System.out.println("(" + diversity[0] + "," + diversity[1] + ") ( "+getAverageFitness()+" ) => "
-				+ diversity[2]);
+		System.out.println("(" + diversity[0] + "," + diversity[1] + ") ( " + getAverageFitness() + " ) => " + diversity[2]);
 	}
 
 	/**
@@ -109,7 +124,7 @@ public class Population {
 			}
 		}
 	}
-	
+
 	public double getAverageFitness() {
 		double avg = 0.0;
 		for (Individual i : population)
@@ -117,5 +132,5 @@ public class Population {
 		avg /= population.size();
 		return avg;
 	}
-	
+
 }

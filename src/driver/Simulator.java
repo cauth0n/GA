@@ -29,8 +29,11 @@ public class Simulator {
 //		gd.mainLoop(10);
 
 		// Test GA
-		TrainingMethod ga = new GATraining(neuralNetwork, data);
-		ga.mainLoop(10);
+//		TrainingMethod ga = new GATraining(neuralNetwork, data);
+//		ga.mainLoop(10);
+		
+		TrainingMethod de = new DETraining(neuralNetwork, data);
+		de.mainLoop(10);
 
 	}
 
