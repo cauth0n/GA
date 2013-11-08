@@ -63,8 +63,8 @@ public class CrossoverNPoint extends Crossover {
 		Individual child1 = new Individual(newChromosome1);
 		Individual child2 = new Individual(newChromosome2);
 		
-		if (child1.hasStrategyParameters() && child2.hasStrategyParameters()) {
-			crossoverStrategyParameters(child1, child2);
+		if (individual1.hasStrategyParameters() && individual2.hasStrategyParameters()) {
+			crossoverStrategyParameters(individual1, individual2, child1, child2);
 		}
 		
 		// create two children with newly formed chromosomes
@@ -74,11 +74,11 @@ public class CrossoverNPoint extends Crossover {
 		return children;
 	}
 	
-	public void crossoverStrategyParameters(Individual individual1, Individual individual2) {
+	public void crossoverStrategyParameters(Individual parent1, Individual parent2, Individual child1, Individual child2) {
 		
 		// get strategy parameters from individuals
-		List<Double> params1 = individual1.getStrategyParameters().getParameters();
-		List<Double> params2 = individual2.getStrategyParameters().getParameters();
+		List<Double> params1 = parent1.getStrategyParameters().getParameters();
+		List<Double> params2 = parent2.getStrategyParameters().getParameters();
 		
 		// create two new strategy parameters
 		List<Double> newParams1 = new ArrayList<Double>();
@@ -113,8 +113,8 @@ public class CrossoverNPoint extends Crossover {
 		StrategyParameters strategyParameters1 = new StrategyParameters(newParams1);
 		StrategyParameters strategyParameters2 = new StrategyParameters(newParams2);
 		
-		individual1.setStrategyParameters(strategyParameters1);
-		individual2.setStrategyParameters(strategyParameters2);
+		child1.setStrategyParameters(strategyParameters1);
+		child2.setStrategyParameters(strategyParameters2);
 		
 	}
 }

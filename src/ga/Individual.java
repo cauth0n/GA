@@ -10,6 +10,7 @@ public class Individual {
 	private double maxValue = 0.3;
 	private double fitness = -1.0;
 	private List<Gene> genes;
+	private List<Individual> parents;
 	private StrategyParameters params = null;
 	private boolean canMutate = true;
 	private boolean canCrossover = true;
@@ -99,13 +100,27 @@ public class Individual {
 	public Individual copy() {
 		Individual toReturn = new Individual(this.genes);
 		toReturn.setFitness(this.fitness);
-		toReturn.setCrossover(canCrossover);
-		toReturn.setMutate(canMutate);
+		toReturn.setCrossover(this.canCrossover);
+		toReturn.setMutate(this.canMutate);
+		toReturn.setStrategyParameters(this.params);
+		toReturn.setParents(this.parents);
 		return toReturn;
 	}
 	
 	public boolean hasStrategyParameters() {
 		return (params != null);
+	}
+	
+	public List<Individual> getParents() {
+		return this.parents;
+	}
+	
+	public void setParents(List<Individual> parents) {
+		// release reference to parents' parents to free memory
+		if (parents != null)
+			for (Individual parent : parents)
+				parent.setParents(null);
+		this.parents = parents;
 	}
 
 }

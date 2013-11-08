@@ -15,10 +15,10 @@ public class ESTraining extends TrainingMethod {
 	
 	private ES es;
 	private int populationSize = 40;
-	private double mutationProbability = 0.5;
+	private double mutationProbability = 1.0;
 	int maxIterations = 1000;
-	private int mu = 4;
-	private int lambda = 10;
+	private int mu = 1;
+	private int lambda = 1;
 	
 	private Individual best;
 

@@ -7,11 +7,11 @@ import ga.fitness.FitnessDefault;
 import ga.initialize.Initialize;
 import ga.initialize.InitializeWithStrategyParameters;
 import ga.mutation.Mutate;
-import ga.mutation.MutateUniformDistribution;
+import ga.mutation.MutateNormalDistribution;
 import ga.prune.Prune;
 import ga.prune.PruneDefault;
 import ga.selection.Selection;
-import ga.selection.SelectionRankBasedExtremePreservation;
+import ga.selection.SelectionRandom;
 
 import java.util.Random;
 
@@ -39,9 +39,9 @@ public class ES {
 		this.population = init.initializePopulation(mu, chromosomeSize);
 		this.mutationProbability = mutationProbability;
 		this.fitness = new FitnessDefault();
-		this.selection = new SelectionRankBasedExtremePreservation(this.fitness);
+		this.selection = new SelectionRandom(this.fitness);
 		this.selection.setReturnSize(lambda);
-		this.mutate = new MutateUniformDistribution();
+		this.mutate = new MutateNormalDistribution();
 		this.crossover = new CrossoverNPoint();
 		this.prune = new PruneDefault();
 	}
@@ -51,15 +51,15 @@ public class ES {
 		// retain the mu best in the population from the previous generation
 		population = prune.prune(population, mu);
 		
+		// mutate the offspring (features & strategy parameters)
+		// this has to be done here because fitness is not evaluated until the generation has been run
+		population = mutate.mutate(population, mutationProbability);
+		
 		// choose p >= 2 parents for each lambda
 		selection.select(population);
 		
 		// create 1 offspring through crossover
 		Population children = crossover.crossOver(population, selection.getMatingPlan());
-		
-		// mutate the offspring (features & strategy parameters)
-		children = mutate.mutate(children, mutationProbability);
-		
 		// return population and evaluate
 		population = children;
 
