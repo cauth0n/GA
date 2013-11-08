@@ -2,7 +2,7 @@ package ga.crossover;
 
 import ga.Gene;
 import ga.Individual;
-import ga.selection.MatingPlan;
+import ga.StrategyParameters;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,18 +60,11 @@ public class CrossoverNPoint extends Crossover {
 			}
 		}
 		
-		Individual child1 = null; 
-		Individual child2 = null;
+		Individual child1 = new Individual(newChromosome1);
+		Individual child2 = new Individual(newChromosome2);
 		
-		if (individual1.canCrossover()){
-			child1 = new Individual(newChromosome1);
-		}else{
-			child1 = individual1; 
-		}
-		if (individual2.canCrossover()){
-			child2 = new Individual(newChromosome2);
-		}else{
-			child2 = individual2;
+		if (child1.hasStrategyParameters() && child2.hasStrategyParameters()) {
+			crossoverStrategyParameters(child1, child2);
 		}
 		
 		// create two children with newly formed chromosomes
@@ -79,5 +72,49 @@ public class CrossoverNPoint extends Crossover {
 		children.add(child2);
 		
 		return children;
+	}
+	
+	public void crossoverStrategyParameters(Individual individual1, Individual individual2) {
+		
+		// get strategy parameters from individuals
+		List<Double> params1 = individual1.getStrategyParameters().getParameters();
+		List<Double> params2 = individual2.getStrategyParameters().getParameters();
+		
+		// create two new strategy parameters
+		List<Double> newParams1 = new ArrayList<Double>();
+		List<Double> newParams2 = new ArrayList<Double>();
+		
+		// create sorted set of crossover points
+		TreeSet<Integer> crossovers = new TreeSet<Integer>();
+		
+		// pick 'n' random crossover points in strategy parameters
+		while (crossovers.size() < n) {
+			int split = random.nextInt(params1.size());
+			crossovers.add(split);
+		}
+		
+		// for each strategy parameter, choose from each parent based on which crossover we are on
+		boolean useParamList1 = true;
+		for (int param = 0; param < params1.size(); param++) {
+			// if this is a crossover location, toggle boolean
+			if (crossovers.contains(param))
+				useParamList1 = !useParamList1;
+			// use strategy parameter one for primary child
+			if (useParamList1) {
+				newParams1.add(params1.get(param));
+				newParams2.add(params2.get(param));
+			// use strategy parameter two for primary child
+			} else {
+				newParams1.add(params2.get(param));
+				newParams2.add(params1.get(param));
+			}
+		}
+		
+		StrategyParameters strategyParameters1 = new StrategyParameters(newParams1);
+		StrategyParameters strategyParameters2 = new StrategyParameters(newParams2);
+		
+		individual1.setStrategyParameters(strategyParameters1);
+		individual2.setStrategyParameters(strategyParameters2);
+		
 	}
 }

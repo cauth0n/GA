@@ -16,7 +16,6 @@ public class SelectionRankBasedExtremePreservation extends Selection {
 	public void select(Population population) {
 		super.select(population);
 		
-		
 		// best of population
 		Individual best1 = population.getMostFit(1);
 		Individual best2 = population.getMostFit(2);
@@ -36,7 +35,7 @@ public class SelectionRankBasedExtremePreservation extends Selection {
 		//plan.add(worst3, worst3);
 		
 		// create a mating pair for every element in the population (will use single child crossover)
-		while (plan.size() < population.size()) {
+		while (plan.size() < returnSize) {
 			Individual random1 = population.getRandomIndividual();
 			Individual random2 = population.getRandomIndividual();
 			plan.add(random1, random2);

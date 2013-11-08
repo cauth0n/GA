@@ -10,6 +10,7 @@ public class Individual {
 	private double maxValue = 0.3;
 	private double fitness = -1.0;
 	private List<Gene> genes;
+	private StrategyParameters params = null;
 	private boolean canMutate = true;
 	private boolean canCrossover = true;
 
@@ -47,6 +48,14 @@ public class Individual {
 
 	public List<Gene> getGenes() {
 		return genes;
+	}
+	
+	public void setStrategyParameters(StrategyParameters params) {
+		this.params = params;
+	}
+	
+	public StrategyParameters getStrategyParameters() {
+		return this.params;
 	}
 
 	public void describe() {
@@ -95,5 +104,8 @@ public class Individual {
 		return toReturn;
 	}
 	
+	public boolean hasStrategyParameters() {
+		return (params != null);
+	}
 
 }
