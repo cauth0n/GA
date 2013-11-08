@@ -34,11 +34,15 @@ public class Simulator {
 //		train = new GATraining(neuralNetwork, data);
 //		train.mainLoop(10);
 		
-		// Test ES
-		train = new ESTraining(neuralNetwork, data);
-		System.out.println(train);
+		//Test DE
+		train = new DETraining(neuralNetwork, data);
 		train.mainLoop(10);
 		
+		
+		// Test ES
+//		train = new ESTraining(neuralNetwork, data);
+//		System.out.println(train);
+//		train.mainLoop(10);
 
 	}
 

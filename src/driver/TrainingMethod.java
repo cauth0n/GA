@@ -46,7 +46,7 @@ public abstract class TrainingMethod {
 		    elapsedTime = System.currentTimeMillis() - startTime;
 		    
 			double performance = test(kfolds.getTestSet());
-			System.out.println(performance);
+			System.out.println("PERFORMANCE: "+performance);
 			
 			// TODO: remove this break
 			break;

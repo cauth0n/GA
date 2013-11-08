@@ -52,7 +52,7 @@ public class DETraining extends TrainingMethod {
 			mostFitValue = mostFit.getFitness();
 
 			//System.out.println(de.getPopulation().getAverageFitness());
-			System.out.println(mostFitValue);
+			System.out.println(mostFitValue + "   Average: " + de.getPopulation().getAverageFitness());
 			count++;
 
 		}

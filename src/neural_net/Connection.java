@@ -5,6 +5,11 @@ import java.util.Random;
 /**
  * @author cauthon
  */
+/**
+ * 
+ * @author derek.reimanis
+ *
+ */
 public class Connection {
 
 	private Neuron fromNeuron;

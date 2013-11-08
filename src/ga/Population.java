@@ -81,6 +81,11 @@ public class Population {
 	public int getSize() {
 		return population.size();
 	}
+	
+	public void add(Population newPopulation) {
+		for (Individual individual : newPopulation.getIndividuals())
+			population.add(individual);
+	}
 
 	public Population copy() {
 		List<Individual> copyPopulation = new ArrayList<Individual>();

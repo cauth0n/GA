@@ -1,19 +1,21 @@
 package ga;
 
 import ga.crossover.Crossover;
-import ga.crossover.CrossoverNPoint;
+import ga.crossover.CrossoverUniform;
 import ga.fitness.Fitness;
 import ga.fitness.FitnessDefault;
 import ga.initialize.Initialize;
 import ga.initialize.InitializeWithStrategyParameters;
 import ga.mutation.Mutate;
 import ga.mutation.MutateNormalDistribution;
-import ga.prune.Prune;
-import ga.prune.PruneDefault;
 import ga.selection.Selection;
 import ga.selection.SelectionRandom;
 
+import java.util.List;
 import java.util.Random;
+
+import neural_net.Network;
+import driver.DataPoint;
 
 public class ES {
 
@@ -24,7 +26,6 @@ public class ES {
 	private Fitness fitness;
 	private Mutate mutate;
 	private Crossover crossover;
-	private Prune prune;
 	
 	private int mu;
 	private int lambda;
@@ -42,31 +43,36 @@ public class ES {
 		this.selection = new SelectionRandom(this.fitness);
 		this.selection.setReturnSize(lambda);
 		this.mutate = new MutateNormalDistribution();
-		this.crossover = new CrossoverNPoint();
-		this.prune = new PruneDefault();
+		this.crossover = new CrossoverUniform();
 	}
 
 	public void runGeneration() {
-		
-		// retain the mu best in the population from the previous generation
-		population = prune.prune(population, mu);
-		
-		// mutate the offspring (features & strategy parameters)
-		// this has to be done here because fitness is not evaluated until the generation has been run
-		population = mutate.mutate(population, mutationProbability);
 		
 		// choose p >= 2 parents for each lambda
 		selection.select(population);
 		
 		// create 1 offspring through crossover
 		Population children = crossover.crossOver(population, selection.getMatingPlan());
-		// return population and evaluate
-		population = children;
+		
+		// mutate the offspring (features & strategy parameters)
+		children = mutate.mutate(children, mutationProbability);
+		
+
+		// construct pool of individuals based on algorithm type
+		if (this.type.equals("+")) {
+			population.add(children);
+		} else if (this.type.equals(",")) {
+			population = children;
+		}
 
 	}
 
 	public Population getPopulation() {
 		return population;
+	}
+	
+	public void setPopulation(Population population) {
+		this.population = population;
 	}
 	
 	public void setTypePlus() {
