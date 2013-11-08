@@ -11,14 +11,13 @@ import java.util.Random;
 public abstract class Crossover {
 	
 	Random random = new Random(11235);
+	boolean twoChildren = false;
 	
 	public Population crossOver(Population population, MatingPlan plan) {
-		if (plan.size() == population.size()) {
-			return new Population(crossOverOneChild(plan));
-		} else if (plan.size() == (population.size() / 2)) {
+		if (twoChildren) {
 			return new Population(crossOverTwoChildren(plan));
 		} else {
-			throw new IllegalArgumentException("Invalid MatingPlan size. Population size = "+population.size()+", MatingPlan size = "+plan.size());
+			return new Population(crossOverOneChild(plan));
 		}
 	}
 	
@@ -69,6 +68,10 @@ public abstract class Crossover {
 			children.add(result2);
 		}
 		return children;
+	}
+	
+	public void setTwoChildren(boolean twoChildren) {
+		this.twoChildren = twoChildren;
 	}
 	
 	protected abstract List<Individual> crossOverParents(Individual parent1, Individual parent2);

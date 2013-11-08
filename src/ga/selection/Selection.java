@@ -13,14 +13,21 @@ public abstract class Selection {
 	protected Fitness fitness;
 	private Random random = new Random(11235);
 	protected MatingPlan plan;
-	
-	public void select(Population population) {
-		this.population = population;
-		plan = new MatingPlan();
-	}
+	protected int returnSize = 0;
 	
 	public Selection(Fitness fitness) {
 		this.fitness = fitness;
+	}
+	
+	public void select(Population population) {
+		this.population = population;
+		this.plan = new MatingPlan();
+		if (returnSize < 1)
+			this.returnSize = population.size();
+	}
+	
+	public void setReturnSize(int returnSize) {
+		this.returnSize = returnSize;
 	}
 	
 	/**

@@ -1,6 +1,7 @@
 package driver;
 
 import ga.ES;
+import ga.Individual;
 import ga.fitness.FitnessDefault;
 
 import java.util.List;
@@ -16,45 +17,58 @@ public class ESTraining extends TrainingMethod {
 	private int populationSize = 40;
 	private double mutationProbability = 0.5;
 	int maxIterations = 1000;
+	private int mu = 4;
+	private int lambda = 10;
 	
-	private String type = "+";
-	private double mu;
-	private double lambda;
+	private Individual best;
 
 	public ESTraining(Network neuralNetwork, List<DataPoint> data) {
 		super(neuralNetwork, data);
 		fitnessMethod = new FitnessDefault();
-		es = new ES(populationSize, neuralNetwork.size(), mutationProbability);
-		checkParams();
+		es = new ES(mu, lambda, neuralNetwork.size(), mutationProbability);
+		es.setTypePlus();
 	}
 
 	
 	public void train(List<DataPoint> trainSet) {
 		
+		fitnessMethod.calculateFitness(es.getPopulation(), neuralNetwork, trainSet);
+		es.getPopulation().sortPopulationByFitness();
+
+		Individual best = null;
+		double mostFitValue = 0;
+
+		// fitness < minFitness
+		int count = 0;
+		while (maxIterations > 0) {
+
+			maxIterations--;
+			
+			es.runGeneration();
+			
+
+			fitnessMethod.calculateFitness(es.getPopulation(), neuralNetwork, trainSet);
+			es.getPopulation().sortPopulationByFitness();
+			
+
+			Individual mostFit = es.getPopulation().getMostFit();
+			setBest(mostFit);
+			System.out.println(mostFit.getFitness());
+			
+			count++;
+		}
+
+		neuralNetwork.setWeights(best.getGenes());
 		
-		
+	}
+	
+	public void setBest(Individual mostFit) {
+		if (best == null || mostFit.getFitness() >= best.getFitness())
+			best = mostFit.copy();
 	}
 	
 	public String toString() {
-		return "("+mu+" "+type+" "+lambda+") - ES";
-	}
-	
-	public void describe() {
-		System.out.println(toString());
-	}
-	
-	private void checkParams() {
-		if (type.equals("+")) {
-			if (mu < 1 || mu > lambda) {
-				throw new IllegalArgumentException("Invalid parameter mu. Must be of the form: 1 <= mu <= lambda.");
-			}
-		} else if (type.equals(",")) {
-			if (mu < 1 || mu >= lambda) {
-				throw new IllegalArgumentException("Invalid parameter mu. Must be of the form: 1 <= mu < lambda.");
-			}
-		} else {
-			throw new IllegalArgumentException("Invalid type.");
-		}
+		return es.toString();
 	}
 
 }

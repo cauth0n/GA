@@ -23,14 +23,22 @@ public class Simulator {
 		Network neuralNetwork = new Network(structuralInfo);
 		neuralNetwork.constructNetwork();
 		structuralInfo.describe();
+		
+		TrainingMethod train;
 
 		// Test GD
-//		TrainingMethod gd = new GDTraining(neuralNetwork, data);
-//		gd.mainLoop(10);
+//		train = new GDTraining(neuralNetwork, data);
+//		train.mainLoop(10);
 
 		// Test GA
-		TrainingMethod ga = new GATraining(neuralNetwork, data);
-		ga.mainLoop(10);
+//		train = new GATraining(neuralNetwork, data);
+//		train.mainLoop(10);
+		
+		// Test ES
+		train = new ESTraining(neuralNetwork, data);
+		System.out.println(train);
+		train.mainLoop(10);
+		
 
 	}
 
