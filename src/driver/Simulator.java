@@ -13,7 +13,7 @@ public class Simulator {
 	public static void main(String[] args) {
 
 		// get input data
-		Inputter inputter = new InputterSeeds();
+		Inputter inputter = new InputterCar();
 		inputter.parseFile();
 		List<DataPoint> data = inputter.getData();
 
@@ -30,16 +30,16 @@ public class Simulator {
 		TrainingMethod train;
 
 		// Test GD
-//		train = new GDTraining(neuralNetwork, data);
-//		train.mainLoop(10);
+		train = new GDTraining(neuralNetwork, data);
+		train.mainLoop(10);
 
 		// Test GA
 //		train = new GATraining(neuralNetwork, data);
 //		train.mainLoop(10);
 		
 		//Test DE
-		train = new DETraining(neuralNetwork, data);
-		train.mainLoop(10);
+//		train = new DETraining(neuralNetwork, data);
+//		train.mainLoop(10);
 		
 		
 		// Test ES

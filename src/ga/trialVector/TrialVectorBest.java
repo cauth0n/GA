@@ -32,7 +32,7 @@ public class TrialVectorBest extends TrialVector {
 		List<Gene> newGenes = new ArrayList<>(one.getGenes().size());
 		for (int i = 0; i < one.getGenes().size(); i++) {
 			newGenes.add(two.getGenes().get(i).subtract(three.getGenes().get(i)));//creates new gene object
-			newGenes.get(i).multiply(beta); //does not create new gene object
+			newGenes.get(i).scalarMultiplyThis(beta); //does not create new gene object
 			newGenes.get(i).add(one.getGenes().get(i).getValue()); //does not create new gene object
 		}
 
