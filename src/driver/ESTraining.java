@@ -76,8 +76,8 @@ public class ESTraining extends TrainingMethod {
 			
 		}
 
+		// set the neural network to the solution found during training
 		neuralNetwork.setWeights(best.getGenes());
-		System.out.println("BEST: "+best.getFitness());
 		
 	}
 	
