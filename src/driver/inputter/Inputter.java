@@ -1,7 +1,9 @@
-package driver;
+package driver.inputter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import driver.DataPoint;
 
 /**
  * Abstract class for parsing input files into datapoints.

@@ -1,4 +1,4 @@
-package driver;
+package driver.inputter;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,19 +6,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import driver.DataPoint;
+
 /**
  * @author cauthon
  */
-public class InputterEEGEyeState extends Inputter {
+public class InputterSeeds extends Inputter {
 
-	private final String filePath = "datasets/EEGEyeState.data";
+	private final String filePath = "datasets/seeds.data";
 
 	/**
 	 * Doesn't work again. I'm now thinking backprop doesn't work.
 	 */
-	public InputterEEGEyeState() {
-		inputs = 14;
-		outputs = 2;
+	public InputterSeeds() {
+		inputs = 7;
+		outputs = 3;
 	}
 
 	@Override
@@ -32,15 +34,22 @@ public class InputterEEGEyeState extends Inputter {
 
 			// loop through entire data file.
 			while (in.hasNext()) {
-				String[] split = in.nextLine().split(",");
+				
+				// for parsing purposes, remove repeated tab characters
+				String line = in.nextLine();
+				while (line.contains("\t\t"))
+					line = line.replace("\t\t", "\t");
+				
+				String[] split = line.split("\t");
 				List<Double> featureList = new ArrayList<>();
 
 				// loop through all features, building up the
 				// featureList list.
 				// Data is split up according to mapping in header
 				// comment.
-				for (int featureIterator = 0; featureIterator < inputs; featureIterator++)
+				for (int featureIterator = 0; featureIterator < inputs; featureIterator++) {
 					featureList.add(Double.valueOf(split[featureIterator]));
+				}
 
 				// get output. Inputs is a pointer to the point after
 				// the last feature.
@@ -65,16 +74,15 @@ public class InputterEEGEyeState extends Inputter {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * This classification problem is a binary classification problem.
-	 * We have two classes, and they are either '0' or
-	 * '1'
+	 * Class types include '1', '2' and '3'.
 	 * 
 	 * @see driver.Inputter#findClasses()
 	 */
 	@Override
 	public void findClasses() {
 		possibleClasses = new ArrayList<>();
-		possibleClasses.add("0");
 		possibleClasses.add("1");
+		possibleClasses.add("2");
+		possibleClasses.add("3");
 	}
 }

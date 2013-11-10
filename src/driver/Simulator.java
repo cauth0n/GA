@@ -4,6 +4,8 @@ import java.util.List;
 
 import neural_net.Network;
 import neural_net.StructuralInfo;
+import driver.inputter.Inputter;
+import driver.inputter.InputterCar;
 
 /**
  * Main driver used to test various neural network training algorithms.
