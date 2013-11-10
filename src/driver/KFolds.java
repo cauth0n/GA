@@ -5,6 +5,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Used to partition data into train and 
+ * test sets that are then rotated k times.
+ */
 public class KFolds {
 	
 	int foldIndex = 0;
@@ -49,11 +53,13 @@ public class KFolds {
 	 * @return	True if another valid fold was found, False if all folds are completed.
 	 */
 	public boolean next() {
+		// if done with k folds, stop iterations
 		if (foldIndex >= k - 1) {
 			train = null;
 			test = null;
 			return false;
 		}
+		// continue on to next fold, rotating the partitions
 		partition();
 		foldIndex++;
 		return true;

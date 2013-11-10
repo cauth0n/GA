@@ -5,6 +5,9 @@ import java.util.List;
 import neural_net.Network;
 import neural_net.StructuralInfo;
 
+/**
+ * Main driver used to test various neural network training algorithms.
+ */
 public class Simulator {
 
 	public static void main(String[] args) {
@@ -46,6 +49,7 @@ public class Simulator {
 
 	}
 
+	// Utility function used in debugging to print vectors.
 	public static void printVector(List<Double> vector) {
 		for (Double value : vector)
 			System.out.print(value + " ");

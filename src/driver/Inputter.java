@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author cauthon
+ * Abstract class for parsing input files into datapoints.
  */
 public abstract class Inputter {
+	
 	protected int inputs;
 	protected int outputs;
 	protected List<DataPoint> data;
@@ -30,25 +31,42 @@ public abstract class Inputter {
 	 */
 	public abstract void findClasses();
 
+	/**
+	 * @return	getter function for inputs (features).
+	 */
 	public int getInputs() {
 		return inputs;
 	}
 
+	/**
+	 * @return	getter function for outputs.
+	 */
 	public int getOutputs() {
 		return outputs;
 	}
 
+	/**
+	 * @return	getter function for the list of datapoints that was created.
+	 */
 	public List<DataPoint> getData() {
 		return data;
 	}
 	
+	/**
+	 * Used to get the output vector in the case of classification.
+	 * 
+	 * @param classname	The name of the class that is the target output.
+	 * @return			A vector with 1.0 in the index of the specified class and 0.0 everywhere else.
+	 */
 	public List<Double> getOutputVector(String classname) {
+		// find the index of the target class
 		int classIndex = possibleClasses.indexOf(classname);
 		List<Double> outputs = new ArrayList<>();
+		// build a vector of target outputs
 		for (int output = 0; output < possibleClasses.size(); output++) {
-			if (output == classIndex)
+			if (output == classIndex)	// place a 1.0 in the index of the target class
 				outputs.add(1.0);
-			else
+			else						// place a 0.0 everywhere else
 				outputs.add(0.0);
 		}
 		return outputs;

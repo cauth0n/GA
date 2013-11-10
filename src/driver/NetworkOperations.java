@@ -9,12 +9,17 @@ import neural_net.Network;
 import neural_net.Neuron;
 
 /**
- * @author cauthon
+ * Performs operations on a constructed network.
  */
 public class NetworkOperations {
 
 	private Network neuralNetwork;
 
+	/**
+	 * Creates a new NetworkOperations class.
+	 * 
+	 * @param neuralNetwork	The network to perform operations on.
+	 */
 	public NetworkOperations(Network neuralNetwork) {
 		this.neuralNetwork = neuralNetwork;
 	}
@@ -67,8 +72,6 @@ public class NetworkOperations {
 				}
 			}
 			
-			//currentLayer.printOutputs();
-			
 		}
 
 		// output layer operations here
@@ -119,6 +122,7 @@ public class NetworkOperations {
 	public void setInputs(List<Double> features) {
 		Layer inputLayer = neuralNetwork.getLayers().get(0);
 
+		// ensure that the number of inputs matches the number of input neurons
 		if (features.size() != inputLayer.getNeurons().size()) {
 			throw new IllegalArgumentException("Number of features does not match input layer size");
 		}
