@@ -33,7 +33,7 @@ public class SelectionTournament extends Selection {
 		List<Individual> candidates = new ArrayList<Individual>();
 		
 		// evaluate fitness for every individual in population and find the sum
-		double sum = fitness.getPopulationFitnessSum(population);
+		double sum = population.getFitness();
 		
 		// create a mating pair for every element in the population (will use single child crossover)
 		while (plan.size() < population.size()) {

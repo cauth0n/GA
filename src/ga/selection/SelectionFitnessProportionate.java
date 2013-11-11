@@ -17,7 +17,7 @@ public class SelectionFitnessProportionate extends Selection {
 		super.select(population);
 		
 		// evaluate fitness for every individual in population and find the sum
-		double sum = fitness.getPopulationFitnessSum(population);
+		double sum = population.getFitness();
 		
 		// select the two parents weighted by fitness
 		plan.add(selectParentProportionate(sum), selectParentProportionate(sum));

@@ -13,6 +13,7 @@ public class Individual {
 	private List<Individual> parents;
 	private StrategyParameters params = null;
 	private boolean canMutate = true;
+	private static int seed = 1;
 
 	/**
 	 * Constructs an individual with a specified number of random valued genes.
@@ -20,9 +21,9 @@ public class Individual {
 	 * @param chromosomeSize	The number of genes that the individual will contain.
 	 * @param seed				A seed for the gene value assignment.
 	 */
-	public Individual(int chromosomeSize, int seed) {
+	public Individual(int chromosomeSize) {
 		genes = new ArrayList<>(chromosomeSize);
-		Random rand = new Random(11235 * seed);
+		Random rand = new Random(11235 * seed++);
 		// loop through all genes and assign a random value
 		for (int geneNum = 0; geneNum < chromosomeSize; geneNum++) {
 			double initValue = minValue + (rand.nextDouble() * (maxValue - minValue));
