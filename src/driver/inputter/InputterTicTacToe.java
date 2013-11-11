@@ -94,7 +94,7 @@ public class InputterTicTacToe extends Inputter {
 
 			in.close();
 		} catch (FileNotFoundException e) {
-			System.out.println("File not found for tic-tac-toe dataset.");
+			System.out.println("File not found for poker dataset.");
 			e.printStackTrace();
 		} finally {
 
