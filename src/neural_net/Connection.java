@@ -11,9 +11,10 @@ public class Connection {
 	private Neuron toNeuron;
 	private double weight;
 	private double weightChange;
-	private Random rand = new Random(11235);
+	private Random rand;
 	private double minWeight = -0.3;
 	private double maxWeight = 0.3;
+	private static int seed = 1;
 
 	/**
 	 * Creates a connection from one neuron to another.
@@ -22,6 +23,8 @@ public class Connection {
 	 * @param toNeuron		The neuron that receives information from the connection during feedforward process.
 	 */
 	public Connection(Neuron fromNeuron, Neuron toNeuron) {
+		// create random object with new seed for each connection
+		rand = new Random(11235 * seed++);
 		// set linked neurons
 		this.fromNeuron = fromNeuron;
 		this.toNeuron = toNeuron;

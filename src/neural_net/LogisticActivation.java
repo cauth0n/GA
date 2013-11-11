@@ -1,6 +1,7 @@
 package neural_net;
+
 /**
- *@author cauthon
+ * Logistic Activation function (Sigmoidal) for neurons.
  */
 public class LogisticActivation extends ActivationFunction {
 	
@@ -13,8 +14,7 @@ public class LogisticActivation extends ActivationFunction {
 	
 	@Override
 	public double gradient(double input, double output) {
-		return fire(input) * (1 - fire(input));
-		//return output * (1 - output);
+		return output * (1 - output);
 	}
 	
 

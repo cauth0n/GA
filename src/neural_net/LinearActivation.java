@@ -1,18 +1,20 @@
 package neural_net;
+
 /**
- *@author cauthon
+ * Linear Activation function for neurons.
  */
 public class LinearActivation extends ActivationFunction {
+	
+	double slope = 1.0;
 
 	@Override
 	public double fire(double input) {
-		return input;
+		return slope * input;
 	}
 	
 	@Override
 	public double gradient(double input, double output) {
-		//System.out.println("Should not be here");
-		return 1;
+		return slope;
 	}
 
 }

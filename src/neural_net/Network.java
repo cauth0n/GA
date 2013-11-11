@@ -6,12 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author cauthon
+ * Network class that contains entire structure of neural network.
  */
 public class Network {
 	private List<Layer> layers;
 	private StructuralInfo structuralInfo;
 
+	/**
+	 * Initializes a new Neural Network using given structural information.
+	 * 
+	 * @param structuralInfo	The object containing all structural information required to build a neural network.
+	 */
 	public Network(StructuralInfo structuralInfo) {
 		this.structuralInfo = structuralInfo;
 	}
@@ -76,34 +81,52 @@ public class Network {
 		}
 	}
 
-	
+	/**
+	 * Sets every weight in the network given a list of genes.
+	 * This is used as a coupling point between a network and
+	 * a genetic algorithm that may be used to train it.
+	 * 
+	 * @param genes	The list of genes that correspond to weights in the network.
+	 */
 	public void setWeights(List<Gene> genes){
 		int count = 0;
-		try{
+		try {
+			// loop through all layers until the output is reached
 			for (int layerIndex = 0; layerIndex < layers.size() - 1; layerIndex++) {
 				Layer layer = layers.get(layerIndex);
+				// loop through all neurons in the current layer
 				for (Neuron neuron : layer.getNeurons()) {
+					// loop through all outgoing connections for the current neuron
 					for (Connection connection : layer.getOutGoingConnections().get(neuron)) {
+						// set the weight of the connection to the next gene in the list
 						connection.setWeight(genes.get(count).getValue());
 						count++;
 					}
 				}
 			}
-		}catch(ArrayIndexOutOfBoundsException e){
+		// check that there are enough genes
+		} catch(ArrayIndexOutOfBoundsException e) {
 			e.printStackTrace();
 			System.out.println("Too few genes");
-		}finally{
-			if (count != genes.size()){
+		// check that there aren't too many genes
+		} finally {
+			if (count != genes.size()) {
 				System.out.println("Too many genes");
 			}
 		}
 	}
 	
+	/**
+	 * @return	The total number of weights (connections) in the neural network.
+	 */
 	public int size() {
 		int size = 0;
+		// loop through all layers until the output is reached
 		for (int layerIndex = 0; layerIndex < layers.size() - 1; layerIndex++) {
 			Layer layer = layers.get(layerIndex);
+			// loop through all neurons in the current layer
 			for (Neuron neuron : layer.getNeurons()) {
+				// add the amount of connections for the current neuron to the count of all connections
 				if (layer.getOutGoingConnections() != null)
 					size += layer.getOutGoingConnections().get(neuron).size();
 			}
@@ -111,10 +134,18 @@ public class Network {
 		return size;
 	}
 
+	/**
+	 * @return	The list of layer objects contained for the network.
+	 */
 	public List<Layer> getLayers() {
 		return layers;
 	}
 
+	/**
+	 * Sets the layers that will be used by the network.
+	 * 
+	 * @param layers	The list of layer objects to be used by the network.
+	 */
 	public void setLayers(List<Layer> layers) {
 		this.layers = layers;
 	}
