@@ -19,6 +19,9 @@ import sun.net.www.content.image.gif;
 import neural_net.Network;
 import driver.DataPoint;
 
+/**
+ * Differential Evolution Algorithm.
+ */
 public class DE {
 
 	private Population population;
@@ -51,6 +54,7 @@ public class DE {
 	}
 
 	public void runGeneration(Network neuralNetwork, List<DataPoint> trainSet) {
+		
 		ArrayList<Individual> newPopulation = new ArrayList<Individual>();
 		MatingPlan plan = new MatingPlan();
 

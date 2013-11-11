@@ -11,6 +11,9 @@ import ga.mutation.MutateUniformDistribution;
 import ga.selection.Selection;
 import ga.selection.SelectionRankBasedExtremePreservation;
 
+/**
+ * Genetic Algorithm.
+ */
 public class GA {
 
 	private Population population;

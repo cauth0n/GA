@@ -11,16 +11,33 @@ import java.util.TreeSet;
 
 public class CrossoverNPoint extends Crossover {
 
-	private int n = 1;
+	private int n;
 
+	/**
+	 * Creates a crossover method with 1 crossover point.
+	 */
 	public CrossoverNPoint() {
-
+		this.n = 1;
 	}
 
+	/**
+	 * Creates a crossover method with n crossover points.
+	 * 
+	 * @param crossovers	The number of crossover points (n) to be used.
+	 */
 	CrossoverNPoint(int crossovers) {
 		this.n = crossovers;
 	}
 
+	/**
+	 * Performs crossover given two parents.
+	 * Genes are taken from one parent until a crossover point is reached,
+	 * at which point genes are taken from the other parent and so on.
+	 * 
+	 * @param parent1	The first parent to be used in crossover.
+	 * @param parent2	The second parent to be used in crossover.
+	 * @return			A list containing the two children that are created during crossover.
+	 */
 	protected List<Individual> crossOverParents(Individual individual1, Individual individual2) {
 		
 		// create list of children
@@ -60,9 +77,11 @@ public class CrossoverNPoint extends Crossover {
 			}
 		}
 		
+		// create children from constructed chromosome lists
 		Individual child1 = new Individual(newChromosome1);
 		Individual child2 = new Individual(newChromosome2);
 		
+		// perform crossover on strategy parameters if the individual has them
 		if (individual1.hasStrategyParameters() && individual2.hasStrategyParameters()) {
 			crossoverStrategyParameters(individual1, individual2, child1, child2);
 		}
@@ -71,9 +90,18 @@ public class CrossoverNPoint extends Crossover {
 		children.add(child1);
 		children.add(child2);
 		
+		// return this list of 2 children
 		return children;
 	}
 	
+	/**
+	 * Performs same crossover method on strategy parameters if used.
+	 * 
+	 * @param parent1	The first parent to be used in crossover.
+	 * @param parent2	The second parent to be used in crossover.
+	 * @param child1	The first child created in the previous step of crossover.
+	 * @param child2	The second child created in the previous step of crossover.
+	 */
 	public void crossoverStrategyParameters(Individual parent1, Individual parent2, Individual child1, Individual child2) {
 		
 		// get strategy parameters from individuals
@@ -110,9 +138,11 @@ public class CrossoverNPoint extends Crossover {
 			}
 		}
 		
+		// create strategy parameter objects using constructed lists of parameters
 		StrategyParameters strategyParameters1 = new StrategyParameters(newParams1);
 		StrategyParameters strategyParameters2 = new StrategyParameters(newParams2);
 		
+		// add strategy parameters to children created from previous crossover step
 		child1.setStrategyParameters(strategyParameters1);
 		child2.setStrategyParameters(strategyParameters2);
 		

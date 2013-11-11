@@ -11,6 +11,9 @@ import ga.mutation.MutateNormalDistribution;
 import ga.selection.Selection;
 import ga.selection.SelectionRandom;
 
+/**
+ * Evolution Strategy Algorithm.
+ */
 public class ES {
 
 	private Population population;
