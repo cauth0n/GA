@@ -1,12 +1,20 @@
 package neural_net;
+
 /**
- *@author cauthon
+ * Layer implementation for hidden layers.
  */
 public class HiddenLayer extends Layer{
 
+	/**
+	 * Creates a hidden layer of specified size.
+	 * 
+	 * @param size	The number of neurons to use in the layer.
+	 */
 	public HiddenLayer(int size) {
 		super(size);
-		layerActivation = new TanhActivation();
+		// set activation function to sigmoidal
+		layerActivation = new LogisticActivation();
+		// actually construct the layer
 		buildLayer();
 	}
 

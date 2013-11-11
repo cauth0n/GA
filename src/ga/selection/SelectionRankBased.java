@@ -1,41 +1,25 @@
 package ga.selection;
 
-import ga.Individual;
 import ga.Population;
-import ga.fitness.Fitness;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class SelectionRankBased extends Selection {
 	
-	public SelectionRankBased(Fitness fitness) {
-		super(fitness);
-	}
-	
 	/**
-	 * Chooses individuals based on highest fitness value first.
-	 * Individuals are removed as chosen, so consecutive calls
-	 * return different parents until another constructor is called.
+	 * Chooses individuals based on highest fitness value first, 
+	 * and this process continues down the line so that individuals
+	 * of comparable fitness breed with each other.
 	 */
 	public void select(Population population) {
 		super.select(population);
 		
-		// TODO: change this to use the sorted population, don't remove individuals
-		
-		// choose best ranking individual as parent 1
-		Individual parent1 = population.getMostFit();
-		
-		// remove parent 1 from population so it is not chosen every time
-		population.remove(parent1);
-		
-		// choose next best individual for parent 2
-		Individual parent2 = population.getMostFit();
-		
-		plan.add(parent1, parent2);
-		
-		// remove parent 2 from population so not available in next selection
-		population.remove(parent2);
+		// select parents until target MatingPlan size is reached
+		int rank = 0;
+		while (plan.size() < returnSize) {
+			if (rank >= population.size() - 1)
+				rank = 1;
+			// continue to move to less fit individuals when selecting from the population
+			plan.add(population.getIndividuals().get(rank++), population.getIndividuals().get(rank++));
+		}
 	}
 	
 }

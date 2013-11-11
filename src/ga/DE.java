@@ -15,7 +15,6 @@ import ga.trialVector.TrialVectorBest;
 import java.util.ArrayList;
 import java.util.List;
 
-import sun.net.www.content.image.gif;
 import neural_net.Network;
 import driver.DataPoint;
 

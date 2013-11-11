@@ -1,7 +1,7 @@
 package neural_net;
 
 /**
- * @author cauthon
+ * Activation function for neurons.
  */
 public abstract class ActivationFunction {
 

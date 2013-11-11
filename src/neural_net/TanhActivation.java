@@ -1,6 +1,7 @@
 package neural_net;
+
 /**
- *@author cauthon
+ * Hyperbolic Tangent Activation function (Sigmoidal) for neurons.
  */
 public class TanhActivation extends ActivationFunction {
 	
@@ -14,7 +15,7 @@ public class TanhActivation extends ActivationFunction {
 	
 	@Override
 	public double gradient(double input, double output) {
-		return (1.0 - Math.pow(fire(input), 2)) / scale;
+		return (1.0 - Math.pow(output, 2)) / scale;
 	}
 	
 

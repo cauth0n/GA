@@ -3,7 +3,7 @@ package ga.selection;
 import ga.Individual;
 import ga.Population;
 
-public class SelectionRankBasedExtremePreservation extends Selection {
+public class SelectionRandomBasedExtremePreservation extends Selection {
 
 	public void select(Population population) {
 		super.select(population);
@@ -26,12 +26,9 @@ public class SelectionRankBasedExtremePreservation extends Selection {
 		//plan.add(worst3, worst3);
 		
 		// select parents until target MatingPlan size is reached
-		int rank = 0;
 		while (plan.size() < returnSize) {
-			if (rank == population.size())
-				rank = 1;
 			// continue to move to less fit individuals when selecting from the population
-			plan.add(population.getIndividuals().get(rank++), population.getIndividuals().get(rank++));
+			plan.add(population.getRandomIndividual(), population.getRandomIndividual());
 		}
 		
 	}

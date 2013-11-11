@@ -2,7 +2,7 @@ package ga.selection;
 
 import ga.Population;
 
-public class SelectionRankBasedElitist extends Selection {
+public class SelectionRandomBasedElitist extends Selection {
 
 	private int numElitist = 1;// keeps n best individuals
 
@@ -16,12 +16,9 @@ public class SelectionRankBasedElitist extends Selection {
 		}
 		
 		// select parents until target MatingPlan size is reached
-		int rank = 0;
 		while (plan.size() < returnSize) {
-			if (rank >= population.size())
-				rank = 1;
-			// continue to move to less fit individuals when selecting from the population
-			plan.add(population.getIndividuals().get(rank++), population.getIndividuals().get(rank++));
+			// select two individuals at random for breeding
+			plan.add(population.getRandomIndividual(), population.getRandomIndividual());
 		}
 		
 	}

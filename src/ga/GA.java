@@ -2,14 +2,11 @@ package ga;
 
 import ga.crossover.Crossover;
 import ga.crossover.CrossoverNPoint;
-import ga.fitness.Fitness;
-import ga.fitness.FitnessDefault;
 import ga.initialize.Initialize;
 import ga.initialize.InitializeDefault;
 import ga.mutation.Mutate;
 import ga.mutation.MutateUniformDistribution;
-import ga.selection.Selection;
-import ga.selection.SelectionRankBasedExtremePreservation;
+import ga.selection.*;
 
 /**
  * Genetic Algorithm.
@@ -19,7 +16,6 @@ public class GA {
 	private Population population;
 	private double mutationProbability;
 	private Selection selection;
-	private Fitness fitness;
 	private Mutate mutate;
 	private Crossover crossover;
 
@@ -35,10 +31,8 @@ public class GA {
 		// initialize genes for each individual
 		Initialize init = new InitializeDefault();
 		this.population = init.initializePopulation(populationSize, chromosomeSize);
-		// use default fitness calculation
-		this.fitness = new FitnessDefault();
 		// choose a selection method
-		this.selection = new SelectionRankBasedExtremePreservation(this.fitness);
+		this.selection = new SelectionRankBasedDimishingReturn();
 		// use a uniform distribution mutation
 		this.mutate = new MutateUniformDistribution();
 		// use N-Point crossover

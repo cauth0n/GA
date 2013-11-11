@@ -2,30 +2,38 @@ package ga.selection;
 
 import ga.Individual;
 import ga.Population;
-import ga.fitness.Fitness;
-
-import java.util.List;
 import java.util.Random;
 
 public abstract class Selection {
 	
 	protected Population population;
-	protected Fitness fitness;
 	private Random random = new Random(11235);
 	protected MatingPlan plan;
 	protected int returnSize = 0;
 	
-	public Selection(Fitness fitness) {
-		this.fitness = fitness;
-	}
-	
+	/**
+	 * Abstract selection method.
+	 * This sets the population and resets the mating plan
+	 * for each time this method is called. Implemented
+	 * classes handle actual selection process.
+	 * 
+	 * @param population	The population to select from.
+	 */
 	public void select(Population population) {
 		this.population = population;
 		this.plan = new MatingPlan();
+		// if a returnSize (# of children) has not been 
+		// specified, keep population size constant
 		if (returnSize < 1)
 			this.returnSize = population.size();
 	}
 	
+	/**
+	 * Set the return size for the algorithm assuming a one child crossover method.
+	 * In mu + lambda, this is lambda.
+	 * 
+	 * @param returnSize	The number of children to produce.
+	 */
 	public void setReturnSize(int returnSize) {
 		this.returnSize = returnSize;
 	}
@@ -61,6 +69,9 @@ public abstract class Selection {
 		
 	}
 	
+	/**
+	 * @return	The MatingPlan formed by the select() method.
+	 */
 	public MatingPlan getMatingPlan() {
 		return plan;
 	}
