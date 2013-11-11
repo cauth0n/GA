@@ -2,7 +2,6 @@ package ga.selection;
 
 import ga.Individual;
 import ga.Population;
-import ga.fitness.Fitness;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +10,7 @@ public class SelectionTournament extends Selection {
 	
 	private int tournamentSize;
 	
-	public SelectionTournament(Fitness fitness, int tournamentSize) {
-		super(fitness);
+	public SelectionTournament(int tournamentSize) {
 		this.tournamentSize = tournamentSize;
 	}
 	
@@ -28,26 +26,31 @@ public class SelectionTournament extends Selection {
 		if (tournamentSize > population.size())
 			throw new IllegalArgumentException("Tournament size must be smaller than entire population.");
 		
-		// TODO: fix to not remove elements, just used sorted population list
-		
-		List<Individual> candidates = new ArrayList<Individual>();
+		// create a list of individuals that will be the 'tournament'
+		List<Individual> candidates;
 		
 		// evaluate fitness for every individual in population and find the sum
 		double sum = population.getFitness();
 		
-		// create a mating pair for every element in the population (will use single child crossover)
-		while (plan.size() < population.size()) {
-			// select the two parents weighted by fitness
+		// select parents until target MatingPlan size is reached
+		while (plan.size() < returnSize) {
+			
+			// select 'n' candidates weighted by fitness
+			candidates = new ArrayList<Individual>(tournamentSize);
 			for (int candidate = 0; candidate < tournamentSize; candidate++)
 				candidates.add(selectParentProportionate(sum));
 			
 			// create tournament population from tournaments
 			Population tournament = new Population(candidates);
 			
+			// individuals in tournament 'compete'
+			tournament.sortPopulationByFitness();
+			
 			// choose top ranking individuals
 			Individual parent1 = tournament.getIndividuals().get(0);
 			Individual parent2 = tournament.getIndividuals().get(1);
 			
+			// add winners to plan
 			plan.add(parent1, parent2);
 		}
 		

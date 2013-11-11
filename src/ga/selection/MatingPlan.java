@@ -27,10 +27,20 @@ public class MatingPlan {
 		pairs.add(pair);
 	}
 	
+	/**
+	 * Reserves an individual from crossover.
+	 * This individual will simply be passed to the
+	 * new generation.
+	 * 
+	 * @param individual	The individual to holdout from crossover.
+	 */
 	public void reserve(Individual individual) {
 		reserve.add(individual);
 	}
 	
+	/**
+	 * @return	Whether or not there is another pair in the list.
+	 */
 	public boolean hasNextPair() {
 		if (indexPair < pairs.size())
 			return true;
@@ -38,10 +48,18 @@ public class MatingPlan {
 			return false;
 	}
 	
+	/**
+	 * Iterator for MatingPlan pairs.
+	 * 
+	 * @return	The next pair of individuals in the list of mating pairs.
+	 */
 	public List<Individual> getNextPair() {
 		return pairs.get(indexPair++);
 	}
 	
+	/**
+	 * @return	Whether or not there is another reserved individual in the list.
+	 */
 	public boolean hasNextReserve() {
 		if (indexReserve < reserve.size())
 			return true;
@@ -49,10 +67,18 @@ public class MatingPlan {
 			return false;
 	}
 	
+	/**
+	 * Iterator for MatingPlan reserved.
+	 * 
+	 * @return	The next reserved individual in the list of reserved individuals.
+	 */
 	public Individual getNextReserve() {
 		return reserve.get(indexReserve++);
 	}
 	
+	/**
+	 * @return	The combined number of reserved individuals and pairs in the mating plan.
+	 */
 	public int size() {
 		return reserve.size() + pairs.size();
 	}

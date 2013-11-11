@@ -2,8 +2,6 @@ package ga;
 
 import ga.crossover.Crossover;
 import ga.crossover.CrossoverUniform;
-import ga.fitness.Fitness;
-import ga.fitness.FitnessDefault;
 import ga.initialize.Initialize;
 import ga.initialize.InitializeWithStrategyParameters;
 import ga.mutation.Mutate;
@@ -19,7 +17,6 @@ public class ES {
 	private Population population;
 	private double mutationProbability;
 	private Selection selection;
-	private Fitness fitness;
 	private Mutate mutate;
 	private Crossover crossover;
 	
@@ -44,10 +41,8 @@ public class ES {
 		// initialize connection weights and strategy parameters for mu individuals in the population
 		Initialize init = new InitializeWithStrategyParameters();
 		this.population = init.initializePopulation(mu, chromosomeSize);
-		// set fitness as default
-		this.fitness = new FitnessDefault();
 		// use random selection method that returns lambda individuals
-		this.selection = new SelectionRandom(this.fitness);
+		this.selection = new SelectionRandom();
 		this.selection.setReturnSize(lambda);
 		// mutate using normal distribution
 		this.mutate = new MutateNormalDistribution();

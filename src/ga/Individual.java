@@ -10,7 +10,6 @@ public class Individual {
 	private double maxValue = 0.3;
 	private double fitness = -1.0;
 	private List<Gene> genes;
-	private List<Individual> parents;
 	private StrategyParameters params = null;
 	private boolean canMutate = true;
 	private static int seed = 1;
