@@ -17,7 +17,7 @@ public class GATraining extends TrainingMethod {
 	private GA ga;
 	private int populationSize = 40;
 	private double mutationProbability = 0.5;
-	int maxIterations = 1000;
+	int maxIterations = 100;
 	private Individual best = null;
 
 	/**
@@ -63,7 +63,7 @@ public class GATraining extends TrainingMethod {
 				iteration = 0;
 			}
 
-			System.out.println(mostFit.getFitness());
+			//System.out.println(mostFit.getFitness());
 
 		}
 

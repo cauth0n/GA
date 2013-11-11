@@ -54,7 +54,7 @@ public class KFolds {
 	 */
 	public boolean next() {
 		// if done with k folds, stop iterations
-		if (foldIndex >= k - 1) {
+		if (foldIndex >= k) {
 			train = null;
 			test = null;
 			return false;

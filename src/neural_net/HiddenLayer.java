@@ -13,7 +13,7 @@ public class HiddenLayer extends Layer{
 	public HiddenLayer(int size) {
 		super(size);
 		// set activation function to sigmoidal
-		layerActivation = new LogisticActivation();
+		layerActivation = new TanhActivation();
 		// actually construct the layer
 		buildLayer();
 	}

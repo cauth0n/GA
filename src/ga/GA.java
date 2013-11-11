@@ -32,6 +32,7 @@ public class GA {
 		Initialize init = new InitializeDefault();
 		this.population = init.initializePopulation(populationSize, chromosomeSize);
 		// choose a selection method
+		//this.selection = new SelectionRandomBasedExtremePreservation();
 		this.selection = new SelectionRankBasedDimishingReturn();
 		// use a uniform distribution mutation
 		this.mutate = new MutateUniformDistribution();

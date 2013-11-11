@@ -26,7 +26,6 @@ public class SelectionRankBasedDimishingReturn extends Selection {
 		// and create some set up information to iterate through population
 		int alphaIndex = 0;
 		Individual alpha = population.getIndividuals().get(alphaIndex);
-		//int toBreed = (int) (returnSize * portion);
 		int toBreed = (int) (returnSize * portion);
 		int stopIndex = toBreed;
 		

@@ -12,10 +12,13 @@ import driver.inputter.*;
 public class Simulator {
 
 	public static void main(String[] args) {
+		
+		int maxDataSetSize = 1500;
 
 		// get input data
 		Inputter inputter = new InputterCar();
 		inputter.parseFile();
+		inputter.truncate(maxDataSetSize);
 		List<DataPoint> data = inputter.getData();
 
 		// build network from input data.

@@ -2,6 +2,7 @@ package driver.inputter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import driver.DataPoint;
 
@@ -72,6 +73,21 @@ public abstract class Inputter {
 				outputs.add(0.0);
 		}
 		return outputs;
+	}
+	
+	public void truncate(int remainingSize){
+		
+		if (data.size() < remainingSize) {
+			return;
+		}
+		
+		Random rand = new Random(11235);
+		int toRemove = data.size() - remainingSize;
+		
+		for (int i = 0; i < toRemove; i++) {
+			data.remove(rand.nextInt(data.size()));
+		}
+	
 	}
 
 }
