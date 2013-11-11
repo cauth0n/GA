@@ -41,7 +41,6 @@ public abstract class Crossover {
 			List<Individual> parents = plan.getNextPair();
 			List<Individual> results = crossOverParents(parents.get(0), parents.get(1));
 			Individual result1 = results.get(child);
-			result1.setParents(parents);
 			children.add(result1);
 		}
 		return children;
@@ -65,8 +64,6 @@ public abstract class Crossover {
 			List<Individual> results = crossOverParents(parents.get(0), parents.get(1));
 			Individual result1 = results.get(0);
 			Individual result2 = results.get(1);
-			result1.setParents(parents);
-			result2.setParents(parents);
 			children.add(result1);
 			children.add(result2);
 		}
