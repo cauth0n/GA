@@ -11,14 +11,19 @@ public class MatingPlan {
 	private int indexPair = 0;
 	private int indexReserve = 0;
 	
-	public MatingPlan() {
-		
-	}
-	
+	/**
+	 * Adds a mating pair to the plan.
+	 * 
+	 * @param parent1	The first parent in the pair.
+	 * @param parent2	The second parent in the pair.
+	 */
 	public void add(Individual parent1, Individual parent2) {
+		// create a pair list
 		List<Individual> pair = new ArrayList<Individual>(2);
+		// add both parents
 		pair.add(parent1);
 		pair.add(parent2);
+		// add pair to list of pairs
 		pairs.add(pair);
 	}
 	
