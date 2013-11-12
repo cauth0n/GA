@@ -33,8 +33,8 @@ public class GA {
 		this.population = init.initializePopulation(populationSize, chromosomeSize);
 		// choose a selection method
 		//this.selection = new SelectionRandomBasedExtremePreservation();
-		this.selection = new SelectionRankBasedDiminishingReturn();
-		//this.selection = new SelectionFitnessProportionate();
+		//this.selection = new SelectionRankBasedDiminishingReturn();
+		this.selection = new SelectionFitnessProportionate();
 		// use a uniform distribution mutation
 		this.mutate = new MutateUniformDistribution();
 		// use N-Point crossover

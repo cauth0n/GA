@@ -20,17 +20,26 @@ public class Simulator {
 		// banknote
 
 		// get input data
-		Inputter inputter = new InputterBanknote();
+		Inputter inputter;
+//		inputter = new InputterAbalone();
+//		inputter = new InputterBanknote();
+		inputter = new InputterBlood();
+//		inputter = new InputterCar();
+//		inputter = new InputterEEGEyeState();
+//		inputter = new InputterGlass();
+//		inputter = new InputterPoker();
+//		inputter = new InputterSeeds();
+//		inputter = new InputterTicTacToe();
+//		inputter = new InputterYeast();
+		
+		
+		// parse data
 		inputter.parseFile();
 		inputter.truncate(maxDataSetSize);
 		List<DataPoint> data = inputter.getData();
 
 		// build network from input data.
-		int[] hiddenLayer = new int[4];
-		hiddenLayer[0] = 2;
-		hiddenLayer[1] = 5;
-		hiddenLayer[2] = 2;
-		hiddenLayer[3] = 5;
+		int[] hiddenLayer = new int[] { 20, 15 };
 		
 		StructuralInfo structuralInfo = new StructuralInfo(inputter.getInputs(), inputter.getOutputs(), hiddenLayer);
 		Network neuralNetwork = new Network(structuralInfo);
@@ -40,21 +49,19 @@ public class Simulator {
 		TrainingMethod train;
 
 		// Test GD
-		train = new GDTraining(neuralNetwork, data);
-		train.mainLoop(10);
+//		train = new GDTraining(neuralNetwork, data);
 
 //		// Test GA
-//		train = new GATraining(neuralNetwork, data);
-//		train.mainLoop(10);
+		train = new GATraining(neuralNetwork, data);
 		
 		//Test DE
 //		train = new DETraining(neuralNetwork, data);
-//		train.mainLoop(10);
 		
 		// Test ES
 //		train = new ESTraining(neuralNetwork, data);
 //		System.out.println(train);
-//		train.mainLoop(10);
+		
+		train.mainLoop(10);
 
 	}
 
