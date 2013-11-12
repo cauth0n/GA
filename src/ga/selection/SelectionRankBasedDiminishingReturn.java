@@ -3,7 +3,7 @@ package ga.selection;
 import ga.Individual;
 import ga.Population;
 
-public class SelectionRankBasedDimishingReturn extends Selection {
+public class SelectionRankBasedDiminishingReturn extends Selection {
 	
 	int numElitist = 1;
 	double portion = 0.6;

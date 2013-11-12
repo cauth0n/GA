@@ -14,9 +14,13 @@ public class Simulator {
 	public static void main(String[] args) {
 		
 		int maxDataSetSize = 1000;
+		
+		// tic-tac-toe
+		// seeds
+		// banknote
 
 		// get input data
-		Inputter inputter = new InputterGlass();
+		Inputter inputter = new InputterTicTacToe();
 		inputter.parseFile();
 		inputter.truncate(maxDataSetSize);
 		List<DataPoint> data = inputter.getData();
@@ -25,8 +29,9 @@ public class Simulator {
 		int[] hiddenLayer = new int[2];
 		hiddenLayer[0] = 20;
 		hiddenLayer[1] = 15;
-		StructuralInfo structuralInfo = new StructuralInfo(
-				inputter.getInputs(), inputter.getOutputs(), hiddenLayer);
+		
+		
+		StructuralInfo structuralInfo = new StructuralInfo(inputter.getInputs(), inputter.getOutputs(), hiddenLayer);
 		Network neuralNetwork = new Network(structuralInfo);
 		neuralNetwork.constructNetwork();
 		structuralInfo.describe();
@@ -37,7 +42,7 @@ public class Simulator {
 //		train = new GDTraining(neuralNetwork, data);
 //		train.mainLoop(10);
 
-		// Test GA
+//		// Test GA
 		train = new GATraining(neuralNetwork, data);
 		train.mainLoop(10);
 		
