@@ -25,9 +25,7 @@ public class DE {
 
 	private Population population;
 	private double beta;
-	private double probability;
 	private Fitness fitness;
-	private Mutate mutate;
 	private Crossover crossover;
 
 	/**
@@ -38,17 +36,12 @@ public class DE {
 	 * @param beta
 	 *            The beta value for the algorithm (empirical studies
 	 *            suggest 0.5)
-	 * @param probability
-	 *            The probability for the algorithm (higher values
-	 *            mean more diverse offspring)
 	 */
-	public DE(int populationSize, int chromosomeSize, double beta, double probability) {
+	public DE(int populationSize, int chromosomeSize, double beta) {
 		Initialize init = new InitializeDefault();
 		this.population = init.initializePopulation(populationSize, chromosomeSize);
 		this.beta = beta;
-		this.probability = probability;
 		this.fitness = new FitnessDefault();
-		this.mutate = new MutateTrialVector();
 		this.crossover = new CrossoverNPoint();
 	}
 

@@ -13,10 +13,9 @@ import neural_net.Network;
 public class DETraining extends TrainingMethod {
 
 	private DE de;
-	private int populationSize = 50;
-	private double beta = 0.5;
-	private double mutationProbability = 0.05;
-	int maxIterations = 1000;
+	private int populationSize = 30;
+	private double beta = 0.9;
+	int maxIterations = 100;
 	private Individual best;
 
 	/**
@@ -30,7 +29,7 @@ public class DETraining extends TrainingMethod {
 		// use default fitness method
 		fitnessMethod = new FitnessDefault();
 		// create a new instance of the differential evolution algorithm with specified params
-		de = new DE(populationSize, neuralNetwork.size(), beta, mutationProbability);
+		de = new DE(populationSize, neuralNetwork.size(), beta);
 	}
 
 	/**
@@ -53,7 +52,7 @@ public class DETraining extends TrainingMethod {
 
 			// calculate fitness for entire population using the neural net and all training examples
 			fitnessMethod.calculateFitness(de.getPopulation(), neuralNetwork, trainSet);
-			de.getPopulation().sortPopulationByFitness();
+			
 
 			// retrieve the most fit from the current generation
 			mostFit = de.getPopulation().getMostFit();
@@ -65,7 +64,7 @@ public class DETraining extends TrainingMethod {
 				iteration = 0;
 			}
 
-			System.out.println(mostFit.getFitness());
+			//System.out.println(mostFit.getFitness());
 			
 		}
 

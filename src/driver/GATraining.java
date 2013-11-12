@@ -16,7 +16,7 @@ public class GATraining extends TrainingMethod {
 
 	private GA ga;
 	private int populationSize = 40;
-	private double mutationProbability = 0.5;
+	private double mutationProbability = 0.9;
 	int maxIterations = 100;
 	private Individual best = null;
 

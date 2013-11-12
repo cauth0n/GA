@@ -97,12 +97,12 @@ public abstract class TrainingMethod {
 		for (Double value : performances) {
 			line += value + ",";
 		}
-		line = line.substring(0,line.length() - 2);
+		line = line.substring(0,line.length() - 1);
 		line += ") \t (";
 		for (Long value : times) {
 			line += value + ",";
 		}
-		line = line.substring(0,line.length() - 2);
+		line = line.substring(0,line.length() - 1);
 		line += ")\n";
 		
 		System.out.println();
