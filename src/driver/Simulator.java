@@ -23,14 +23,14 @@ public class Simulator {
 		Inputter inputter;
 //		inputter = new InputterAbalone();
 //		inputter = new InputterBanknote();
-		inputter = new InputterBlood();
+//		inputter = new InputterBlood();
 //		inputter = new InputterCar();
 //		inputter = new InputterEEGEyeState();
 //		inputter = new InputterGlass();
 //		inputter = new InputterPoker();
 //		inputter = new InputterSeeds();
 //		inputter = new InputterTicTacToe();
-//		inputter = new InputterYeast();
+		inputter = new InputterYeast();
 		
 		
 		// parse data
