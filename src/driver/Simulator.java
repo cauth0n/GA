@@ -20,16 +20,17 @@ public class Simulator {
 		// banknote
 
 		// get input data
-		Inputter inputter = new InputterTicTacToe();
+		Inputter inputter = new InputterBanknote();
 		inputter.parseFile();
 		inputter.truncate(maxDataSetSize);
 		List<DataPoint> data = inputter.getData();
 
 		// build network from input data.
-		int[] hiddenLayer = new int[2];
-		hiddenLayer[0] = 20;
-		hiddenLayer[1] = 15;
-		
+		int[] hiddenLayer = new int[4];
+		hiddenLayer[0] = 2;
+		hiddenLayer[1] = 5;
+		hiddenLayer[2] = 2;
+		hiddenLayer[3] = 5;
 		
 		StructuralInfo structuralInfo = new StructuralInfo(inputter.getInputs(), inputter.getOutputs(), hiddenLayer);
 		Network neuralNetwork = new Network(structuralInfo);
@@ -39,12 +40,12 @@ public class Simulator {
 		TrainingMethod train;
 
 		// Test GD
-//		train = new GDTraining(neuralNetwork, data);
-//		train.mainLoop(10);
+		train = new GDTraining(neuralNetwork, data);
+		train.mainLoop(10);
 
 //		// Test GA
-		train = new GATraining(neuralNetwork, data);
-		train.mainLoop(10);
+//		train = new GATraining(neuralNetwork, data);
+//		train.mainLoop(10);
 		
 		//Test DE
 //		train = new DETraining(neuralNetwork, data);
