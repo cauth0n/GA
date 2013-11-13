@@ -8,9 +8,6 @@ import java.util.Scanner;
 
 import driver.DataPoint;
 
-/**
- * @author cauthon
- */
 public class InputterAbalone extends Inputter {
 
 	private final String filePath = "datasets/abalone.txt";
@@ -18,7 +15,6 @@ public class InputterAbalone extends Inputter {
 	public InputterAbalone() {
 		inputs = 8;
 		outputs = 29;
-
 	}
 
 	@Override

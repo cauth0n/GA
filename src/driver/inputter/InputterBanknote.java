@@ -8,16 +8,10 @@ import java.util.Scanner;
 
 import driver.DataPoint;
 
-/**
- * @author cauthon
- */
 public class InputterBanknote extends Inputter {
 
 	private final String filePath = "datasets/banknote.data";
 
-	/**
-	 * Doesn't seem to work, might remove.
-	 */
 	public InputterBanknote() {
 		inputs = 4;
 		outputs = 2;

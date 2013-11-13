@@ -8,9 +8,6 @@ import java.util.Scanner;
 
 import driver.DataPoint;
 
-/**
- * @author cauthon
- */
 public class InputterTicTacToe extends Inputter {
 
 	private final String filePath = "datasets/tic-tac-toe.data";

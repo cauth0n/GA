@@ -8,9 +8,6 @@ import java.util.Scanner;
 
 import driver.DataPoint;
 
-/**
- * @author cauthon
- */
 public class InputterGlass extends Inputter {
 
 	private final String filePath = "datasets/glass.data";
